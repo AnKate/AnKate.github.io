@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AnKate</title>
+
+<!-- meta -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- css -->
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/pace.css">
+
+
+<!-- js -->
+
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery-2.1.3.min.js"></script>
+<script src="/js/modernizr.custom.js"></script>
+<script src="/js/pace.min.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+<div class="container">
+    <header id="site-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-8">
+                <div class="logo">
+                    <h1><a href="/"><b>AnKate&#39;s blog</b></a></h1>
+                </div>
+            </div><!-- col-md-4 -->
+            <div class="col-md-8 col-sm-7 col-xs-4">
+                <nav class="main-nav" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="trigger-overlay" class="navbar-toggle">
+                            <span class="ion-navicon"></span>
+                        </button>
+                    </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="cl-effect-11"><a href="/" data-hover="Home">Home</a></li>
+                        <li class="cl-effect-11"><a href="/about" data-hover="About">About</a></li>
+                        <li class="cl-effect-11"><a href="/contact" data-hover="Contact">Contact</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+                </nav>
+                
+                <!-- search box -->
+                <!-- <div id="header-search-box">
+                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                    <div id="search-form" class="search-form">
+                        <form role="search" method="get" id="searchform" action="#">
+                            <input type="search" placeholder="搜索" required>
+                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                        </form>
+                    </div>
+                </div> -->
+
+            </div><!-- col-md-8 -->
+        </div>
+    </header>
+</div>
+
+
+<div class="content-body">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-8">
+                    <article class="post">
+        <header class="entry-header">
+            <h1 class="entry-title">CSAPP 2.3 2.4</h1>
+            <div class="entry-meta">
+                <!-- <span class="post-category"><a href="#">分类名字</a></span> -->
+                <span class="post-date"><a href="#"><time class="entry-date">2020-09-26</time></a></span>
+                <span class="post-author"><a href="#">Miheal Zhao</a></span>
+            </div>
+        </header>
+        <div class="entry-content clearfix">
+            <h1 id="csapp">CSAPP</h1>
+<h2 id="整型数据运算">2.3 整型数据运算</h2>
+<h3 id="无符号加法">无符号加法</h3>
+<p>对于两个由<span class="math inline">\(w\)</span>位二进制数组成的非负数字<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>，<span class="math inline">\(0 \leq x,y \leq 2^w - 1\)</span> 。</p>
+<p>当我们计算这样两个无符号数之和时， <span class="math inline">\(0\leq x + y \leq 2^{w+1}-2\)</span>，出现了需要用<span class="math inline">\(w+1\)</span>位二进制数表示的情况。</p>
+<p>这时的解决方法是截掉最高位，变回<span class="math inline">\(w\)</span>位二进制数，相当于在结果数值上减去$ 2^w $，即如下情况： <span class="math display">\[
+x +^u_wy = 
+    \begin{cases}
+    x + y, &amp; x+y &lt; 2^w\\
+    x + y - 2^w, &amp;2^w \leq x + y &lt; 2^{w+1}
+    \end{cases}
+\]</span></p>
+<ul>
+<li><p>无符号数加法是否溢出：判断<span class="math inline">\(x+y\)</span>是否小于<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>，若是，则溢出。</p></li>
+<li><p>无符号数取反： <span class="math display">\[
+-^u_wx =
+  \begin{cases}
+  x, &amp; x=0\\
+  2^w - x, &amp; x&gt;0
+  \end{cases}
+\]</span></p></li>
+</ul>
+<h3 id="补码加法">补码加法</h3>
+<p>与无符号加法原理类似，对于两个<span class="math inline">\(w\)</span>位二进制数补码组成的的<span class="math inline">\(x,y\)</span>，$ -2^{w-1} x,y 2^{w-1}-1 $。</p>
+<p>两个补码之和的范围则有<span class="math inline">\(-2^w \leq x+y \leq 2^w-2\)</span>，变成了需要由<span class="math inline">\(w+1\)</span>位二进制数表示的情况。</p>
+<p>同样地，截掉最高位，但由于补码最高位具有的性质，导致转换成十进制数值时出现了三种可能性： <span class="math display">\[
+x+^t_wy =
+    \begin{cases}
+    x+y-2^w, &amp;2^{w-1}\leq x+y\\
+    x+y, &amp;-2^{w-1}\leq x+y &lt; 2^{w-1}\\
+    x+y+2^w, &amp;x+y &lt;-2^{w-1}
+    \end{cases}
+\]</span></p>
+<ul>
+<li><p>判断补码加法的溢出：将<span class="math inline">\(x+y\)</span>与<span class="math inline">\(x,y\)</span>分别与<span class="math inline">\(0\)</span>进行比较，<span class="math inline">\(x,y &lt;0\)</span>且<span class="math inline">\(x+y\ge 0\)</span>，或<span class="math inline">\(x,y &gt;0\)</span>且$x+y &lt; 0 $时溢出，否则无溢出。</p></li>
+<li><p>补码取反：</p></li>
+</ul>
+<p><span class="math display">\[
+-^t_wx=
+    \begin{cases}
+    TMin_w, &amp;x=TMin_w\\
+    -x, &amp;x&gt;Tmin_w
+    \end{cases}
+\]</span></p>
+<ul>
+<li><p>十六进制数取反：</p>
+<p>首先将十六进制数转化为十进制数，因为取反判断依据为十进制数值与<span class="math inline">\(Tmin_w\)</span>的大小关系。判断十六进制的数值是否超出<span class="math inline">\(TMax_w\)</span>，若溢出，则转化为二进制数后截掉最高位，后转化为十进制数值；若未溢出，则直接转化为对应数值。</p>
+<p>随后再按照补码取反的规则进行取反。</p>
+<p>最后将十进制数重新转化为十六进制数，正数保持不变；若为负数，首先求该负数的相反数的原码，再取所求原码的补码，最后加上一，所得的二进制数按照无符号数解读，则为最终的十六进制数。</p>
+<p>详情见书P95练习2.23.</p></li>
+</ul>
+<h3 id="无符号乘法">无符号乘法</h3>
+<p>对于两个由<span class="math inline">\(w\)</span>位二进制数组成的非负数字<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>，<span class="math inline">\(0 \leq x,y \leq 2^w - 1\)</span> 。</p>
+<p>这样两个数的乘积的范围有<span class="math inline">\(0\leq x*y\leq(2^w-1)^2\)</span>，需要用<span class="math inline">\(2w\)</span>位的二进制数进行表示。</p>
+<p>处理方法是对<span class="math inline">\(2^w\)</span>取模，即截断为<span class="math inline">\(w\)</span>位。 <span class="math display">\[
+x*^u_wy = (x*y) \mod {2^w}
+\]</span></p>
+<h3 id="补码乘法">补码乘法</h3>
+<p>对于两个<span class="math inline">\(w\)</span>位二进制数补码组成的<span class="math inline">\(x,y\)</span>，<span class="math inline">\(-2^{w-1} \leq x,y \leq 2^{w-1}-1\)</span>。</p>
+<p>这样两个数的乘积的范围有<span class="math inline">\(-2^{2w-2}+2^{w-1} \leq x*y \leq 2^{2w-2}\)</span>，需要用<span class="math inline">\(2w\)</span>位的二进制数进行表示。</p>
+<p>处理方法与无符号乘法类似，截断为<span class="math inline">\(w\)</span>位后从无符号转化为补码。 <span class="math display">\[
+x*^t_wy=U2T_w((x*y)\mod2^w)
+\]</span></p>
+<h3 id="和常数的乘法">和常数的乘法</h3>
+<p>首先，某个整数<span class="math inline">\(x\)</span>乘以<span class="math inline">\(2^k\)</span>可以等价将<span class="math inline">\(x\)</span>的二进制数左移<span class="math inline">\(k\)</span>位，并将该<span class="math inline">\(x\)</span>按照对应编码的解读方式进行运算（即按照补码或是无符号方法进行解读）。</p>
+<p>又已知任意一个十进制数可以由二进制数进行表示，故在乘以其他整数时，可以转化为若干次左移运算的求和： <span class="math display">\[
+N=(2^{a_1}+2^{a_2}+…+2^{a_m})\\
+x*N=x*(2^{a_1}+2^{a_2}+…+2^{a_m})=(x&lt;&lt;a_1)+(x&lt;&lt;a_2)+…+(x&lt;&lt;a_m)
+\]</span></p>
+<p>例如： <span class="math display">\[
+x*11=x*(2^3+2^1+2^0)=(x&lt;&lt;3)+(x&lt;&lt;1)+(x&lt;&lt;0)
+\]</span></p>
+<h3 id="除以2的整数次幂">除以2的整数次幂</h3>
+<p>首先注意，除以<span class="math inline">\(2^k\)</span>不完全等同于右移<span class="math inline">\(k\)</span>位，尽管在无符号数的案例中的效果是相同的，但是在处理补码中的负值的除法时，两者有一些舍入上的微妙差异。</p>
+<ul>
+<li><p>右移<span class="math inline">\(k\)</span>位的舍入方法总是为向下舍入，即数值为正时去除小数点部分，数值为负时去除小数点部分并且减去一，即： <span class="math display">\[
+x&gt;&gt;k=\lfloor x/2^k\rfloor
+\]</span></p></li>
+<li><p>补码的负数在除以<span class="math inline">\(2^k\)</span>后的舍入情况为向0舍入，即舍入方向均为向0靠近： <span class="math display">\[
+x/2^k=
+  \begin{cases}
+  \lfloor x/2^k \rfloor, &amp;x\geq0\\
+  \lceil x/2^k \rceil, &amp; x&lt;0
+  \end{cases}
+\]</span> 在处理负值的舍入时，并不能单纯视作右移<span class="math inline">\(k\)</span>位，需要进行向上舍入的操作。换言之，除法与右移k位的等价关系即为： <span class="math display">\[
+x/2^k=
+  \begin{cases}
+  x&gt;&gt;k,&amp;x\geq0\\
+  (x+(1&lt;&lt;k)-1)&gt;&gt;k,&amp;x&lt;0
+  \end{cases}
+\]</span></p></li>
+</ul>
+<h2 id="浮点数">2.4 浮点数</h2>
+<h3 id="小数的二进制表示">小数的二进制表示</h3>
+<p>对于任意整数<span class="math inline">\(b_mb_{m-1}…b_2b_1b_0.b_{-1}b_{-2}…b_{-n+1}b_{-n}\)</span>，整数部分的二进制数<span class="math inline">\(b_mb_{m-1}…b_2b_1b_0\)</span>等同于<span class="math inline">\(\sum2^i * b_i\)</span>，与之类似地，小数部分的二进制数<span class="math inline">\(b_{-1}b_{-2}…b_{-n+1}b_{-n}\)</span>，代表着<span class="math inline">\(\sum2^i*b_i\)</span>。</p>
+<p>与十进制中无法用有限位小数<span class="math inline">\(\frac{1}{3}\)</span>类似，二进制中只能用有限位小数表示那些能写成<span class="math inline">\(x*2^y\)</span>的数字，而那些不能被表示成这种形式的小数，则需要用类似的循环小数进行表示，如表示<span class="math inline">\(\frac{1}{5}\)</span>：</p>
+<table>
+<thead>
+<tr class="header">
+<th>二进制表示形式</th>
+<th>对应分数数值</th>
+<th>对应十进制数值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0.0_2\)</span></td>
+<td><span class="math inline">\(\frac{0}{2}\)</span></td>
+<td><span class="math inline">\(0.0_{10}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0.01_2\)</span></td>
+<td><span class="math inline">\(\frac {1}{4}\)</span></td>
+<td><span class="math inline">\(0.25_{10}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(0.010_2\)</span></td>
+<td><span class="math inline">\(\frac{2}{8}\)</span></td>
+<td><span class="math inline">\(0.25_{10}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0.0011_2\)</span></td>
+<td><span class="math inline">\(\frac{3}{16}\)</span></td>
+<td><span class="math inline">\(0.1875_{10}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(0.00110_2\)</span></td>
+<td><span class="math inline">\(\frac{6}{32}\)</span></td>
+<td><span class="math inline">\(0.1875_{10}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0.001101_2\)</span></td>
+<td><span class="math inline">\(\frac{13}{64}\)</span></td>
+<td><span class="math inline">\(0.203125_{10}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(0.0011010_2\)</span></td>
+<td><span class="math inline">\(\frac{26}{128}\)</span></td>
+<td><span class="math inline">\(0.203125_{10}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0.00110011_2\)</span></td>
+<td><span class="math inline">\(\frac{51}{256}\)</span></td>
+<td><span class="math inline">\(0.19921875_{10}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ieee浮点数表示规则">IEEE浮点数表示规则</h3>
+<p>与十进制数的科学计数法类似，在二进制中，可以将V以2为基数进行科学计数法的表示： <span class="math display">\[
+V=(-1)^s*M*2^E
+\]</span> 在公式中：</p>
+<ul>
+<li><span class="math inline">\(S\)</span>是符号位，在二进制表示中占第一位，<span class="math inline">\(S=0\)</span>时代表正数，<span class="math inline">\(s=-1\)</span>时代表负数。在二进制表示中占首位。</li>
+<li><span class="math inline">\(M\)</span>是尾数，在<span class="math inline">\(32\)</span>位的二进制表示中占<span class="math inline">\(23\)</span>位，<span class="math inline">\(64\)</span>位的二进制表示中占<span class="math inline">\(52\)</span>位。由<span class="math inline">\(frac=f_{n-1}…f_1f_0\)</span>表示，但并不完全等同于<span class="math inline">\(M\)</span>。在不同的情况下取值范围有<span class="math inline">\((0,1-\epsilon]\)</span>与<span class="math inline">\([1,2-\epsilon)\)</span>两种情况。</li>
+<li><span class="math inline">\(E\)</span>为指数，<span class="math inline">\(exp=e_{k-1}…e_1e_0\)</span>是<span class="math inline">\(E\)</span>的编码，在<span class="math inline">\(32\)</span>位中占<span class="math inline">\(8\)</span>位，<span class="math inline">\(64\)</span>位中占<span class="math inline">\(11\)</span>位，但<span class="math inline">\(exp\)</span>不等同于指数，需要通过偏置操作后才能转化为<span class="math inline">\(E\)</span>。</li>
+</ul>
+<p>在存储方式上，尾数<span class="math inline">\(M\)</span>排在<span class="math inline">\(exp\)</span>的后面。目的是为了便于进行比较浮点数的大小，通过直接比较指数的不同便能较快的得出大小关系。</p>
+<p>浮点数分为三种。</p>
+<h4 id="normalized-values">Normalized Values</h4>
+<p>这一类的浮点数的<span class="math inline">\(exp\)</span>不全为1或不全为0，而<span class="math inline">\(E=exp-Bias\)</span>，其中的<span class="math inline">\(Bias=2^{k-1}-1\)</span>，为一定值。</p>
+<p>规定<span class="math inline">\(M=1+frac，M\in[1,2)\)</span>。由于保留的整数部分只能为1，故可以省略整数部分的1位，用于增加小数点部分的一位精度。</p>
+<h4 id="denormalized-values">Denormalized Values</h4>
+<p>这一类的浮点数的<span class="math inline">\(exp=0\)</span>，规定此时<span class="math inline">\(E=1-Bias，M=f\)</span>，与前一类有所差别。</p>
+<p>这一类浮点数的定义有两类用途，当<span class="math inline">\(frac\)</span>部分全部取0时，可以用来表示<span class="math inline">\(0.0\)</span>，特别地，<span class="math inline">\(S=1\)</span>，其余为全取0时，能够获得<span class="math inline">\(-0.0\)</span>，这两者在有些方面有所差别，但在其他方面类似（书上未展开说明）；<span class="math inline">\(frac\)</span>部分不全为0时，还能用来表示非常接近<span class="math inline">\(0.0\)</span>的数。</p>
+<h4 id="special-values">Special Values</h4>
+<p>第三类浮点数的<span class="math inline">\(exp\)</span>每一位都取1，用于表示一些特殊定义。</p>
+<p><span class="math inline">\(S\)</span>与<span class="math inline">\(frac\)</span>全部取0时，可以用来表示<span class="math inline">\(\infin\)</span>，<span class="math inline">\(S=1\)</span>而<span class="math inline">\(frac\)</span>全部取0时，用于表示<span class="math inline">\(-\infin\)</span>。特别地，<span class="math inline">\(1.0/0.0=\infin，1.0/-0.0=-\infin\)</span>。</p>
+<p><span class="math inline">\(frac\)</span>不全为0时，代表<span class="math inline">\(NaN\)</span>，在一些没有定义的计算中会输出这一结果，如<span class="math inline">\(\sqrt{-1}、\infin-\infin\)</span>。</p>
+<h3 id="浮点数的舍入">浮点数的舍入</h3>
+<p>浮点数的舍入通常情况下为<strong>向偶舍入</strong>，在该数小于中值时向下舍入，大于中值时向上舍入，等于中值时向最近的偶数舍入。</p>
+<p>二进制数字的舍入情况（保留一位小数）：</p>
+<table>
+<thead>
+<tr class="header">
+<th>舍入前</th>
+<th>舍入后</th>
+<th>舍入情况（向偶舍入）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(10.010_2\)</span></td>
+<td><span class="math inline">\(10.0_2\)</span></td>
+<td>向下舍入</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(10.011_2\)</span></td>
+<td><span class="math inline">\(10.1_2\)</span></td>
+<td>向上舍入</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(10.110_2\)</span></td>
+<td><span class="math inline">\(11.0_2\)</span></td>
+<td>向上舍入</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(11.001_2\)</span></td>
+<td><span class="math inline">\(11.0_2\)</span></td>
+<td>向下舍入</td>
+</tr>
+</tbody>
+</table>
+<p>简言之，保留位数的后面若为<span class="math inline">\(10…0\)</span>（最高位为1，其余为0）的形式，则需要让保留后的最低有效位数为0；若除去最高位外仍有若干个1，则向上舍入；最高位不为1，则向下舍入。</p>
+<ul>
+<li><p>按照十进制数值转化为IEEE浮点数表达形式的方法：</p>
+<p>首先将十进制小数写成二进制表达式，后表达为二进制的科学计数法，即形如<span class="math inline">\(M*2^E\)</span>的式子。</p>
+<p>根据题目给定的<span class="math inline">\(frac\)</span>部分位数进行判断，若超出给定位数则进行舍入，不超出则保留，最终结果即为<span class="math inline">\(frac\)</span>部分的二进制数。</p>
+<p>根据<span class="math inline">\(exp=E+Bias\)</span>，可求出<span class="math inline">\(exp\)</span>部分的值，按照二进制代码展开，即为<span class="math inline">\(exp\)</span>部分的二进制数。</p>
+<p>详情见书P122 练习2.52.</p></li>
+</ul>
+<h3 id="浮点数运算">浮点数运算</h3>
+<h4 id="加法">加法</h4>
+<p>对于两个浮点数，其加法为： <span class="math display">\[
+(-1)^s*M*2^E=(-1)^{s_1}*M_1*2^{E_1}+(-1)^{s_2}*M_2*2^{E_2}
+\]</span> 其中的<span class="math inline">\(s,M\)</span>需要对齐小数点，再分别做加法，<span class="math inline">\(E\)</span>即为对齐后的<span class="math inline">\(E_1\)</span>。</p>
+<p>加法性质：</p>
+<ul>
+<li>封闭（包括<span class="math inline">\(NaN\)</span>）：集合中任意两个元素<span class="math inline">\(a,b\)</span>通过运算<span class="math inline">\(f\)</span>得出的结果仍在集合中</li>
+<li>满足加法交换律</li>
+<li><strong>加法结合律不成立</strong></li>
+<li>0的性质成立：任意一个数加上0仍然为其本身</li>
+<li>相反数存在（<span class="math inline">\(\infin\)</span>和<span class="math inline">\(NaN\)</span>除外）</li>
+<li>单调性成立（<span class="math inline">\(\infin\)</span>和<span class="math inline">\(NaN\)</span>除外）：<span class="math inline">\(a\geq b \Rightarrow a+c \geq b+c\)</span></li>
+</ul>
+<h4 id="乘法">乘法</h4>
+<p>其乘法为： <span class="math display">\[
+(-1)^s*M*2^E=(-1)^{s_1}*M_1*2^{E_1}*(-1)^{s_2}*M_2*2^{E_2}
+\]</span> 其中<span class="math inline">\(s=s_1+s_2，M=M_1*M_2，E=E_1+E_2\)</span>。</p>
+<p>乘法性质：</p>
+<ul>
+<li>封闭</li>
+<li>乘法交换律成立</li>
+<li><strong>乘法结合律不成立</strong></li>
+<li>1的性质成立：任意一个书乘以1仍然为其本身</li>
+<li><strong>乘法分配律不成立</strong>：<span class="math inline">\(a*(b+c)\neq a*b+b*c\)</span></li>
+<li>单调性成立（<span class="math inline">\(\infin\)</span>和<span class="math inline">\(NaN\)</span>除外）：<span class="math inline">\(a\geq b \bigcup c\geq0 \Rightarrow a*c\geq b*c\)</span></li>
+<li>若运算后的<span class="math inline">\(M\geq2\)</span>，则将其右移并且增加<span class="math inline">\(E\)</span>。</li>
+<li>若<span class="math inline">\(E\)</span>超过范围，则溢出。</li>
+<li>若<span class="math inline">\(E\)</span>未超过范围，则舍入<span class="math inline">\(M\)</span>，计算得到<span class="math inline">\(frac\)</span>。</li>
+</ul>
+<h4 id="注意事项">注意事项</h4>
+<p>运算后若<span class="math inline">\(M\geq2\)</span>，则右移并增加<span class="math inline">\(E\)</span>。</p>
+<p>若<span class="math inline">\(E\)</span>超过范围，则溢出；若未超过，则舍入<span class="math inline">\(M\)</span>，并计算得出<span class="math inline">\(frac\)</span>。</p>
+<p>关于溢出：</p>
+<ul>
+<li>若E超过上界，则上溢(Overflow)，表示为<span class="math inline">\(\infin\)</span></li>
+<li>若E低于下界，则下溢(Underflow)，显示为0</li>
+</ul>
+<h3 id="c语言中的浮点数">C语言中的浮点数</h3>
+<p>C语言中，浮点数的数据类型有<span class="math inline">\(float\)</span>和<span class="math inline">\(double\)</span>两种，它们与整型<span class="math inline">\(int\)</span>的类型转换会改变位表示。</p>
+<p><span class="math inline">\(double/float\rightarrow int\)</span>：类似于向0舍入（超范围未定义，通常设为<span class="math inline">\(TMin\)</span>）</p>
+<p><span class="math inline">\(int \rightarrow double\)</span>：由于<span class="math inline">\(float\)</span>的整数部分与小数部分能够表示的范围更大，故能够精准转换</p>
+<p><span class="math inline">\(int \rightarrow float\)</span>：数字不会溢出，但是会根据规则舍入</p>
+
+        </div>
+    </article>
+
+<nav class="page-nav">
+  
+</nav>
+
+
+            </main>
+            <aside class="col-md-4">
+
+    <div class="widget widget-archives">
+        <h3 class="widget-title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">2020 September</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">2020 April</a></li></ul>
+    </div>
+
+    <div class="widget widget-category">
+        <h3 class="widget-title">Category</h3>
+        
+    </div>
+
+    <div class="widget widget-tag-cloud">
+        <h3 class="widget-title">Tags</h3>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSAPP/" rel="tag">CSAPP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode%E7%BB%83%E4%B9%A0%E9%A2%98-List-Node/" rel="tag">LeetCode练习题|List Node</a></li></ul>
+    </div>
+
+    <!-- <div class="rss">
+        <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
+    </div> -->
+</aside>
+
+        </div>
+    </div>
+</div>
+
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">AnKate</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile Menu -->
+<div class="overlay overlay-hugeinc">
+    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+    <nav>
+        <ul>
+            <li><a href="/">首页</a></li>
+            <li><a href="/about">关于</a></li>
+            <li><a href="/contact">联系</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
