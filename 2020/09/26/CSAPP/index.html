@@ -17,15 +17,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="CSAPP 2.3 整型数据运算 无符号加法 对于两个由\(w\)位二进制数组成的非负数字\(x\)和\(y\)，\(0 \leq x,y \leq 2^w - 1\) 。 当我们计算这样两个无符号数之和时， \(0\leq x + y \leq 2^{w+1}-2\)，出现了需要用\(w+1\)位二进制数表示的情况。 这时的解决方法是截掉最高位，变回\(w\)位二进制数，相当于在结果数">
+  <meta name="description" content="CSAPP 2.3 整型数据运算 无符号加法 对于两个由\(w\)位二进制数组成的非负数字\(x\)和\(y\)，\(0 \leq x,y \leq 2^w - 1\) 。 当我们计算这样两个无符号数之和时， \(0\leq x + y \leq 2^{w+1}-2\)，出现了需要用\(w+1\)位二进制数表示的情况。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSAPP 2.3 2.4">
 <meta property="og:url" content="https://ankate.github.io/2020/09/26/CSAPP/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="CSAPP 2.3 整型数据运算 无符号加法 对于两个由\(w\)位二进制数组成的非负数字\(x\)和\(y\)，\(0 \leq x,y \leq 2^w - 1\) 。 当我们计算这样两个无符号数之和时， \(0\leq x + y \leq 2^{w+1}-2\)，出现了需要用\(w+1\)位二进制数表示的情况。 这时的解决方法是截掉最高位，变回\(w\)位二进制数，相当于在结果数">
+<meta property="og:description" content="CSAPP 2.3 整型数据运算 无符号加法 对于两个由\(w\)位二进制数组成的非负数字\(x\)和\(y\)，\(0 \leq x,y \leq 2^w - 1\) 。 当我们计算这样两个无符号数之和时， \(0\leq x + y \leq 2^{w+1}-2\)，出现了需要用\(w+1\)位二进制数表示的情况。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-26T14:22:46.000Z">
 <meta property="article:modified_time" content="2020-09-26T15:33:58.666Z">
@@ -450,8 +450,9 @@ V=(-1)^s*M*2^E
     
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/CSAPP/" rel="tag"># CSAPP</a>
+              <a href="/tags/CSAPP/" rel="tag"><i class="fa fa-tag"></i></a>
           </div>
 
         
@@ -574,7 +575,7 @@ V=(-1)^s*M*2^E
   </span>
   <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
 
         
