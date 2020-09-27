@@ -118,11 +118,6 @@
     <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">2</span></a>
 
   </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">0</span></a>
-
-  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">2</span></a>
@@ -196,9 +191,6 @@
       
           <h1 id="csapp">CSAPP</h1>
 <h2 id="整型数据运算">2.3 整型数据运算</h2>
-<h3 id="无符号加法">无符号加法</h3>
-<p>对于两个由<span class="math inline">\(w\)</span>位二进制数组成的非负数字<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>，<span class="math inline">\(0 \leq x,y \leq 2^w - 1\)</span> 。</p>
-<p>当我们计算这样两个无符号数之和时， <span class="math inline">\(0\leq x + y \leq 2^{w+1}-2\)</span>，出现了需要用<span class="math inline">\(w+1\)</span>位二进制数表示的情况。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/26/CSAPP/#more" rel="contents">
@@ -267,31 +259,6 @@
           <h2 id="链表学习笔记">链表学习笔记</h2>
 <ul>
 <li>定义节点的结构体</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="comment">//成员变量</span></span><br><span class="line">  Node_entry entry;</span><br><span class="line">  Node *next;</span><br><span class="line">  <span class="comment">//构造函数：初始化成员变量</span></span><br><span class="line">  Node();</span><br><span class="line">  Node( Node_entry item, Node *add_on = <span class="literal">NULL</span> );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>结构体含有成员变量与构造函数，成员变量通常为数据+指针的形式，构造函数基本用于初始化成员变量。</p>
-<ul>
-<li><p>链表操作</p>
-<ul>
-<li><p>查找访问</p></li>
-<li><p>插入</p>
-<ul>
-<li><p>插入两个节点之间</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newPtr-&gt;next = prev-&gt;next;</span><br><span class="line">prev-&gt;next = newPtr;</span><br></pre></td></tr></table></figure>
-<p>通常情况下先将新节点指向下一个结点，再将当前节点与新节点连接。</p></li>
-<li><p>头插法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newPtr-&gt;next = head;</span><br><span class="line">head = newPtr;</span><br></pre></td></tr></table></figure>
-<p>同上，先将新节点与后一个节点连接。</p></li>
-<li><p>尾插法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newPtr-&gt;next = prev-&gt;next;</span><br><span class="line">prev-&gt;next = newPtr;</span><br></pre></td></tr></table></figure>
-<p>第一步为将新节点的指针赋值为空指针。</p></li>
-</ul></li>
-<li><p>删除</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prev-&gt;next = cur-&gt;next;</span><br><span class="line"><span class="keyword">delete</span> cur;</span><br><span class="line">cur = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-<p>被删除的节点需要手动释放空间。</p></li>
-</ul></li>
-<li><p>链表类的定义</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkList</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Node *head;</span><br><span class="line">    Node *tail;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    LinkList();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -388,8 +355,10 @@
         </a>
       </div>
       <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
         <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
