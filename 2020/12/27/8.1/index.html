@@ -20,20 +20,25 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="CSAPP 有关于机器指令中的数学运算与逻辑运算的实现方法与指令。">
+  <meta name="description" content="CSAPP CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP 3.5">
-<meta property="og:url" content="https://ankate.github.io/2020/10/15/3.5/index.html">
+<meta property="og:title" content="CSAPP 8.1">
+<meta property="og:url" content="https://ankate.github.io/2020/12/27/8.1/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="CSAPP 有关于机器指令中的数学运算与逻辑运算的实现方法与指令。">
+<meta property="og:description" content="CSAPP CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-15T13:21:33.000Z">
-<meta property="article:modified_time" content="2020-10-15T13:21:35.975Z">
+<meta property="og:image" content="https://ankate.github.io/2020/12/27/images/8-5.png">
+<meta property="og:image" content="https://ankate.github.io/2020/12/27/images/8-6.png">
+<meta property="og:image" content="https://ankate.github.io/2020/12/27/images/8-7.png">
+<meta property="og:image" content="https://ankate.github.io/2020/12/27/images/8-8.png">
+<meta property="article:published_time" content="2020-12-27T15:13:00.000Z">
+<meta property="article:modified_time" content="2020-12-27T15:18:43.907Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ankate.github.io/2020/12/27/images/8-5.png">
 
-<link rel="canonical" href="https://ankate.github.io/2020/10/15/3.5/">
+<link rel="canonical" href="https://ankate.github.io/2020/12/27/8.1/">
 
 
 <script id="page-configurations">
@@ -46,7 +51,7 @@
   };
 </script>
 
-  <title>CSAPP 3.5 | AnKate</title>
+  <title>CSAPP 8.1 | AnKate</title>
   
 
 
@@ -156,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/10/15/3.5/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/12/27/8.1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -169,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSAPP 3.5
+          CSAPP 8.1
         </h1>
 
         <div class="post-meta">
@@ -180,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-10-15 21:21:33 / Modified: 21:21:35" itemprop="dateCreated datePublished" datetime="2020-10-15T21:21:33+08:00">2020-10-15</time>
+              <time title="Created: 2020-12-27 23:13:00 / Modified: 23:18:43" itemprop="dateCreated datePublished" datetime="2020-12-27T23:13:00+08:00">2020-12-27</time>
             </span>
 
           
@@ -195,137 +200,88 @@
 
       
         <h1 id="csapp">CSAPP</h1>
-<p>有关于机器指令中的数学运算与逻辑运算的实现方法与指令。</p>
-<h2 id="数学运算与逻辑运算">3.5 数学运算与逻辑运算</h2>
-<p>在x86-64架构中，数学运算、逻辑运算都有专属的指令，并且大部分指令都能够适配四种不同的数据大小（后缀b、w、l、q）。</p>
-<p>操作符能够被分为四种类型：</p>
+<p>CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作<strong>控制流</strong>(<em>control flow</em>)。</p>
+<p>最简单的一种控制流的类型是<strong>平滑</strong>的序列，相邻两条指令在内存中也相邻。<strong>不平滑</strong>的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。</p>
+<p>从系统层面来说，系统通常会改变控制流来对状态变化作出回应，这样的系统状态变化可能来自程序，也可能来自硬件产生的信号，这样的控制流突变被称作<strong>异常控制流</strong>(<em>Exceptional Control Flow</em>)。</p>
+<p>异常控制流在计算机系统的所有层级都存在，低级的处理方式是<strong>异常</strong>(<em>Exceptions</em>)。</p>
+<h2 id="异常">8.1 异常</h2>
+<p><strong>异常</strong>就是控制流中的发生的突变，用来响应处理器状态中的某些变化。</p>
+<p>在处理器中，状态被编码为不同的位和信号，状态的变化被称作<strong>事件</strong>(<em>event</em>)。事件可能与当前正在执行的指令<span class="math inline">\(I_{curr}\)</span>有关，也可能与I/O请求有关。</p>
+<p>当处理器检测到事件发生时，它会通过一张叫做<strong>异常表</strong>(<em>exception table</em>)的跳转表，跳转到一个专门用于处理异常的程序，<strong>异常处理程序</strong>(<em>exception handler</em>)。</p>
+<p>根据引起异常的事件的类型，当异常处理程序完成处理后，会发生下述三种情况：</p>
 <ul>
-<li>双目操作符（Binary）：需要两个操作数的操作符</li>
-<li>单目操作符（Unary）：需要一个操作数的操作符</li>
-<li>有效地址加载（Load Effective Address）：<strong>该指令只有后缀q，不适配其余数据大小</strong></li>
-<li>移位操作（Shift）</li>
+<li>直接返回到当前指令<span class="math inline">\(I_{curr}\)</span>继续执行</li>
+<li>返回到将要执行的下一条指令<span class="math inline">\(I_{next}\)</span></li>
+<li>终止当前的程序</li>
 </ul>
-<h3 id="有效地址加载">有效地址加载</h3>
-<p>有效地址加载（load effective address）指令格式为： <span class="math display">\[
-leaq~~Src,~Dst
-\]</span> 这条指令实现的功能是从内存读取数据到寄存器，但并没有引用内存，而是将有效地址存入目标中。</p>
-<p>除此以外，它还能够用来<strong>计算一些简单的形如<span class="math inline">\(x+k*y\)</span>的表达式</strong>，其中的k需要是1、2、4、8中的一个。</p>
-<p>例如计算<span class="math inline">\(x*12\)</span>，则有汇编代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leaq (%rdi,%rdi,2), %rax	# t &#x3D; x + 2*x</span><br><span class="line">salq $2, %rax				# t &lt;&lt; 2</span><br></pre></td></tr></table></figure>
-<h3 id="双目操作符与单目操作符">双目操作符与单目操作符</h3>
-<p>双目操作符即是需要两个操作数的操作，其中的第二个操作数既是源，又要参与运算。</p>
+<h3 id="异常处理">8.1.1 异常处理</h3>
+<p>每种可能的异常都被分配了一个唯一的非负整数，被称作<strong>异常号</strong>(<em>exception number</em>)，一部分由CPU的设计者分配，另一部分由操作系统的<strong>内核</strong>(<em>kernel</em>)分配。</p>
+<p>异常表是在系统启动时，由操作系统分配和初始化的。在运行时，处理器检测到某个事件，确定对应的异常号，处理器随后触发异常，通过异常表对应异常号的位置跳转到处理程序。异常表的起始地址被放在一个叫<strong>异常表基址寄存器</strong>(<em>exception table base register</em>)的特殊CPU寄存器里。</p>
+<p>触发异常后，只需要等待处理程序进行处理，随后通过一条返回指令继续执行中断的程序，将适当的状态从栈中弹出。如果异常中断的是用户程序，则会将状态恢复为用户模式，将控制返回给被中断的程序。</p>
+<h4 id="异常与过程调用的区别">异常与过程调用的区别</h4>
+<p>异常与过程调用的流程类似，但有部分区别：</p>
+<ul>
+<li>调用时，需要将返回地址压入栈中；而异常的返回地址只有当前指令<span class="math inline">\(I_{curr}\)</span>或下一条指令<span class="math inline">\(I_{next}\)</span></li>
+<li>异常触发时，处理器会把一些额外的处理器状态压入栈中，这些状态在重新执行进程时会被用到，如存储条件码的寄存器等</li>
+<li>控制权从用户程序转移到内核时，压入的栈是内核专用栈，而非用户使用栈</li>
+<li>异常处理程序是在内核模式下运行的，它拥有访问所有系统资源的权限</li>
+</ul>
+<h3 id="四种异常">8.1.2 四种异常</h3>
+<p>异常可以分为四类，<strong>中断</strong>(<em>interrupt</em>)、<strong>陷阱</strong>(<em>trap</em>)、<strong>故障</strong>(<em>fault</em>)、<strong>终止</strong>(<em>abort</em>)。</p>
 <table>
 <thead>
 <tr class="header">
-<th>指令</th>
-<th>效果</th>
-<th>含义</th>
+<th>类别</th>
+<th>原因</th>
+<th>异步/同步</th>
+<th>返回行为</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>add S, D</td>
-<td>D = D + S</td>
-<td>加法运算</td>
+<td>interrupt</td>
+<td>来自I/O设备的信号</td>
+<td>异步</td>
+<td>返回到下一条指令</td>
 </tr>
 <tr class="even">
-<td>sub S, D</td>
-<td>D = D - S</td>
-<td>减法运算</td>
+<td>trap</td>
+<td>有意触发</td>
+<td>同步</td>
+<td>返回到下一条指令</td>
 </tr>
 <tr class="odd">
-<td>imul S, D</td>
-<td>D = D * S</td>
-<td>整数乘法运算</td>
+<td>fault</td>
+<td>可恢复的错误</td>
+<td>同步</td>
+<td>返回到当前指令/不返回</td>
 </tr>
 <tr class="even">
-<td>xor S, D</td>
-<td>D = D ^ S</td>
-<td>异或运算</td>
-</tr>
-<tr class="odd">
-<td>or S, D</td>
-<td>D = D | S</td>
-<td>或运算</td>
-</tr>
-<tr class="even">
-<td>and S, D</td>
-<td>D = D &amp; S</td>
-<td>与运算</td>
+<td>终止</td>
+<td>不可恢复的错误</td>
+<td>同步</td>
+<td>不返回</td>
 </tr>
 </tbody>
 </table>
-<p>上表中的加减乘除与逻辑运算都属于二元运算指令。</p>
-<p>第一个操作数可以是常数、寄存器或是内存，第二个操作数可以是寄存器或内存。规则与MOV的规则一致，两个操作数不能同时为内存。</p>
-<p>单目操作符更加简单，只需要一个操作数作为源和目标。这里的操作数可以是寄存器或是内存，类似于C语言中的自增与自减语法。</p>
-<table>
-<thead>
-<tr class="header">
-<th>指令</th>
-<th>效果</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>inc D</td>
-<td>D = D + 1</td>
-<td>自增1</td>
-</tr>
-<tr class="even">
-<td>dec D</td>
-<td>D = D - 1</td>
-<td>自减1</td>
-</tr>
-<tr class="odd">
-<td>neg D</td>
-<td>D = -D</td>
-<td>取负数</td>
-</tr>
-<tr class="even">
-<td>not D</td>
-<td>D = ~D</td>
-<td>按位取反</td>
-</tr>
-</tbody>
-</table>
-<h3 id="移位运算">移位运算</h3>
-<p>移位运算也需要两个操作数，其中第一个给定要移动的位数，第二个是待移动的数据。</p>
-<table>
-<thead>
-<tr class="header">
-<th>指令</th>
-<th>效果</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>sal k, D</td>
-<td>D = D &lt;&lt; k</td>
-<td>左移k位</td>
-</tr>
-<tr class="even">
-<td>shl k, D</td>
-<td>D = D &lt;&lt; k</td>
-<td>左移k位</td>
-</tr>
-<tr class="odd">
-<td>sar k, D</td>
-<td>D = D &gt;&gt;<span class="math inline">\(_A\)</span>k</td>
-<td>算术右移k位</td>
-</tr>
-<tr class="even">
-<td>shr k, D</td>
-<td>D = D &gt;&gt;<span class="math inline">\(_L\)</span>k</td>
-<td>逻辑右移k位</td>
-</tr>
-</tbody>
-</table>
-<p>第一个操作数k可以是常数，也可以是存在寄存器%cl中的数据。移位运算的相关指令只允许这个特定的寄存器作为操作数。</p>
-<p>在x86-64架构中，对一个有w位的数据进行移位操作时，是根据寄存器%cl中的最低m位决定移动位数的，其中<span class="math inline">\(2^m=w\)</span>，高位会被忽略。譬如当该寄存器中存的数据为0xFF时，salb指令只会移动7位，salw指令移动15位，sall指令移动31位，而salq指令移动63位。</p>
-<p>左移指令有两个，效果相同，而右移则有算术右移和逻辑右移两种，效果与第二章中相同。</p>
-<p><strong>课程内容至此为止，有关书中3.5节提及的特殊的运算并未展开，故本章整理也先就此打住，日后提及再进行补充。</strong></p>
+<h4 id="interrupt">Interrupt</h4>
+<p>Interrupt是由来自处理器外部的I/O设备的信号导致的，它的异常处理程序被称作<strong>中断处理程序</strong>(<em>interrupt handler</em>)。它与任何一条指令的执行无关，当它出现异常时，程序的其余部分可以继续执行，所以被称作<strong>异步</strong>(<em>Asynchronous</em>)的。</p>
+<p>I/O设备通过向处理器上的中断引脚(<em>interrupt pin</em>)发送信号，导致其电压变高，从而引发中断处理。在当前指令完成执行后，读取到中断引脚的信号变化，从而将控制传递到处理程序，完成处理后继续执行。</p>
+<p><img src="..\images\8-5.png" /></p>
+<h4 id="trap">Trap</h4>
+<p>Trap通常是有意引发的，如系统调用。处理器为用户程序对内核的服务请求提供了一条<span class="math inline">\(syscall\)</span>指令。执行这条指令会触发一个Trap，解析<span class="math inline">\(syscall\)</span>后的参数，调用对应的内核程序。</p>
+<p><img src="..\images\8-6.png" /></p>
+<h5 id="system-calls">System Calls</h5>
+<p>每个系统调用都有独有的ID，用于向<span class="math inline">\(syscall\)</span>指令提供参数。</p>
+<p>在Linux的x86-64系统下，系统调用对应的ID和返回值被存放在寄存器%rax里，需要的其他参数被放在%rdi, %rsi, %rdx, %r10, %r8, %r9里，与正常函数过程中的存放参数的寄存器类似。返回值为负数时说明发生了错误，对应<span class="math inline">\(errno\)</span>。</p>
+<p>系统调用与普通函数的调用的不同之处在于，它在内核模式下执行，具有访问全部系统资源的权限，可以将所需资源压入自己独有的内核栈。</p>
+<h4 id="fault">Fault</h4>
+<p>Fault通常是可恢复的错误。如果处理程序可以修复发生的错误，它就会返回到发生错误时正在执行的指令<span class="math inline">\(I_{curr}\)</span>；如果不能修复，它就会直接终止进程(abort)。</p>
+<p>最常见的fault就是page fault(第九章)，当引用的虚拟地址不在内存中，需要访问磁盘取出数据时，便会发生page fault。数据成功从磁盘中取出至内存后，便会回到该指令继续执行。</p>
+<p><img src="..\images\8-7.png" /></p>
+<h4 id="abort">Abort</h4>
+<p>Abort是不可恢复的错误，通常是硬件错误。处理程序不会返回，而是进入abort例程并终止该应用程序。</p>
+<p><img src="..\images\8-8.png" /></p>
 
     </div>
 
@@ -345,13 +301,10 @@ leaq~~Src,~Dst
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/14/3.4/" rel="prev" title="CSAPP 3.4">
-      <i class="fa fa-chevron-left"></i> CSAPP 3.4
+    <a href="/2020/10/15/3.5/" rel="prev" title="CSAPP 3.5">
+      <i class="fa fa-chevron-left"></i> CSAPP 3.5
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/27/8.1/" rel="next" title="CSAPP 8.1">
-      CSAPP 8.1 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -410,7 +363,7 @@ leaq~~Src,~Dst
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#csapp"><span class="nav-number">1.</span> <span class="nav-text">CSAPP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数学运算与逻辑运算"><span class="nav-number">1.1.</span> <span class="nav-text">3.5 数学运算与逻辑运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有效地址加载"><span class="nav-number">1.1.1.</span> <span class="nav-text">有效地址加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双目操作符与单目操作符"><span class="nav-number">1.1.2.</span> <span class="nav-text">双目操作符与单目操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移位运算"><span class="nav-number">1.1.3.</span> <span class="nav-text">移位运算</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#csapp"><span class="nav-number">1.</span> <span class="nav-text">CSAPP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.1.</span> <span class="nav-text">8.1 异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">1.1.1.</span> <span class="nav-text">8.1.1 异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异常与过程调用的区别"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">异常与过程调用的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种异常"><span class="nav-number">1.1.2.</span> <span class="nav-text">8.1.2 四种异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#interrupt"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">Interrupt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trap"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Trap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#system-calls"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">System Calls</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fault"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">Fault</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#abort"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">Abort</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
