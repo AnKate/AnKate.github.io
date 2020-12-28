@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。 最简单的一种控制流的类型是平滑的序列，相邻两条指令在内存中也相邻。不平滑的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。">
+  <meta name="description" content="CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。 最简单的一种控制流的类型是平滑的序列，相邻两条指令在内存中也相邻。不平滑的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="8.1">
 <meta property="og:url" content="https://ankate.github.io/2020/12/28/8-1/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。 最简单的一种控制流的类型是平滑的序列，相邻两条指令在内存中也相邻。不平滑的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。">
+<meta property="og:description" content="CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。 最简单的一种控制流的类型是平滑的序列，相邻两条指令在内存中也相邻。不平滑的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://ankate.github.io/.io//8-5.png">
 <meta property="og:image" content="https://ankate.github.io/.io//8-6.png">
 <meta property="og:image" content="https://ankate.github.io/.io//8-7.png">
 <meta property="og:image" content="https://ankate.github.io/.io//8-8.png">
 <meta property="article:published_time" content="2020-12-28T01:26:17.000Z">
-<meta property="article:modified_time" content="2020-12-28T01:27:33.315Z">
+<meta property="article:modified_time" content="2020-12-28T10:25:28.964Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-12-28 09:26:17 / Modified: 09:27:33" itemprop="dateCreated datePublished" datetime="2020-12-28T09:26:17+08:00">2020-12-28</time>
+              <time title="Created: 2020-12-28 09:26:17 / Modified: 18:25:28" itemprop="dateCreated datePublished" datetime="2020-12-28T09:26:17+08:00">2020-12-28</time>
             </span>
 
           
@@ -203,33 +203,30 @@
 <p>最简单的一种控制流的类型是<strong>平滑</strong>的序列，相邻两条指令在内存中也相邻。<strong>不平滑</strong>的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。</p>
 <p>从系统层面来说，系统通常会改变控制流来对状态变化作出回应，这样的系统状态变化可能来自程序，也可能来自硬件产生的信号，这样的控制流突变被称作<strong>异常控制流</strong>(<em>Exceptional Control Flow</em>)。</p>
 <p>异常控制流在计算机系统的所有层级都存在，低级的处理方式是<strong>异常</strong>(<em>Exceptions</em>)。</p>
-<h2 id="异常">8.1 异常</h2>
-<p><strong>异常</strong>就是控制流中的发生的突变，用来响应处理器状态中的某些变化。</p>
-<p>在处理器中，状态被编码为不同的位和信号，状态的变化被称作<strong>事件</strong>(<em>event</em>)。事件可能与当前正在执行的指令<span class="math inline">\(I_{curr}\)</span>有关，也可能与I/O请求有关。</p>
+<h2 id="8-1-异常"><a href="#8-1-异常" class="headerlink" title="8.1 异常"></a>8.1 异常</h2><p><strong>异常</strong>就是控制流中的发生的突变，用来响应处理器状态中的某些变化。</p>
+<p>在处理器中，状态被编码为不同的位和信号，状态的变化被称作<strong>事件</strong>(<em>event</em>)。事件可能与当前正在执行的指令$I_{curr}$有关，也可能与I/O请求有关。</p>
 <p>当处理器检测到事件发生时，它会通过一张叫做<strong>异常表</strong>(<em>exception table</em>)的跳转表，跳转到一个专门用于处理异常的程序，<strong>异常处理程序</strong>(<em>exception handler</em>)。</p>
 <p>根据引起异常的事件的类型，当异常处理程序完成处理后，会发生下述三种情况：</p>
 <ul>
-<li>直接返回到当前指令<span class="math inline">\(I_{curr}\)</span>继续执行</li>
-<li>返回到将要执行的下一条指令<span class="math inline">\(I_{next}\)</span></li>
+<li>直接返回到当前指令$I_{curr}$继续执行</li>
+<li>返回到将要执行的下一条指令$I_{next}$</li>
 <li>终止当前的程序</li>
 </ul>
-<h3 id="异常处理">8.1.1 异常处理</h3>
-<p>每种可能的异常都被分配了一个唯一的非负整数，被称作<strong>异常号</strong>(<em>exception number</em>)，一部分由CPU的设计者分配，另一部分由操作系统的<strong>内核</strong>(<em>kernel</em>)分配。</p>
+<h3 id="8-1-1-异常处理"><a href="#8-1-1-异常处理" class="headerlink" title="8.1.1 异常处理"></a>8.1.1 异常处理</h3><p>每种可能的异常都被分配了一个唯一的非负整数，被称作<strong>异常号</strong>(<em>exception number</em>)，一部分由CPU的设计者分配，另一部分由操作系统的<strong>内核</strong>(<em>kernel</em>)分配。</p>
 <p>异常表是在系统启动时，由操作系统分配和初始化的。在运行时，处理器检测到某个事件，确定对应的异常号，处理器随后触发异常，通过异常表对应异常号的位置跳转到处理程序。异常表的起始地址被放在一个叫<strong>异常表基址寄存器</strong>(<em>exception table base register</em>)的特殊CPU寄存器里。</p>
 <p>触发异常后，只需要等待处理程序进行处理，随后通过一条返回指令继续执行中断的程序，将适当的状态从栈中弹出。如果异常中断的是用户程序，则会将状态恢复为用户模式，将控制返回给被中断的程序。</p>
-<h4 id="异常与过程调用的区别">异常与过程调用的区别</h4>
-<p>异常与过程调用的流程类似，但有部分区别：</p>
+<h4 id="异常与过程调用的区别"><a href="#异常与过程调用的区别" class="headerlink" title="异常与过程调用的区别"></a>异常与过程调用的区别</h4><p>异常与过程调用的流程类似，但有部分区别：</p>
 <ul>
-<li>调用时，需要将返回地址压入栈中；而异常的返回地址只有当前指令<span class="math inline">\(I_{curr}\)</span>或下一条指令<span class="math inline">\(I_{next}\)</span></li>
+<li>调用时，需要将返回地址压入栈中；而异常的返回地址只有当前指令$I_{curr}$或下一条指令$I_{next}$</li>
 <li>异常触发时，处理器会把一些额外的处理器状态压入栈中，这些状态在重新执行进程时会被用到，如存储条件码的寄存器等</li>
 <li>控制权从用户程序转移到内核时，压入的栈是内核专用栈，而非用户使用栈</li>
 <li>异常处理程序是在内核模式下运行的，它拥有访问所有系统资源的权限</li>
 </ul>
-<h3 id="四种异常">8.1.2 四种异常</h3>
-<p>异常可以分为四类，<strong>中断</strong>(<em>interrupt</em>)、<strong>陷阱</strong>(<em>trap</em>)、<strong>故障</strong>(<em>fault</em>)、<strong>终止</strong>(<em>abort</em>)。</p>
+<h3 id="8-1-2-四种异常"><a href="#8-1-2-四种异常" class="headerlink" title="8.1.2 四种异常"></a>8.1.2 四种异常</h3><p>异常可以分为四类，<strong>中断</strong>(<em>interrupt</em>)、<strong>陷阱</strong>(<em>trap</em>)、<strong>故障</strong>(<em>fault</em>)、<strong>终止</strong>(<em>abort</em>)。</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>类别</th>
 <th>原因</th>
 <th>异步/同步</th>
@@ -237,25 +234,25 @@
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>interrupt</td>
 <td>来自I/O设备的信号</td>
 <td>异步</td>
 <td>返回到下一条指令</td>
 </tr>
-<tr class="even">
+<tr>
 <td>trap</td>
 <td>有意触发</td>
 <td>同步</td>
 <td>返回到下一条指令</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>fault</td>
 <td>可恢复的错误</td>
 <td>同步</td>
 <td>返回到当前指令/不返回</td>
 </tr>
-<tr class="even">
+<tr>
 <td>终止</td>
 <td>不可恢复的错误</td>
 <td>同步</td>
@@ -263,24 +260,20 @@
 </tr>
 </tbody>
 </table>
-<h4 id="interrupt">Interrupt</h4>
-<p>Interrupt是由来自处理器外部的I/O设备的信号导致的，它的异常处理程序被称作<strong>中断处理程序</strong>(<em>interrupt handler</em>)。它与任何一条指令的执行无关，当它出现异常时，程序的其余部分可以继续执行，所以被称作<strong>异步</strong>(<em>Asynchronous</em>)的。</p>
+</div>
+<h4 id="Interrupt"><a href="#Interrupt" class="headerlink" title="Interrupt"></a>Interrupt</h4><p>Interrupt是由来自处理器外部的I/O设备的信号导致的，它的异常处理程序被称作<strong>中断处理程序</strong>(<em>interrupt handler</em>)。它与任何一条指令的执行无关，当它出现异常时，程序的其余部分可以继续执行，所以被称作<strong>异步</strong>(<em>Asynchronous</em>)的。</p>
 <p>I/O设备通过向处理器上的中断引脚(<em>interrupt pin</em>)发送信号，导致其电压变高，从而引发中断处理。在当前指令完成执行后，读取到中断引脚的信号变化，从而将控制传递到处理程序，完成处理后继续执行。</p>
-<p><img src="/.io//8-5.png"></p>
-<h4 id="trap">Trap</h4>
-<p>Trap通常是有意引发的，如系统调用。处理器为用户程序对内核的服务请求提供了一条<span class="math inline">\(syscall\)</span>指令。执行这条指令会触发一个Trap，解析<span class="math inline">\(syscall\)</span>后的参数，调用对应的内核程序。</p>
-<p><img src="/.io//8-6.png"></p>
-<h5 id="system-calls">System Calls</h5>
-<p>每个系统调用都有独有的ID，用于向<span class="math inline">\(syscall\)</span>指令提供参数。</p>
-<p>在Linux的x86-64系统下，系统调用对应的ID和返回值被存放在寄存器%rax里，需要的其他参数被放在%rdi, %rsi, %rdx, %r10, %r8, %r9里，与正常函数过程中的存放参数的寄存器类似。返回值为负数时说明发生了错误，对应<span class="math inline">\(errno\)</span>。</p>
+<p><img src="/.io//8-5.png" alt="中断处理"></p>
+<h4 id="Trap"><a href="#Trap" class="headerlink" title="Trap"></a>Trap</h4><p>Trap通常是有意引发的，如系统调用。处理器为用户程序对内核的服务请求提供了一条$syscall$指令。执行这条指令会触发一个Trap，解析$syscall$后的参数，调用对应的内核程序。</p>
+<p><img src="/.io//8-6.png" alt="陷阱处理"></p>
+<h5 id="System-Calls"><a href="#System-Calls" class="headerlink" title="System Calls"></a>System Calls</h5><p>每个系统调用都有独有的ID，用于向$syscall$指令提供参数。</p>
+<p>在Linux的x86-64系统下，系统调用对应的ID和返回值被存放在寄存器%rax里，需要的其他参数被放在%rdi, %rsi, %rdx, %r10, %r8, %r9里，与正常函数过程中的存放参数的寄存器类似。返回值为负数时说明发生了错误，对应$errno$。</p>
 <p>系统调用与普通函数的调用的不同之处在于，它在内核模式下执行，具有访问全部系统资源的权限，可以将所需资源压入自己独有的内核栈。</p>
-<h4 id="fault">Fault</h4>
-<p>Fault通常是可恢复的错误。如果处理程序可以修复发生的错误，它就会返回到发生错误时正在执行的指令<span class="math inline">\(I_{curr}\)</span>；如果不能修复，它就会直接终止进程(abort)。</p>
+<h4 id="Fault"><a href="#Fault" class="headerlink" title="Fault"></a>Fault</h4><p>Fault通常是可恢复的错误。如果处理程序可以修复发生的错误，它就会返回到发生错误时正在执行的指令$I_{curr}$；如果不能修复，它就会直接终止进程(abort)。</p>
 <p>最常见的fault就是page fault(第九章)，当引用的虚拟地址不在内存中，需要访问磁盘取出数据时，便会发生page fault。数据成功从磁盘中取出至内存后，便会回到该指令继续执行。</p>
-<p><img src="/.io//8-7.png"></p>
-<h4 id="abort">Abort</h4>
-<p>Abort是不可恢复的错误，通常是硬件错误。处理程序不会返回，而是进入abort例程并终止该应用程序。</p>
-<p><img src="/.io//8-8.png"></p>
+<p><img src="/.io//8-7.png" alt="故障处理"></p>
+<h4 id="Abort"><a href="#Abort" class="headerlink" title="Abort"></a>Abort</h4><p>Abort是不可恢复的错误，通常是硬件错误。处理程序不会返回，而是进入abort例程并终止该应用程序。</p>
+<p><img src="/.io//8-8.png" alt="终止处理"></p>
 
     </div>
 
@@ -362,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.</span> <span class="nav-text">8.1 异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">1.1.</span> <span class="nav-text">8.1.1 异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异常与过程调用的区别"><span class="nav-number">1.1.1.</span> <span class="nav-text">异常与过程调用的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种异常"><span class="nav-number">1.2.</span> <span class="nav-text">8.1.2 四种异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#interrupt"><span class="nav-number">1.2.1.</span> <span class="nav-text">Interrupt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trap"><span class="nav-number">1.2.2.</span> <span class="nav-text">Trap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#system-calls"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">System Calls</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fault"><span class="nav-number">1.2.3.</span> <span class="nav-text">Fault</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#abort"><span class="nav-number">1.2.4.</span> <span class="nav-text">Abort</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-1-异常"><span class="nav-number">1.</span> <span class="nav-text">8.1 异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-1-异常处理"><span class="nav-number">1.1.</span> <span class="nav-text">8.1.1 异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异常与过程调用的区别"><span class="nav-number">1.1.1.</span> <span class="nav-text">异常与过程调用的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-2-四种异常"><span class="nav-number">1.2.</span> <span class="nav-text">8.1.2 四种异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Interrupt"><span class="nav-number">1.2.1.</span> <span class="nav-text">Interrupt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Trap"><span class="nav-number">1.2.2.</span> <span class="nav-text">Trap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#System-Calls"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">System Calls</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fault"><span class="nav-number">1.2.3.</span> <span class="nav-text">Fault</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Abort"><span class="nav-number">1.2.4.</span> <span class="nav-text">Abort</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
