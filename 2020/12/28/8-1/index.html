@@ -20,25 +20,25 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="CSAPP CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。">
+  <meta name="description" content="CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。 最简单的一种控制流的类型是平滑的序列，相邻两条指令在内存中也相邻。不平滑的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP 8.1">
-<meta property="og:url" content="https://ankate.github.io/2020/12/27/8.1/index.html">
+<meta property="og:title" content="8.1">
+<meta property="og:url" content="https://ankate.github.io/2020/12/28/8-1/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="CSAPP CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。">
+<meta property="og:description" content="CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作控制流(control flow)。 最简单的一种控制流的类型是平滑的序列，相邻两条指令在内存中也相邻。不平滑的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://ankate.github.io/images/8-5.png">
-<meta property="og:image" content="https://ankate.github.io/images/8-6.png">
-<meta property="og:image" content="https://ankate.github.io/images/8-7.png">
-<meta property="og:image" content="https://ankate.github.io/images/8-8.png">
-<meta property="article:published_time" content="2020-12-27T15:13:00.000Z">
-<meta property="article:modified_time" content="2020-12-27T16:05:08.488Z">
+<meta property="og:image" content="https://ankate.github.io/.io//8-5.png">
+<meta property="og:image" content="https://ankate.github.io/.io//8-6.png">
+<meta property="og:image" content="https://ankate.github.io/.io//8-7.png">
+<meta property="og:image" content="https://ankate.github.io/.io//8-8.png">
+<meta property="article:published_time" content="2020-12-28T01:26:17.000Z">
+<meta property="article:modified_time" content="2020-12-28T01:27:33.315Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ankate.github.io/images/8-5.png">
+<meta name="twitter:image" content="https://ankate.github.io/.io//8-5.png">
 
-<link rel="canonical" href="https://ankate.github.io/2020/12/27/8.1/">
+<link rel="canonical" href="https://ankate.github.io/2020/12/28/8-1/">
 
 
 <script id="page-configurations">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>CSAPP 8.1 | AnKate</title>
+  <title>8.1 | AnKate</title>
   
 
 
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/12/27/8.1/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/12/28/8-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -174,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSAPP 8.1
+          8.1
         </h1>
 
         <div class="post-meta">
@@ -183,16 +183,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-12-27 23:13:00" itemprop="dateCreated datePublished" datetime="2020-12-27T23:13:00+08:00">2020-12-27</time>
+              <time title="Created: 2020-12-28 09:26:17 / Modified: 09:27:33" itemprop="dateCreated datePublished" datetime="2020-12-28T09:26:17+08:00">2020-12-28</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-28 00:05:08" itemprop="dateModified" datetime="2020-12-28T00:05:08+08:00">2020-12-28</time>
-              </span>
 
           
 
@@ -205,8 +199,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="csapp">CSAPP</h1>
-<p>CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作<strong>控制流</strong>(<em>control flow</em>)。</p>
+        <p>CPU在运行过程中，会逐条读取并执行一个由指令组成的序列，这样的序列被称作<strong>控制流</strong>(<em>control flow</em>)。</p>
 <p>最简单的一种控制流的类型是<strong>平滑</strong>的序列，相邻两条指令在内存中也相邻。<strong>不平滑</strong>的序列，即在内存中不相邻的两条指令，通常是由跳转、调用和返回等程序指令造成的，这些指令是从程序层面来处理状态变化的。</p>
 <p>从系统层面来说，系统通常会改变控制流来对状态变化作出回应，这样的系统状态变化可能来自程序，也可能来自硬件产生的信号，这样的控制流突变被称作<strong>异常控制流</strong>(<em>Exceptional Control Flow</em>)。</p>
 <p>异常控制流在计算机系统的所有层级都存在，低级的处理方式是<strong>异常</strong>(<em>Exceptions</em>)。</p>
@@ -273,10 +266,10 @@
 <h4 id="interrupt">Interrupt</h4>
 <p>Interrupt是由来自处理器外部的I/O设备的信号导致的，它的异常处理程序被称作<strong>中断处理程序</strong>(<em>interrupt handler</em>)。它与任何一条指令的执行无关，当它出现异常时，程序的其余部分可以继续执行，所以被称作<strong>异步</strong>(<em>Asynchronous</em>)的。</p>
 <p>I/O设备通过向处理器上的中断引脚(<em>interrupt pin</em>)发送信号，导致其电压变高，从而引发中断处理。在当前指令完成执行后，读取到中断引脚的信号变化，从而将控制传递到处理程序，完成处理后继续执行。</p>
-<p><img src="/images/8-5.png"></p>
+<p><img src="/.io//8-5.png"></p>
 <h4 id="trap">Trap</h4>
 <p>Trap通常是有意引发的，如系统调用。处理器为用户程序对内核的服务请求提供了一条<span class="math inline">\(syscall\)</span>指令。执行这条指令会触发一个Trap，解析<span class="math inline">\(syscall\)</span>后的参数，调用对应的内核程序。</p>
-<p><img src="/images/8-6.png"></p>
+<p><img src="/.io//8-6.png"></p>
 <h5 id="system-calls">System Calls</h5>
 <p>每个系统调用都有独有的ID，用于向<span class="math inline">\(syscall\)</span>指令提供参数。</p>
 <p>在Linux的x86-64系统下，系统调用对应的ID和返回值被存放在寄存器%rax里，需要的其他参数被放在%rdi, %rsi, %rdx, %r10, %r8, %r9里，与正常函数过程中的存放参数的寄存器类似。返回值为负数时说明发生了错误，对应<span class="math inline">\(errno\)</span>。</p>
@@ -284,10 +277,10 @@
 <h4 id="fault">Fault</h4>
 <p>Fault通常是可恢复的错误。如果处理程序可以修复发生的错误，它就会返回到发生错误时正在执行的指令<span class="math inline">\(I_{curr}\)</span>；如果不能修复，它就会直接终止进程(abort)。</p>
 <p>最常见的fault就是page fault(第九章)，当引用的虚拟地址不在内存中，需要访问磁盘取出数据时，便会发生page fault。数据成功从磁盘中取出至内存后，便会回到该指令继续执行。</p>
-<p><img src="/images/8-7.png"></p>
+<p><img src="/.io//8-7.png"></p>
 <h4 id="abort">Abort</h4>
 <p>Abort是不可恢复的错误，通常是硬件错误。处理程序不会返回，而是进入abort例程并终止该应用程序。</p>
-<p><img src="/images/8-8.png"></p>
+<p><img src="/.io//8-8.png"></p>
 
     </div>
 
@@ -369,7 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#csapp"><span class="nav-number">1.</span> <span class="nav-text">CSAPP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.1.</span> <span class="nav-text">8.1 异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">1.1.1.</span> <span class="nav-text">8.1.1 异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异常与过程调用的区别"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">异常与过程调用的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种异常"><span class="nav-number">1.1.2.</span> <span class="nav-text">8.1.2 四种异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#interrupt"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">Interrupt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trap"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Trap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#system-calls"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">System Calls</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fault"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">Fault</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#abort"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">Abort</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.</span> <span class="nav-text">8.1 异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">1.1.</span> <span class="nav-text">8.1.1 异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异常与过程调用的区别"><span class="nav-number">1.1.1.</span> <span class="nav-text">异常与过程调用的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种异常"><span class="nav-number">1.2.</span> <span class="nav-text">8.1.2 四种异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#interrupt"><span class="nav-number">1.2.1.</span> <span class="nav-text">Interrupt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#trap"><span class="nav-number">1.2.2.</span> <span class="nav-text">Trap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#system-calls"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">System Calls</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fault"><span class="nav-number">1.2.3.</span> <span class="nav-text">Fault</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#abort"><span class="nav-number">1.2.4.</span> <span class="nav-text">Abort</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
