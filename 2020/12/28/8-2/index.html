@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://ankate.github.io/2020/12/28/8-2/8-13.png">
 <meta property="og:image" content="https://ankate.github.io/2020/12/28/8-2/8-14.png">
 <meta property="article:published_time" content="2020-12-28T10:29:45.000Z">
-<meta property="article:modified_time" content="2020-12-29T12:59:22.054Z">
+<meta property="article:modified_time" content="2020-12-30T00:44:35.083Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary">
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-29 20:59:22" itemprop="dateModified" datetime="2020-12-29T20:59:22+08:00">2020-12-29</time>
+                <time title="Modified: 2020-12-30 08:44:35" itemprop="dateModified" datetime="2020-12-30T08:44:35+08:00">2020-12-30</time>
               </span>
 
           
@@ -217,16 +217,16 @@
 <h3 id="逻辑控制流">逻辑控制流</h3>
 <p>debug单步执行程序时，看到的一系列PC值被称作<strong>逻辑控制流</strong>，它们与可执行文件中的指令一一对应。简单来讲，每个进程都是一个逻辑控制流。</p>
 <p>每个进程都是轮流使用处理器的，它们执行自己的逻辑流的一部分，然后被其他进程<strong>抢占</strong>(<em>preempted</em>)。对于每个进程而言，看上去都像是在独占地使用处理器。</p>
-<p><img src="/2020/12/28/8-2/8-12.png"></p>
+<p><img src="/2020/12/28/8-2/8-12.png" alt="进程运行实况" style="zoom:80%;"></p>
 <h3 id="并发流">并发流</h3>
 <p>当两个逻辑流的运行时间发生重叠，就称它们为<strong>并发流</strong>(<em>concurrent flow</em>)。上图中的A和B、A和C都是并发执行的，但B和C不是并发流。</p>
 <p>多个流并发执行的现象就被称作<strong>并发</strong>(<em>concurrency</em>)。一个进程和其他进程轮流运行的概念被称作<strong>多任务</strong>(<em>multitasking</em>)，一个进程执行它控制流的部分的每一段时间叫做<strong>时间片</strong>(<em>time slice</em>)，多任务也被称作<strong>时间分片</strong>(<em>time slicing</em>)。上图中的A和C都有两个时间片。</p>
 <p>当两个流并发地运行在不同的处理器核或计算机上，它们又被称作<strong>并行流</strong>(<em>parallel flow</em>)，如下图中的A和B、A和C。并行流是并发流的真子集。</p>
-<p><img src="/2020/12/28/8-2/parallel.png"></p>
+<p><img src="/2020/12/28/8-2/parallel.png" alt="并行流" style="zoom:80%;"></p>
 <h3 id="私有地址空间">私有地址空间</h3>
 <p>在一台n位的机器上，地址空间是一个有<span class="math inline">\(2^n\)</span>种可能性的集合。进程为每个程序提供自己的私有地址空间，通常不能被其他进程读或写。</p>
 <p>每个私有地址空间的结构相同，下图为x86-64的地址空间的组织结构。</p>
-<p><img src="/2020/12/28/8-2/8-13.png"></p>
+<p><img src="/2020/12/28/8-2/8-13.png" alt="x86-64的地址空间结构" style="zoom:80%;"></p>
 <p>地址空间底部是用户程序使用的，顶部交给内核使用。顶部存放的是系统调用时会用到的代码、数据、堆栈。</p>
 <h3 id="用户模式和内核模式">用户模式和内核模式</h3>
 <p>某个控制寄存器中有一个<strong>模式位</strong>，能够描述当前进程的权限。</p>
@@ -238,7 +238,7 @@
 <p>操作系统使用<strong>上下文切换</strong>形式的异常控制流来同时运行更多任务，这是建立在低级的异常机制上的。</p>
 <p>内核为每个进程维护一个上下文。在进程执行的某些时刻，内核可以抢占当前进程以重新执行一个先前被抢占的进程，这被称作<strong>调度</strong>(<em>scheduling</em>)。此时，内核会保存当前进程的上下文，随后恢复某个先前被抢占的进程被保存的上下文，并将控制转递给这个进程。</p>
 <p>进行系统调用时，可能会发生上下文切换。如果系统因为等待某个事件发生而阻塞，内核就可以让当前进程休眠，切换到另一个进程。通常情况下，即使系统调用没有阻塞，内核也可以执行上下文切换。终端也可能引发上下文切换。</p>
-<p><img src="/2020/12/28/8-2/8-14.png"></p>
+<p><img src="/2020/12/28/8-2/8-14.png" alt="上下文切换" style="zoom:80%;"></p>
 <p>如上图所示，进程A进行了read的系统调用，此时内核不会只等待读取的完成而什么都不做，而是切换到进程B继续执行。磁盘发出中断信号表面数据以及存入内存中，此时内核又会切换回进程A，继续执行read后的指令。</p>
 
     </div>
