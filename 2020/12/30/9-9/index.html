@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用动态内存分配的情况：  在编译时所需内存大小未知 在运行过程中需要额外新的内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态内存分配相关概念">
+<meta property="og:url" content="https://ankate.github.io/2020/12/30/9-9/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="使用动态内存分配的情况：  在编译时所需内存大小未知 在运行过程中需要额外新的内存">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ankate.github.io/2020/12/30/9-9/9-33.png">
+<meta property="article:published_time" content="2020-12-30T10:46:51.000Z">
+<meta property="article:modified_time" content="2020-12-31T05:45:35.561Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="CSAPP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ankate.github.io/2020/12/30/9-9/9-33.png">
+
+<link rel="canonical" href="https://ankate.github.io/2020/12/30/9-9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>动态内存分配相关概念 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">8</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/12/30/9-9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          动态内存分配相关概念
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-30 18:46:51" itemprop="dateCreated datePublished" datetime="2020-12-30T18:46:51+08:00">2020-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-31 13:45:35" itemprop="dateModified" datetime="2020-12-31T13:45:35+08:00">2020-12-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用动态内存分配的情况：</p>
+<ul>
+<li>在编译时所需内存大小未知</li>
+<li>在运行过程中需要额外新的内存</li>
+</ul>
+<p>动态申请的内存被分配在虚拟内存中一个被称作<strong>栈</strong>(<em>heap</em>)的区域，它从未初始化的区域后开始，向更高的地址生长。内核会维护一个变量brk指向堆的顶部。</p>
+<p><img src="/2020/12/30/9-9/9-33.png" alt="heap" style="zoom: 67%;"></p>
+<p>堆被视作由大小不同的<strong>块</strong>(<em>block</em>)的集合，每个块是由一段连续的虚拟内存组成的<strong>片</strong>(<em>chunk</em>)，处于<strong>已分配</strong>或<strong>空闲</strong>状态。已分配的块为申请的程序使用，直到它被显式或隐式地释放(<em>free</em>)，空闲的块可以被显式地分配。</p>
+<p>分配器有两种风格，区别在于释放内存，申请内存<strong>都需要显式进行</strong>：</p>
+<ul>
+<li><strong>显式分配器</strong>(<em>explicit allocator</em>)，需要应用程序本身进行内存的释放，如C语言中显式地调用free()函数进行释放内存。</li>
+<li><strong>隐式分配器</strong>(<em>implicit allocator</em>)，由分配器自行检测并判断某一部分内存不再被使用，自行进行释放，如Lisp、ML、Java。隐式分配器也被称作<strong>垃圾收集器</strong>(<em>garbage collection</em>)，释放的过程被称作<strong>垃圾收集</strong>(<em>garbage collection</em>)。</li>
+</ul>
+<h3 id="malloc和free">malloc和free</h3>
+<p>C语言提供了包括malloc在内的一系列函数，用于显式地申请或释放内存。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">malloc</span><span class="params">(<span class="keyword">size_t</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line"><span class="comment">//成功申请大小为size个byte的内存后返回一个指向该内存块的指针</span></span><br><span class="line"><span class="comment">//size为0时返回NULL</span></span><br><span class="line"><span class="comment">//发生错误(内存空间不足够分配)时返回NULL，将errno设置为ENOMEM</span></span><br></pre></td></tr></table></figure>
+<p>在32位系统中，malloc返回的块都是8字节对齐；64位系统中是16字节对齐。</p>
+<p>需要注意的是，malloc返回的内存并不会初始化，可以通过calloc()函数申请内存并全部初始化为0.</p>
+<p>可以通过realloc修改先前申请的内存的大小。</p>
+<p>在分配器内部，往往是通过sbrk函数进行堆的增长或收缩的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">sbrk</span><span class="params">(<span class="keyword">intptr_t</span> incr)</span></span>;</span><br><span class="line"><span class="comment">//通过向brk指针增加大小为incr的值来控制栈的大小</span></span><br><span class="line"><span class="comment">//正常运行则返回更改前的brk指针的值</span></span><br><span class="line"><span class="comment">//发生错误时返回-1，将errno设置为ENOMEM</span></span><br><span class="line"><span class="comment">//incr为0时返回当前的brk值</span></span><br><span class="line"><span class="comment">//incr为负数时可以正常运行，但返回的brk指向的位置已经超过了栈的大小</span></span><br></pre></td></tr></table></figure>
+<p>free与malloc函数对应，用于显式释放先前分配的内存。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">free</span><span class="params">(<span class="keyword">void</span> *ptr)</span></span>;</span><br><span class="line"><span class="comment">//不返回任何值，所以无法判断是否正常运行</span></span><br><span class="line"><span class="comment">//指针ptr必须是先前已经申请的内存，即来自malloc, calloc, realloc函数的指针</span></span><br></pre></td></tr></table></figure>
+<h3 id="分配器的限制和目标">分配器的限制和目标</h3>
+<p>分配器有以下严格的限制：</p>
+<ul>
+<li>处理任意的请求序列：分配器不能假定malloc和free请求的顺序，例如不一定每个malloc请求都一定存在一个free与之对应。</li>
+<li>立即响应请求：分配器不能重新排列malloc和free的顺序，也不能暂缓这些请求稍后处理。</li>
+<li>只使用堆：分配器的所有请求都必须在堆中实现。</li>
+<li>对齐：32位系统中执行双字对齐，64位中四字对齐，确保能够保存任意类型的数据。</li>
+<li>不修改已分配的块：内存一旦被分配，就不能再做修改或移动的操作，即不能压缩已分配块，否则指针将会指向不确定的位置。</li>
+</ul>
+<p>在上述限制下，分配器需要尽可能地实现下面两个目标：</p>
+<ul>
+<li><p>最大化<strong>吞吐率</strong>(<em>throughput</em>)：吞吐率定义为单位时间内完成的请求数，这一目标即是希望分配器能够尽可能高效率地响应请求。malloc请求的最坏运行时间与空闲块的数量呈线性关系，free请求的运行时间为常数，这是对处理器性能的通常期望。</p></li>
+<li><p>最大化内存利用率：虚拟内存的空间有限，一个好的分配器需要有效率地利用这一有限资源分配内存。通常使用<strong>峰值利用率</strong>(<em>peak utilization</em>)来衡量。</p>
+<p>假定有n个请求组成的序列<span class="math inline">\(R_n\)</span>，定义一个申请p字节的请求的<strong>有效载荷</strong>(<em>payload</em>)为p，请求完成后累加这些有效载荷得到<strong>聚集有效载荷</strong>(<em>aggregate payload</em>)记为<span class="math inline">\(P_k\)</span>，当前堆的大小记为<span class="math inline">\(H_k\)</span>，则前<span class="math inline">\(k+1\)</span>个请求的峰值利用率表示为<span class="math inline">\(U_k\)</span>，则有： <span class="math display">\[
+U_k=max_{i \leq k}P_i/H_k
+\]</span> 简言之，即是<strong>已分配的内存</strong>占<strong>当前堆的总容量</strong>的<strong>比例</strong>需要尽可能最大化。</p></li>
+</ul>
+<p>上述两种目标通常是相互冲突的。</p>
+<h3 id="碎片">碎片</h3>
+<p>堆在使用过程中，随着分配与释放请求的增多，容易出现“千疮百孔”的状态，可能有很多未使用的内存，但并不能满足分配请求。</p>
+<p>这种现象被称作<strong>碎片</strong>(<em>fragmentation</em>)，可以分为两种：</p>
+<ul>
+<li><p><strong>内部碎片</strong>(<em>internal fragmentation</em>)：指一个已分配的块比有效载荷大。发生原因可能是因为分配器对块的最小容量限制，或为了满足对其要求而增加块的大小。</p>
+<p>内部碎片只取决于先前请求的模式和分配器的实现方式。</p></li>
+<li><p><strong>外部碎片</strong>(<em>external fragmentation</em>)：指剩余的总容量足够分配，但任意一块空闲内存却不足够分配，需要向内核请求额外的虚拟内存来满足新的分配请求。</p>
+<p>外部碎片不仅取决于先前请求的模式和分配器的实现方式，还取决于将来的请求。分配器通常会维持少量的大空闲块以避免外部碎片。</p></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/CSAPP/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/28/8-2/" rel="prev" title="8.2">
+      <i class="fa fa-chevron-left"></i> 8.2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc和free"><span class="nav-number">1.</span> <span class="nav-text">malloc和free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配器的限制和目标"><span class="nav-number">2.</span> <span class="nav-text">分配器的限制和目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#碎片"><span class="nav-number">3.</span> <span class="nav-text">碎片</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
