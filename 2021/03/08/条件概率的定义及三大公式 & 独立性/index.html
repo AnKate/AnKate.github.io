@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="CSAPP 本章节书中所叙述的内容较为抽象，故拣选部分较为重要的部分加以记录，若有缺漏则日后再补。">
+  <meta name="description" content="条件概率 表达式：\(P(A|B)&#x3D;\frac {P(AB)}{P(B)}\)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP 3.2 3.3">
-<meta property="og:url" content="https://ankate.github.io/2020/10/12/CSAPP-3.2/index.html">
+<meta property="og:title" content="条件概率的定义及三大公式&amp;独立性">
+<meta property="og:url" content="https://ankate.github.io/2021/03/08/%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E4%B8%89%E5%A4%A7%E5%85%AC%E5%BC%8F%20&%20%E7%8B%AC%E7%AB%8B%E6%80%A7/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="CSAPP 本章节书中所叙述的内容较为抽象，故拣选部分较为重要的部分加以记录，若有缺漏则日后再补。">
+<meta property="og:description" content="条件概率 表达式：\(P(A|B)&#x3D;\frac {P(AB)}{P(B)}\)">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-12T10:39:54.000Z">
-<meta property="article:modified_time" content="2020-10-12T10:39:57.853Z">
+<meta property="article:published_time" content="2021-03-08T13:44:41.000Z">
+<meta property="article:modified_time" content="2021-03-08T13:44:44.570Z">
 <meta property="article:author" content="Miheal Zhao">
-<meta property="article:tag" content="CSAPP">
+<meta property="article:tag" content="概率论和数理统计">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://ankate.github.io/2020/10/12/CSAPP-3.2/">
+<link rel="canonical" href="https://ankate.github.io/2021/03/08/%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E4%B8%89%E5%A4%A7%E5%85%AC%E5%BC%8F%20&%20%E7%8B%AC%E7%AB%8B%E6%80%A7/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>CSAPP 3.2 3.3 | AnKate</title>
+  <title>条件概率的定义及三大公式&独立性 | AnKate</title>
   
 
 
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/10/12/CSAPP-3.2/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/03/08/%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E4%B8%89%E5%A4%A7%E5%85%AC%E5%BC%8F%20&%20%E7%8B%AC%E7%AB%8B%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSAPP 3.2 3.3
+          条件概率的定义及三大公式&独立性
         </h1>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-10-12 18:39:54 / Modified: 18:39:57" itemprop="dateCreated datePublished" datetime="2020-10-12T18:39:54+08:00">2020-10-12</time>
+              <time title="Created: 2021-03-08 21:44:41 / Modified: 21:44:44" itemprop="dateCreated datePublished" datetime="2021-03-08T21:44:41+08:00">2021-03-08</time>
             </span>
 
           
@@ -194,102 +194,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="csapp">CSAPP</h1>
-<p>本章节书中所叙述的内容较为抽象，故拣选部分较为重要的部分加以记录，若有缺漏则日后再补。</p>
-<h2 id="程序编码">3.2 程序编码</h2>
-<p>以书上所举的编译p1、p2两个c语言文件的过程为例，可以将gcc编译的过程大致分为如下几步：</p>
-<ol type="1">
-<li>C preprocessor(预处理器)进行预编译，简单理解为将带有&quot;#&quot;符号的语句进行编译，包括但不限于对头文件、宏定义、全局变量的编译。</li>
-<li>compiler(编译器)进行汇编，生成.s文件。</li>
-<li>assembler(汇编器)将汇编代码转化成机器可执行的二进制代码(目标代码)，生成.o文件。</li>
-<li>linker(链接器)将所用函数链接到动态或静态库，产生最终的可执行文件。</li>
-</ol>
-<h4 id="书中所用到的两种抽象">书中所用到的两种抽象</h4>
-<p>计算机系统中为了便于理解，采用了两种较为重要的抽象：</p>
-<p>第一种采用了ISA(instruction set architecture)将处理器的运作进行抽象，简化为每条指令按顺序进行，一条结束后再进行下一条。实际的处理器运行更为复杂，能够同时处理多条指令。</p>
-<p>第二种将内存地址抽象为虚拟地址，表现为某种字节数组。实际的内存地址是硬件存储器和系统软件组合实现的。</p>
-<h4 id="可见的处理器状态">可见的处理器状态</h4>
+        <h2 id="条件概率">条件概率</h2>
+<p><strong>表达式</strong>：<span class="math inline">\(P(A|B)=\frac {P(AB)}{P(B)}\)</span></p>
+<p><strong>含义</strong>：在事件B已经发生的条件下，事件A发生的概率。</p>
+<p>条件概率同样满足概率的三条性质：</p>
 <ul>
-<li>PC(Program Counter，程序计数器，在x86-64中用%rip表示)，会给出下一条待执行指令在内存中的位置。</li>
-<li>整数寄存器(integer register file)包含了16个命名的位置，它们都能够存储64位的值。寄存器能够存储地址或整数数据。一些寄存器用来保存程序的重要章台，一些用来保存临时数据，例如参数和局部变量，以及函数返回值。</li>
-<li>条件码寄存器(condition code register)保存最近进行的逻辑或算术运算的结果，用于控制条件变化，如if和while语句。</li>
-<li>向量寄存器(vector register)用于存放一个或多个整型或浮点型数据。</li>
+<li><strong>正则性</strong>：<span class="math inline">\(P(\Omega|B) = 1\)</span></li>
+<li><strong>非负性</strong>：若<span class="math inline">\(A \in F\)</span>，则有<span class="math inline">\(P(A|B) \geq 0\)</span></li>
+<li><strong>可列可加性</strong>：若<span class="math inline">\(F\)</span>中的<span class="math inline">\(A_1,A_2,…,A_n,…\)</span>互不相容，则有<span class="math inline">\(P(\bigcup^\infty_{n=1}A_n|B) = \sum^\infty_{n=1}P(A|B)\)</span></li>
 </ul>
-<h4 id="程序内存中包含的内容">程序内存中包含的内容</h4>
+<p><strong>三大公式</strong>：</p>
 <ul>
-<li>可执行的机器代码</li>
-<li>操作系统需要的一些信息</li>
-<li>用于管理运行过程中的函数调用与返回的栈</li>
-<li>用户申请分配的内存</li>
+<li><p><strong>乘法公式</strong>：<span class="math inline">\(P(AB)=P(A|B)*P(B)\)</span></p></li>
+<li><p><strong>全概率公式</strong>：<span class="math inline">\(P(A)=P(AB)+P(A\overline B)=P(B)*P(A|B)+P(\overline B)*P(A|\overline B)\)</span></p>
+<p>​ 全概率公式可推广至n项：<span class="math inline">\(P(A)=\Sigma_{i=1}^nP(A|B_i)*P(B_i)\)</span></p>
+<p>​ 其中事件序列<span class="math inline">\(\{B_n\}\)</span>需要满足<strong>互不相容，且并集包含A</strong>的条件（可视作<strong>分割</strong>这一概念 的弱化条件）。</p>
+<p><strong>分割</strong>：样本空间<span class="math inline">\(\Omega\)</span>中，有事件<span class="math inline">\(B_1,B_2,…,B_n\)</span>，若同时满足以下两个条件：</p>
+<p>​ (1). <span class="math inline">\(B_1\bigcup B_2\bigcup …\bigcup B_n = \Omega\)</span></p>
+<p>​ (2). <span class="math inline">\(B_1,B_2,…,B_n\)</span>互不相容</p>
+<p>​ 则称<span class="math inline">\(B_1,B_2,…,B_n\)</span>是<span class="math inline">\(\Omega\)</span>的一组分割</p></li>
+<li><p><strong>贝叶斯公式</strong>： <span class="math display">\[
+P(B|A)=\frac{P(AB)}{P(A)}=\frac{P(B)*P(A|B)}{P(B)*P(A|B)+P(\overline B)*P(A|\overline B)}
+\]</span></p></li>
 </ul>
-<h4 id="机器级代码">机器级代码</h4>
-<p>机器级代码通常难以阅读和理解，为了查看机器级代码的内容，需要用到反汇编器(disassembler)，将机器级代码转化为类似汇编代码的形式。</p>
-<p>有关于机器级代码和反汇编器有如下特征：</p>
+<p><strong>四种模型</strong>：</p>
+<p>引入一个罐子模型作为例题：</p>
+<p>有一个罐子，其中有<span class="math inline">\(b\)</span>个黑球，<span class="math inline">\(r\)</span>个红球。现每次抽出一个球，抽出后放回，并同时放入<span class="math inline">\(c\)</span>个同色球和<span class="math inline">\(d\)</span>个异色球。</p>
+<p>记<span class="math inline">\(B_n\)</span>为事件“第n次摸到的球为黑色”，<span class="math inline">\(R_n\)</span>为事件“第n次摸到的球为红色，问：</p>
+<p>连续抽取三次，其中有两个黑球一个红球的概率。</p>
+<p>一般情况下，抽取的顺序会影响最终得出的概率结果，<span class="math inline">\(B_1B_2R_3,B_1R_2B_3,R_1B_2B_3\)</span>分别对应三种不同的最终答案。</p>
+<p>现有四种特殊情况，抽取的顺序不会对最终结果有影响：</p>
 <ul>
-<li>x86-64的指令长度有1至15字节不等，常用的、或是运算对象少的一些指令所需的字节更少。</li>
-<li>字节能够与汇编指令一一对应。</li>
-<li>反汇编程序只根据字节进行反汇编，不需要访问源代码或汇编代码。</li>
-<li>汇编代码中的后缀代表数据类型，反汇编代码中的后缀添加在call或ret指令后，均可忽略。</li>
+<li><strong>放回抽样</strong>(<span class="math inline">\(c=0,d=0\)</span>)：每次抽样后只放回该球，不额外放入球</li>
+<li><strong>不放回抽样</strong>(<span class="math inline">\(c=-1,d=0\)</span>)：每次抽样后不将原球放回</li>
+<li><strong>传染病模型</strong>(<span class="math inline">\(c&gt;0,d=0\)</span>)：每次抽样后额外放入同色球，则随着抽样次数变多，抽取同色球的概率会越来越高。</li>
+<li><strong>安全模型</strong>(<span class="math inline">\(c=0,d&gt;0\)</span>)：每次抽样后放入异色球，则随着抽样次数变多，抽取同色球的概率会越来越低。</li>
 </ul>
-<h3 id="数据格式">3.3 数据格式</h3>
-<p>在计算机系统中，使用&quot;word&quot;表示16位数据类型，&quot;double words&quot;表示32位数据类型，&quot;quad words&quot;表示64位数据类型。</p>
-<p>在x86-64的指令集中，包括了对各种数据类型以及指针的操作指令。</p>
-<p>下表中列举了汇编代码中的后缀对应的数据类型，以及它们的数据大小。</p>
-<table>
-<thead>
-<tr class="header">
-<th>C语言对应的数据类型</th>
-<th>Intel系统下的数据类型</th>
-<th>汇编代码中对应后缀</th>
-<th>数据大小(单位:Byte)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>char</td>
-<td>Byte</td>
-<td>b</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td>short</td>
-<td>Word</td>
-<td>w</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td>int</td>
-<td>Double Word</td>
-<td>l</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td>long</td>
-<td>Quad Word</td>
-<td>q</td>
-<td>8</td>
-</tr>
-<tr class="odd">
-<td>char *</td>
-<td>Quad Word</td>
-<td>q</td>
-<td>8</td>
-</tr>
-<tr class="even">
-<td>float</td>
-<td>Single precision</td>
-<td>s</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td>double</td>
-<td>Double precision</td>
-<td>l</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-<p>在64位的操作系统中，指针是8Byte的。</p>
+<p><strong>独立性</strong>：若事件<span class="math inline">\(A、B\)</span>满足<span class="math inline">\(P(AB)=P(A)P(B)\)</span>，则称<span class="math inline">\(A、B\)</span>相互独立，即<strong>事件A发生与否不影响事件B发生与否</strong>。</p>
+<p><strong>性质</strong>：若<span class="math inline">\(A、B\)</span>独立，则有<span class="math inline">\(\overline A\)</span>与<span class="math inline">\(B\)</span>独立、<span class="math inline">\(A\)</span>与<span class="math inline">\(\overline B\)</span>独立、<span class="math inline">\(\overline A\)</span>与<span class="math inline">\(\overline B\)</span>独立。</p>
+<p><strong>多个事件的独立性</strong>：设有<span class="math inline">\(n\)</span>个事件<span class="math inline">\(A_1,A_2,…,A_n(n\geq2)\)</span></p>
+<p><strong>两两独立</strong>：<span class="math inline">\(P(A_iA_j)=P(A_i)P(A_j)\)</span></p>
+<p><strong>相互独立</strong>：<span class="math inline">\(\begin{cases} P(A_iA_j)=P(A_i)P(A_j) \\ P(A_iA_jA_k) = P(A_i)P(A_j)P(A_j) \\...... \\ P(A_1A_2...A_n)=P(A_1)P(A_2)...P(A_n)\end{cases}\)</span></p>
+<p>注：上述两种独立性无法相互推出。</p>
+<p><strong>性质</strong>：事件<span class="math inline">\(A、B、C\)</span>相互独立，则<span class="math inline">\((A\bigcup B)\)</span>与<span class="math inline">\(C\)</span>相互独立</p>
+<p><strong>证明</strong>：根据分配律： <span class="math display">\[
+P((A\bigcup B)C) = P(AC\bigcup BC)
+\]</span> ​ 根据加法原理： <span class="math display">\[
+P(AC\bigcup BC)=P(AC)+P(BC)-P(ABC)
+\]</span> ​ 根据独立事件定义： <span class="math display">\[
+P(AC)+P(BC)-P(ABC)=P(A)P(C)+P(B)P(C)-P(A)P(B)P(C)
+\]</span></p>
+<p><span class="math display">\[
+P(A)P(C)+P(B)P(C)-P(A)P(B)P(C)=(P(A)+P(B)-P(AB))P(C)
+\]</span></p>
+<p><span class="math display">\[
+(P(A)+P(B)-P(AB))P(C) = P(A\bigcup B)P(C)
+\]</span></p>
+<p>​ 所以有： <span class="math display">\[
+P((A\bigcup B)C) = P(A\bigcup B)P(C)
+\]</span> ​ 证毕。</p>
+<p>由<strong>条件概率满足概率性质</strong>和<strong>独立性</strong>，可以得出<strong>条件独立性</strong>：<span class="math inline">\(P(A_1A_2|B)=P(A_1|B)P(A_2|B)\)</span></p>
 
     </div>
 
@@ -300,7 +264,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/CSAPP/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i></a>
           </div>
 
         
@@ -309,13 +273,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/09/26/CSAPP/" rel="prev" title="CSAPP 2.3 2.4">
-      <i class="fa fa-chevron-left"></i> CSAPP 2.3 2.4
+    <a href="/2021/03/06/%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6/" rel="prev" title="随机事件&概率的性质和定义">
+      <i class="fa fa-chevron-left"></i> 随机事件&概率的性质和定义
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/14/3.4/" rel="next" title="CSAPP 3.4">
-      CSAPP 3.4 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -374,7 +335,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#csapp"><span class="nav-number">1.</span> <span class="nav-text">CSAPP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序编码"><span class="nav-number">1.1.</span> <span class="nav-text">3.2 程序编码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#书中所用到的两种抽象"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">书中所用到的两种抽象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可见的处理器状态"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">可见的处理器状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序内存中包含的内容"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">程序内存中包含的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#机器级代码"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">机器级代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">1.1.1.</span> <span class="nav-text">3.3 数据格式</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率"><span class="nav-number">1.</span> <span class="nav-text">条件概率</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
