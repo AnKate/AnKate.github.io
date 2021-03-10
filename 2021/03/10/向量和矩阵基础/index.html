@@ -28,7 +28,7 @@
 <meta property="og:description" content="向量与矩阵的基本概念 数域：设\(\mathbb{K}\)是由一些数组成的集合，如果\(\mathbb{K}\)中包含0与1，并且\(\mathbb{K}\)中任意两个数的和、差、积、商仍在\(\mathbb{K}\)中，则称\(\mathbb{K}\)是一个数域。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-10T14:59:37.000Z">
-<meta property="article:modified_time" content="2021-03-10T15:00:01.178Z">
+<meta property="article:modified_time" content="2021-03-10T15:41:47.106Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="数据科学数学基础">
 <meta name="twitter:card" content="summary">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-03-10 22:59:37 / Modified: 23:00:01" itemprop="dateCreated datePublished" datetime="2021-03-10T22:59:37+08:00">2021-03-10</time>
+              <time title="Created: 2021-03-10 22:59:37 / Modified: 23:41:47" itemprop="dateCreated datePublished" datetime="2021-03-10T22:59:37+08:00">2021-03-10</time>
             </span>
 
           
@@ -216,7 +216,7 @@
 几何向量
 \end{cases}
 \]</span> <strong>矩阵</strong>：</p>
-<p>由数域<span class="math inline">\(\mathbb{K}\)</span>中的<span class="math inline">\(m*n\)</span>个数<span class="math inline">\(a_{ij}(i=1,2,…,m;j=1,2,…,n)\)</span>排成<span class="math inline">\(m\)</span>行、<span class="math inline">\(n\)</span>列的表 $$ A= ( \begin{matrix} a_{11} &amp; a_{12} &amp; … &amp; a_{1n} \ a_{21} &amp; a_{22} &amp; … &amp; a_{2n} \ … &amp; … &amp; … &amp; …\ a_{m1} &amp; a_{m2} &amp; … &amp; a_{mn}</p>
+<p>由数域<span class="math inline">\(\mathbb{K}\)</span>中的<span class="math inline">\(m*n\)</span>个数<span class="math inline">\(a_{ij}(i=1,2,…,m;j=1,2,…,n)\)</span>排成<span class="math inline">\(m\)</span>行、<span class="math inline">\(n\)</span>列的表： $$ A= ( \begin{matrix} a_{11} &amp; a_{12} &amp; … &amp; a_{1n} \ a_{21} &amp; a_{22} &amp; … &amp; a_{2n} \ … &amp; … &amp; … &amp; …\ a_{m1} &amp; a_{m2} &amp; … &amp; a_{mn}</p>
 <p>\end{matrix} ) $$ 称为<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(m*n\)</span>矩阵，记为<span class="math inline">\(A=(a_{ij})_{m*m}\)</span>或<span class="math inline">\(A_{m*n}\)</span>，表中的每一个数都称为矩阵<span class="math inline">\(A\)</span>的一个元素。</p>
 <p>若<span class="math inline">\(m=n\)</span>，则<span class="math inline">\(n*n\)</span>矩阵<span class="math inline">\(A=(a_{ij})_{m*n}\)</span>也称<span class="math inline">\(n\)</span>阶方阵。</p>
 <p><span class="math inline">\(a_{ij} \in \mathbb{R}\)</span>时，称<span class="math inline">\(a\)</span>为<strong>实矩阵</strong>。所有<span class="math inline">\(n\)</span>维实矩阵构成的集合记作<span class="math inline">\(\mathbb{R^{m*n}}\)</span>。</p>
@@ -226,13 +226,11 @@
 <p>矩阵也可以通过<strong>转置</strong>进行行列互换。</p>
 <h2 id="向量和矩阵的运算">向量和矩阵的运算</h2>
 <p>向量的<strong>加法</strong>和<strong>数乘</strong>，统称为<strong>向量的线性运算</strong>。</p>
-<p><strong>加法</strong>： <span class="math display">\[
-a=(a_1,a_2,...,a_n),~b=(b_1,b_2,...,b_n) \\
-a+b=(a_1+b_1,a_2+b_2,...,a_n+b_n)
-\]</span> <strong>数乘</strong>： <span class="math display">\[
-a=(a_1,a_2,...,a_n),~k\in\mathbb{K}\\
-k*a=(ka_1,ka_2,...,ka_n)
-\]</span> <strong>运算规律</strong>：</p>
+<p><strong>加法</strong>：设<span class="math display">\[a=(a_1,a_2,...,a_n),~b=(b_1,b_2,...,b_n) \]</span>，则有： $$</p>
+<p>a+b=(a_1+b_1,a_2+b_2,...,a_n+b_n) <span class="math display">\[
+**数乘**：设\]</span>a=(a_1,a_2,...,a_n),~k\<span class="math display">\[，则有：
+\]</span></p>
+<p>k*a=(ka_1,ka_2,...,ka_n) $$ <strong>运算规律</strong>：</p>
 <ul>
 <li><span class="math inline">\(a+b=b+a\)</span></li>
 <li><p><span class="math inline">\((a+b)+c=a+(b+c)\)</span></p></li>
@@ -244,10 +242,8 @@ k*a=(ka_1,ka_2,...,ka_n)
 <li><p><span class="math inline">\(\lambda(a+b)=\lambda a+\lambda b\)</span></p></li>
 </ul>
 <p>矩阵同样有加法与数乘。</p>
-<p><strong>矩阵加法</strong>： <span class="math display">\[
-A=(a_{ij})_{m*n},~B=(b_{ij})_{m*n}\\
-C=(c_{ij})_{m*n} =(a_{ij}+b_{ij})_{m*n}=A+B
-\]</span> <span class="math inline">\(A\)</span>的<strong>负矩阵</strong>：<span class="math inline">\(-A=(-a_{ij})_{m*n}\)</span></p>
+<p><strong>矩阵加法</strong>：设<span class="math inline">\(A=(a_{ij})_{m*n},~B=(b_{ij})_{m*n}，~C=(c_{ij})_{m*n} =(a_{ij}+b_{ij})_{m*n}\\\)</span>，则称<span class="math inline">\(C=A+B\)</span></p>
+<p><span class="math inline">\(A\)</span>的<strong>负矩阵</strong>：<span class="math inline">\(-A=(-a_{ij})_{m*n}\)</span></p>
 <p><span class="math inline">\(A\)</span>与<span class="math inline">\(B\)</span>的<strong>差</strong>：<span class="math inline">\(A-B=A+(-B)=(a_{ij}-b_{ij})_{m*n}\)</span></p>
 <p><strong>矩阵加法的运算规律</strong>：</p>
 <ul>
@@ -256,11 +252,8 @@ C=(c_{ij})_{m*n} =(a_{ij}+b_{ij})_{m*n}=A+B
 <li><p><span class="math inline">\(A+O=A\)</span></p></li>
 <li><p><span class="math inline">\(A+(-A)=O\)</span></p></li>
 </ul>
-<p><strong>矩阵与矩阵的乘法</strong>： <span class="math display">\[
-设A=(a_{ij})_{m*r},~B=(b_{ij})_{r*n},~有C=(c_{ij})_{m*n}\\
-其中c_{ij}=a_{i1}b_{1j}+a_{a2}b_{2j}+...+a_{ir}b_{rj}=\sum^r_{k=1}a_{ik}b_{kj}\\
-则称C=AB
-\]</span> <strong>矩阵乘法的运算规律</strong>：</p>
+<p><strong>矩阵与矩阵的乘法</strong>：设<span class="math inline">\(A=(a_{ij})_{m*r},~B=(b_{ij})_{r*n}\)</span>,有<span class="math inline">\(C=(c_{ij})_{m*n}\\\)</span>，其中<span class="math inline">\(c_{ij}=a_{i1}b_{1j}+a_{a2}b_{2j}+...+a_{ir}b_{rj}=\sum^r_{k=1}a_{ik}b_{kj}\)</span>，则称<span class="math inline">\(C=AB\)</span></p>
+<p><strong>矩阵乘法的运算规律</strong>：</p>
 <ul>
 <li><span class="math inline">\((AB)C=A(BC)\)</span></li>
 <li><span class="math inline">\(A(B+C)=AB+AC\)</span></li>
@@ -268,11 +261,8 @@ C=(c_{ij})_{m*n} =(a_{ij}+b_{ij})_{m*n}=A+B
 <li><span class="math inline">\(AI=IA=A\)</span></li>
 </ul>
 <p>矩阵乘法一般不满足交换律。</p>
-<p><strong>矩阵与向量的乘法</strong>： <span class="math display">\[
-设A=(a_{ij})_{m*n},~x=(x_1,x_2,...,x_n)^T,令b=(b_1,b_2,...,b_m)\\
-b_i=a_{i1}x_1+a_{i1}x_2+...+a_{in}x_n=\sum^n_{k=1}a_{ik}x_k,i=1,2,...m\\
-称b=Ax
-\]</span> <strong>矩阵的数乘</strong>：设<span class="math inline">\(A=(a_{ij})_{m*n},~\lambda\in \mathbb{K}\)</span>，则定义<span class="math inline">\(\lambda A = (\lambda a_{ij})_{m*n}\)</span>为数乘</p>
+<p><strong>矩阵与向量的乘法</strong>：设<span class="math inline">\(A=(a_{ij})_{m*n},~x=(x_1,x_2,...,x_n)^T\)</span>，令<span class="math inline">\(b=(b_1,b_2,...,b_m)\)</span>，其中<span class="math inline">\(b_i=a_{i1}x_1+a_{i1}x_2+...+a_{in}x_n=\sum^n_{k=1}a_{ik}x_k,i=1,2,...m\)</span>，则称<span class="math inline">\(b=Ax\)</span></p>
+<p><strong>矩阵的数乘</strong>：设<span class="math inline">\(A=(a_{ij})_{m*n},~\lambda\in \mathbb{K}\)</span>，则定义<span class="math inline">\(\lambda A = (\lambda a_{ij})_{m*n}\)</span>为数乘</p>
 <p>可以用矩阵表示方程组，如方程组： <span class="math display">\[
 \begin{cases}
 a_{11}x_1+...+a_{1n}x_n=b_1\\
