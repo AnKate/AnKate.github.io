@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="向量与矩阵的基本概念 数域：设\(\mathbb{K}\)是由一些数组成的集合，如果\(\mathbb{K}\)中包含0与1，并且\(\mathbb{K}\)中任意两个数的和、差、积、商仍在\(\mathbb{K}\)中，则称\(\mathbb{K}\)是一个数域。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="向量和矩阵基础">
+<meta property="og:url" content="https://ankate.github.io/2021/03/10/%E5%90%91%E9%87%8F%E5%92%8C%E7%9F%A9%E9%98%B5%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="向量与矩阵的基本概念 数域：设\(\mathbb{K}\)是由一些数组成的集合，如果\(\mathbb{K}\)中包含0与1，并且\(\mathbb{K}\)中任意两个数的和、差、积、商仍在\(\mathbb{K}\)中，则称\(\mathbb{K}\)是一个数域。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-10T14:59:37.000Z">
+<meta property="article:modified_time" content="2021-03-10T15:00:01.178Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="数据科学数学基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/03/10/%E5%90%91%E9%87%8F%E5%92%8C%E7%9F%A9%E9%98%B5%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>向量和矩阵基础 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">12</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/03/10/%E5%90%91%E9%87%8F%E5%92%8C%E7%9F%A9%E9%98%B5%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          向量和矩阵基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-10 22:59:37 / Modified: 23:00:01" itemprop="dateCreated datePublished" datetime="2021-03-10T22:59:37+08:00">2021-03-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="向量与矩阵的基本概念">向量与矩阵的基本概念</h2>
+<p><strong>数域</strong>：设<span class="math inline">\(\mathbb{K}\)</span>是由一些数组成的集合，如果<span class="math inline">\(\mathbb{K}\)</span>中包含0与1，并且<span class="math inline">\(\mathbb{K}\)</span>中任意两个数的和、差、积、商仍在<span class="math inline">\(\mathbb{K}\)</span>中，则称<span class="math inline">\(\mathbb{K}\)</span>是一个数域。</p>
+<p>有理数集又称有理数域<span class="math inline">\(\mathbb{Q}\)</span>，实数集又称实数域<span class="math inline">\(\mathbb{R}\)</span>，复数集又称复数域<span class="math inline">\(\mathbb{C}\)</span>。</p>
+<p><strong>向量</strong>：由数域<span class="math inline">\(\mathbb{K}\)</span>中的<span class="math inline">\(n\)</span>个数组成的有序数组<span class="math inline">\((a_1,a_2,…,a_n)\)</span>称为<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>维向量，记为<span class="math inline">\(a=(a_1,a_2,…,a_n)\)</span>，其中第<span class="math inline">\(i\)</span>个数<span class="math inline">\(a_i\)</span>称为<span class="math inline">\(a\)</span>的第<span class="math inline">\(i\)</span>个分量。</p>
+<p><span class="math inline">\(a_i \in \mathbb{R}\)</span>时，称<span class="math inline">\(a\)</span>为<strong>实向量</strong>。所有<span class="math inline">\(n\)</span>维实向量构成的集合记作<span class="math inline">\(\mathbb{R^n}\)</span>。</p>
+<p><span class="math inline">\(a_i\in \mathbb{C}\)</span>时，称<span class="math inline">\(a\)</span>为<strong>负向量</strong>。所有<span class="math inline">\(n\)</span>维复向量构成的集合记作<span class="math inline">\(\mathbb{C^n}\)</span>。</p>
+<p>可以通过<strong>转置</strong>进行列向量与行向量的转化。</p>
+<p>向量的分类如下图： <span class="math display">\[
+向量
+\begin{cases}
+物理向量
+\\
+代数向量
+\begin{cases}
+常数向量\\
+函数向量\\
+随机向量
+\end{cases}
+\\
+几何向量
+\end{cases}
+\]</span> <strong>矩阵</strong>：</p>
+<p>由数域<span class="math inline">\(\mathbb{K}\)</span>中的<span class="math inline">\(m*n\)</span>个数<span class="math inline">\(a_{ij}(i=1,2,…,m;j=1,2,…,n)\)</span>排成<span class="math inline">\(m\)</span>行、<span class="math inline">\(n\)</span>列的表 $$ A= ( \begin{matrix} a_{11} &amp; a_{12} &amp; … &amp; a_{1n} \ a_{21} &amp; a_{22} &amp; … &amp; a_{2n} \ … &amp; … &amp; … &amp; …\ a_{m1} &amp; a_{m2} &amp; … &amp; a_{mn}</p>
+<p>\end{matrix} ) $$ 称为<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(m*n\)</span>矩阵，记为<span class="math inline">\(A=(a_{ij})_{m*m}\)</span>或<span class="math inline">\(A_{m*n}\)</span>，表中的每一个数都称为矩阵<span class="math inline">\(A\)</span>的一个元素。</p>
+<p>若<span class="math inline">\(m=n\)</span>，则<span class="math inline">\(n*n\)</span>矩阵<span class="math inline">\(A=(a_{ij})_{m*n}\)</span>也称<span class="math inline">\(n\)</span>阶方阵。</p>
+<p><span class="math inline">\(a_{ij} \in \mathbb{R}\)</span>时，称<span class="math inline">\(a\)</span>为<strong>实矩阵</strong>。所有<span class="math inline">\(n\)</span>维实矩阵构成的集合记作<span class="math inline">\(\mathbb{R^{m*n}}\)</span>。</p>
+<p><span class="math inline">\(a_{ij}\in \mathbb{C}\)</span>时，称<span class="math inline">\(a\)</span>为<strong>负矩阵</strong>。所有<span class="math inline">\(n\)</span>维复矩阵构成的集合记作<span class="math inline">\(\mathbb{C^{m*n}}\)</span>。</p>
+<p><strong>零矩阵</strong>：元素全为零的矩阵，记作<span class="math inline">\(O_{m*n}\)</span>或<span class="math inline">\(O\)</span>.</p>
+<p><strong>单位矩阵</strong>：主对角线上的元素都为1，其余全为0，记作<span class="math inline">\(I_n\)</span>或<span class="math inline">\(I\)</span>.</p>
+<p>矩阵也可以通过<strong>转置</strong>进行行列互换。</p>
+<h2 id="向量和矩阵的运算">向量和矩阵的运算</h2>
+<p>向量的<strong>加法</strong>和<strong>数乘</strong>，统称为<strong>向量的线性运算</strong>。</p>
+<p><strong>加法</strong>： <span class="math display">\[
+a=(a_1,a_2,...,a_n),~b=(b_1,b_2,...,b_n) \\
+a+b=(a_1+b_1,a_2+b_2,...,a_n+b_n)
+\]</span> <strong>数乘</strong>： <span class="math display">\[
+a=(a_1,a_2,...,a_n),~k\in\mathbb{K}\\
+k*a=(ka_1,ka_2,...,ka_n)
+\]</span> <strong>运算规律</strong>：</p>
+<ul>
+<li><span class="math inline">\(a+b=b+a\)</span></li>
+<li><p><span class="math inline">\((a+b)+c=a+(b+c)\)</span></p></li>
+<li><p><span class="math inline">\(a+0=a\)</span></p></li>
+<li><span class="math inline">\(a+(-a)=0\)</span></li>
+<li><span class="math inline">\(1a=a\)</span></li>
+<li><span class="math inline">\(\lambda(\mu a) = (\lambda\mu )a\)</span></li>
+<li><p><span class="math inline">\((\lambda+\mu)a = \lambda a+\mu a\)</span></p></li>
+<li><p><span class="math inline">\(\lambda(a+b)=\lambda a+\lambda b\)</span></p></li>
+</ul>
+<p>矩阵同样有加法与数乘。</p>
+<p><strong>矩阵加法</strong>： <span class="math display">\[
+A=(a_{ij})_{m*n},~B=(b_{ij})_{m*n}\\
+C=(c_{ij})_{m*n} =(a_{ij}+b_{ij})_{m*n}=A+B
+\]</span> <span class="math inline">\(A\)</span>的<strong>负矩阵</strong>：<span class="math inline">\(-A=(-a_{ij})_{m*n}\)</span></p>
+<p><span class="math inline">\(A\)</span>与<span class="math inline">\(B\)</span>的<strong>差</strong>：<span class="math inline">\(A-B=A+(-B)=(a_{ij}-b_{ij})_{m*n}\)</span></p>
+<p><strong>矩阵加法的运算规律</strong>：</p>
+<ul>
+<li><p><span class="math inline">\(A+B=B+A\)</span></p></li>
+<li><p><span class="math inline">\((A+B)+C=A+(B+C)\)</span></p></li>
+<li><p><span class="math inline">\(A+O=A\)</span></p></li>
+<li><p><span class="math inline">\(A+(-A)=O\)</span></p></li>
+</ul>
+<p><strong>矩阵与矩阵的乘法</strong>： <span class="math display">\[
+设A=(a_{ij})_{m*r},~B=(b_{ij})_{r*n},~有C=(c_{ij})_{m*n}\\
+其中c_{ij}=a_{i1}b_{1j}+a_{a2}b_{2j}+...+a_{ir}b_{rj}=\sum^r_{k=1}a_{ik}b_{kj}\\
+则称C=AB
+\]</span> <strong>矩阵乘法的运算规律</strong>：</p>
+<ul>
+<li><span class="math inline">\((AB)C=A(BC)\)</span></li>
+<li><span class="math inline">\(A(B+C)=AB+AC\)</span></li>
+<li><span class="math inline">\((B+C)A=BA+CA\)</span></li>
+<li><span class="math inline">\(AI=IA=A\)</span></li>
+</ul>
+<p>矩阵乘法一般不满足交换律。</p>
+<p><strong>矩阵与向量的乘法</strong>： <span class="math display">\[
+设A=(a_{ij})_{m*n},~x=(x_1,x_2,...,x_n)^T,令b=(b_1,b_2,...,b_m)\\
+b_i=a_{i1}x_1+a_{i1}x_2+...+a_{in}x_n=\sum^n_{k=1}a_{ik}x_k,i=1,2,...m\\
+称b=Ax
+\]</span> <strong>矩阵的数乘</strong>：设<span class="math inline">\(A=(a_{ij})_{m*n},~\lambda\in \mathbb{K}\)</span>，则定义<span class="math inline">\(\lambda A = (\lambda a_{ij})_{m*n}\)</span>为数乘</p>
+<p>可以用矩阵表示方程组，如方程组： <span class="math display">\[
+\begin{cases}
+a_{11}x_1+...+a_{1n}x_n=b_1\\
+a_{21}x_1+...+a_{2n}x_n=b_2\\
+......\\
+a_{m1}x_1+...+a_{mn}x_n=b_m
+\end{cases}
+\]</span> 可以表示为： <span class="math display">\[
+\left(
+\begin{matrix}
+a_{11} &amp; a_{12} &amp; ... &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; ... &amp; a_{2n} \\
+... &amp; ... &amp; ... &amp; ... \\
+a_{m1} &amp; a_{m2} &amp; ... &amp; a_{mn}
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+x_1\\x_2\\...\\x_n
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+b_1\\b_2\\...\\b_n
+\end{matrix}
+\right)
+\]</span> 即： <span class="math display">\[
+Ax=b
+\]</span></p>
+<p><strong>矩阵数乘的运算规律</strong>：</p>
+<ul>
+<li><span class="math inline">\(1A=A\)</span></li>
+<li><span class="math inline">\((\lambda\mu)A=\lambda(\mu A)\)</span></li>
+<li><span class="math inline">\((\lambda+\mu)A=\lambda A+\mu A\)</span></li>
+<li><span class="math inline">\(\lambda(A+B)=\lambda A+\lambda B\)</span></li>
+<li><span class="math inline">\(\lambda(AB)=(\lambda A)B=A(\lambda B)\)</span></li>
+</ul>
+<p><strong>矩阵分块</strong>：设<span class="math inline">\(A=(a_{ik})_{m*r},B=(b_{kj})_{r*n}\)</span>，将<span class="math inline">\(A,B\)</span>分成小矩阵如下： <span class="math display">\[
+A=\left(
+\begin{matrix}
+A_{11} &amp; A_{12} &amp; ...  &amp;A_{1l}\\
+A_{21} &amp; A_{22} &amp; ...  &amp;A_{2l}\\
+... &amp; .... &amp; ... &amp; ...\\
+A_{s1} &amp; A_{s2} &amp; ...  &amp;A_{sl}\\
+\end{matrix}
+\right),
+B=\left(
+\begin{matrix}
+B_{11} &amp; B_{12} &amp; ...  &amp;B_{1t}\\
+B_{21} &amp; B_{22} &amp; ...  &amp;B_{2t}\\
+... &amp; .... &amp; ... &amp; ...\\
+B_{l1} &amp; B_{l2} &amp; ...  &amp;B_{lt}\\
+\end{matrix}
+\right)
+\]</span> 其中每个<span class="math inline">\(A_{ij}是m_i*r_j\)</span>矩阵，<span class="math inline">\(B_{ij}\)</span>是<span class="math inline">\(r_i*n_j\)</span>矩阵。</p>
+<p><strong>分块矩阵乘法</strong>：若<span class="math inline">\(A\)</span>的列的分法与<span class="math inline">\(B\)</span>的行的分法一致，则： <span class="math display">\[
+C=AB=
+\left(
+\begin{matrix}
+C_{11} &amp; C_{12} &amp; ... &amp; C_{1t} \\
+C_{21} &amp; C_{22} &amp; ... &amp; C_{2t} \\
+... &amp; ... &amp; ... &amp; ...\\
+C_{s1} &amp; C_{s2} &amp; ... &amp; C_{st} \\
+\end{matrix}
+\right)
+\]</span> 其中<span class="math inline">\(C_{pq}=\displaystyle\sum^l_{k=1}A_{pk}B_{kq},p=1,2,...,s;q=1,2,...,t\)</span></p>
+<h2 id="初等矩阵与逆矩阵">初等矩阵与逆矩阵</h2>
+<p><strong>初等变换</strong>：</p>
+<ul>
+<li>将<span class="math inline">\(\mathbb{K}\)</span>中的某个非零数乘以矩阵某一行或列</li>
+<li>将矩阵某一行或列的<span class="math inline">\(c\)</span>倍加到另一行或列</li>
+<li>互换两行或两列的位置</li>
+</ul>
+<p><strong>初等矩阵</strong>：由单位矩阵<span class="math inline">\(I\)</span>经过一次初等变换得到的矩阵。</p>
+<p><strong>定理</strong>：对一个<span class="math inline">\(m*n\)</span>的矩阵<span class="math inline">\(A\)</span>作一初等行变换就相当于在<span class="math inline">\(A\)</span>左边乘上相应的<span class="math inline">\(m*m\)</span>的初等矩阵；对<span class="math inline">\(A\)</span>作一初等列变换就相当于在<span class="math inline">\(A\)</span>右边乘上相应的<span class="math inline">\(n*n\)</span>的初等矩阵。</p>
+<p><strong>可逆矩阵</strong>：设<span class="math inline">\(A\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n*n\)</span>矩阵，如果存在<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n*n\)</span>矩阵<span class="math inline">\(B\)</span>使得<span class="math inline">\(AB=BA=I\)</span>，则称<span class="math inline">\(A\)</span>为可逆矩阵，<span class="math inline">\(B\)</span>为<span class="math inline">\(A\)</span>的逆矩阵，记作<span class="math inline">\(A^{-1}\)</span>.</p>
+<p>如果<span class="math inline">\(A\)</span>可逆，称<span class="math inline">\(A\)</span>是可逆的/正规的/非奇异的，否则称奇异的/非可逆的。</p>
+<p><strong>定理</strong>：<span class="math inline">\(n\)</span>阶矩阵<span class="math inline">\(A\)</span>可逆的充要条件是<span class="math inline">\(A=Q_1Q_2...Q_m\)</span>，其中<span class="math inline">\(Q\)</span>为初等矩阵。</p>
+<p><strong>性质</strong>：</p>
+<ul>
+<li><span class="math inline">\(AA^{-1}=I=A^{-1}A\)</span></li>
+<li><span class="math inline">\((AB)^{-1}=B^{-1}A^{-1}\)</span></li>
+<li><span class="math inline">\((A+B)^{-1}\ne A^{-1}+B^{=1}\)</span></li>
+<li><span class="math inline">\((A+B)^T=A^T+B^T\)</span></li>
+<li><span class="math inline">\((AB)^T=B^TA^T\)</span></li>
+<li><span class="math inline">\((A^{-1})^T=(A^T)^{-1}=A^{-T}\)</span></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/08/%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E4%B8%89%E5%A4%A7%E5%85%AC%E5%BC%8F%20&%20%E7%8B%AC%E7%AB%8B%E6%80%A7/" rel="prev" title="条件概率的定义及三大公式&独立性">
+      <i class="fa fa-chevron-left"></i> 条件概率的定义及三大公式&独立性
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#向量与矩阵的基本概念"><span class="nav-number">1.</span> <span class="nav-text">向量与矩阵的基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量和矩阵的运算"><span class="nav-number">2.</span> <span class="nav-text">向量和矩阵的运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初等矩阵与逆矩阵"><span class="nav-number">3.</span> <span class="nav-text">初等矩阵与逆矩阵</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
