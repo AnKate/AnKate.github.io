@@ -20,25 +20,20 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="进程 进程(process)的定义是一个执行中程序的实例，系统中的每个程序都运行在某个进程的上下文中。">
+  <meta name="description" content="二项分布与二点分布 引例：n重独立伯努利试验（即n次试验结果相互独立）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="8.2">
-<meta property="og:url" content="https://ankate.github.io/2020/12/28/8-2/index.html">
+<meta property="og:title" content="常见的离散随机变量">
+<meta property="og:url" content="https://ankate.github.io/2021/03/13/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F(r.v.)/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="进程 进程(process)的定义是一个执行中程序的实例，系统中的每个程序都运行在某个进程的上下文中。">
+<meta property="og:description" content="二项分布与二点分布 引例：n重独立伯努利试验（即n次试验结果相互独立）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://ankate.github.io/2020/12/28/8-2/8-12.png">
-<meta property="og:image" content="https://ankate.github.io/2020/12/28/8-2/parallel.png">
-<meta property="og:image" content="https://ankate.github.io/2020/12/28/8-2/8-13.png">
-<meta property="og:image" content="https://ankate.github.io/2020/12/28/8-2/8-14.png">
-<meta property="article:published_time" content="2020-12-28T10:29:45.000Z">
-<meta property="article:modified_time" content="2020-12-30T00:44:35.083Z">
+<meta property="article:published_time" content="2021-03-13T05:46:26.000Z">
+<meta property="article:modified_time" content="2021-03-13T05:46:28.770Z">
 <meta property="article:author" content="Miheal Zhao">
-<meta property="article:tag" content="CSAPP">
+<meta property="article:tag" content="概率论和数理统计">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ankate.github.io/2020/12/28/8-2/8-12.png">
 
-<link rel="canonical" href="https://ankate.github.io/2020/12/28/8-2/">
+<link rel="canonical" href="https://ankate.github.io/2021/03/13/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F(r.v.)/">
 
 
 <script id="page-configurations">
@@ -51,7 +46,7 @@
   };
 </script>
 
-  <title>8.2 | AnKate</title>
+  <title>常见的离散随机变量 | AnKate</title>
   
 
 
@@ -161,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/12/28/8-2/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/03/13/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F(r.v.)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -174,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          8.2
+          常见的离散随机变量
         </h1>
 
         <div class="post-meta">
@@ -183,16 +178,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-12-28 18:29:45" itemprop="dateCreated datePublished" datetime="2020-12-28T18:29:45+08:00">2020-12-28</time>
+              <time title="Created: 2021-03-13 13:46:26 / Modified: 13:46:28" itemprop="dateCreated datePublished" datetime="2021-03-13T13:46:26+08:00">2021-03-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-30 08:44:35" itemprop="dateModified" datetime="2020-12-30T08:44:35+08:00">2020-12-30</time>
-              </span>
 
           
 
@@ -205,41 +194,110 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="进程">进程</h2>
-<p><strong>进程</strong>(<em>process</em>)的定义是<strong>一个执行中程序的实例</strong>，系统中的每个程序都运行在某个进程的<strong>上下文</strong>中。</p>
-<p><strong>上下文</strong>(<em>context</em>)指的是程序正确运行所需要的状态，包括存放在内存中的程序的代码和数据，它的栈、寄存器、程序计数器、环境变量和打开文件描述符的集合。</p>
-<p>进程提供给了应用程序两种抽象：</p>
+        <h2 id="二项分布与二点分布">二项分布与二点分布</h2>
+<p>引例：<strong>n重独立</strong>伯努利试验（即n次试验结果相互独立）</p>
+<p>记抛一枚硬币的结果为<strong>成功</strong>（事件A发生）或<strong>失败</strong>（事件A不发生），令<span class="math inline">\(P(A)=p\)</span>为成功概率。</p>
+<p><strong>二项分布</strong>：记随机变量<span class="math inline">\(X=\)</span>“<span class="math inline">\(n\)</span>次伯努利试验中成功的次数”。</p>
 <ul>
-<li>独立的逻辑控制流</li>
-<li>独立的地址空间</li>
+<li><p><span class="math inline">\(X\)</span>的取值范围：<span class="math inline">\(0,1,2,...,n\)</span></p></li>
+<li><p><span class="math inline">\(X\)</span>的分布列： <span class="math display">\[
+P(X=k)=C^k_np^k(1-p)^{n-k},k=0,1,...,n
+\]</span></p></li>
+<li><p>记作<span class="math inline">\(X\sim b(n,p)\)</span></p></li>
 </ul>
-<p>它们使得用户在运行程序时感觉到该程序似乎是系统中唯一运行的，用户能够独占CPU和内存，而程序中的代码和数据是内存中唯一存在的。</p>
-<h3 id="逻辑控制流">逻辑控制流</h3>
-<p>debug单步执行程序时，看到的一系列PC值被称作<strong>逻辑控制流</strong>，它们与可执行文件中的指令一一对应。简单来讲，每个进程都是一个逻辑控制流。</p>
-<p>每个进程都是轮流使用处理器的，它们执行自己的逻辑流的一部分，然后被其他进程<strong>抢占</strong>(<em>preempted</em>)。对于每个进程而言，看上去都像是在独占地使用处理器。</p>
-<p><img src="/2020/12/28/8-2/8-12.png" alt="进程运行实况" style="zoom:80%;"></p>
-<h3 id="并发流">并发流</h3>
-<p>当两个逻辑流的运行时间发生重叠，就称它们为<strong>并发流</strong>(<em>concurrent flow</em>)。上图中的A和B、A和C都是并发执行的，但B和C不是并发流。</p>
-<p>多个流并发执行的现象就被称作<strong>并发</strong>(<em>concurrency</em>)。一个进程和其他进程轮流运行的概念被称作<strong>多任务</strong>(<em>multitasking</em>)，一个进程执行它控制流的部分的每一段时间叫做<strong>时间片</strong>(<em>time slice</em>)，多任务也被称作<strong>时间分片</strong>(<em>time slicing</em>)。上图中的A和C都有两个时间片。</p>
-<p>当两个流并发地运行在不同的处理器核或计算机上，它们又被称作<strong>并行流</strong>(<em>parallel flow</em>)，如下图中的A和B、A和C。并行流是并发流的真子集。</p>
-<p><img src="/2020/12/28/8-2/parallel.png" alt="并行流" style="zoom:80%;"></p>
-<h3 id="私有地址空间">私有地址空间</h3>
-<p>在一台n位的机器上，地址空间是一个有<span class="math inline">\(2^n\)</span>种可能性的集合。进程为每个程序提供自己的私有地址空间，通常不能被其他进程读或写。</p>
-<p>每个私有地址空间的结构相同，下图为x86-64的地址空间的组织结构。</p>
-<p><img src="/2020/12/28/8-2/8-13.png" alt="x86-64的地址空间结构" style="zoom:80%;"></p>
-<p>地址空间底部是用户程序使用的，顶部交给内核使用。顶部存放的是系统调用时会用到的代码、数据、堆栈。</p>
-<h3 id="用户模式和内核模式">用户模式和内核模式</h3>
-<p>某个控制寄存器中有一个<strong>模式位</strong>，能够描述当前进程的权限。</p>
-<p>当模式位被设置时，进程就以内核模式运行(<em>kernel mode</em>)，此时进程拥有访问系统资源的全部权限，并且可以执行指令集中的任意命令。</p>
-<p>否则，进程以用户模式运行，部分权限会受到限制。此时只能通过系统调用来访问内核代码和数据，直接访问会报错。</p>
-<p>进程初始时都是以用户模式运行的，切换为内核模式的唯一方法是通过异常。异常发生时，处理器会使用内核模式运行处理程序，当它重新返回到程序代码时，处理器又改回到用户模式。</p>
-<p>Linux提供了/proc文件系统，允许在用户模式下的进程访问内核数据结构中的内容。它会将内核数据结构的内容输出为一个用户程序可以读的文本文件层次结构，可以使用如/proc/cpuinfo的方法查看指定内容。</p>
-<h3 id="上下文切换">上下文切换</h3>
-<p>操作系统使用<strong>上下文切换</strong>形式的异常控制流来同时运行更多任务，这是建立在低级的异常机制上的。</p>
-<p>内核为每个进程维护一个上下文。在进程执行的某些时刻，内核可以抢占当前进程以重新执行一个先前被抢占的进程，这被称作<strong>调度</strong>(<em>scheduling</em>)。此时，内核会保存当前进程的上下文，随后恢复某个先前被抢占的进程被保存的上下文，并将控制转递给这个进程。</p>
-<p>进行系统调用时，可能会发生上下文切换。如果系统因为等待某个事件发生而阻塞，内核就可以让当前进程休眠，切换到另一个进程。通常情况下，即使系统调用没有阻塞，内核也可以执行上下文切换。终端也可能引发上下文切换。</p>
-<p><img src="/2020/12/28/8-2/8-14.png" alt="上下文切换" style="zoom:80%;"></p>
-<p>如上图所示，进程A进行了read的系统调用，此时内核不会只等待读取的完成而什么都不做，而是切换到进程B继续执行。磁盘发出中断信号表面数据以及存入内存中，此时内核又会切换回进程A，继续执行read后的指令。</p>
+<p>当规定二项分布中的<span class="math inline">\(n=1\)</span>时，该分布便演化成二点分布（又称0-1分布，或伯努利分布）。</p>
+<p><strong>二点分布</strong>：记随机变量<span class="math inline">\(X=\)</span>“一次伯努利试验中成功的次数”</p>
+<ul>
+<li><p><span class="math inline">\(X\)</span>的取值范围：<span class="math inline">\(0,1\)</span></p></li>
+<li><p><span class="math inline">\(X\)</span>的分布列： <span class="math display">\[
+P(X=k)=p^k(1-p)^{1-k}=
+\begin{cases}
+p,~k=1\\
+1-p,~k=0
+\end{cases}
+\]</span></p></li>
+<li><p>记作<span class="math inline">\(X\sim b(1,p)\)</span>或<span class="math inline">\(X\sim B(p)\)</span></p></li>
+<li><p>常用于<em>logistic回归</em></p></li>
+</ul>
+<p><strong>二项分布</strong>与<strong>二点分布</strong>的关系：</p>
+<ul>
+<li>二点分布是二项分布的特例</li>
+<li>n重伯努利试验可以被看做<span class="math inline">\(n\)</span>次二点分布的结果的和</li>
+</ul>
+<h2 id="几何分布与负二项分布">几何分布与负二项分布</h2>
+<p><strong>几何分布</strong>：记随机变量<span class="math inline">\(X=\)</span>“首次成功时试验的次数”</p>
+<ul>
+<li><p><span class="math inline">\(X\)</span>的取值范围：<span class="math inline">\(1,2,...,n,...\)</span></p></li>
+<li><p><span class="math inline">\(X\)</span>的分布列： <span class="math display">\[
+P(X=k)=(1-p)^{k-1}p,k=1,2,...
+\]</span></p></li>
+<li><p>记作<span class="math inline">\(X\sim Ge(p)\)</span></p></li>
+<li><p>几何分布的<strong>无记忆性</strong>：对于几何分布，有： <span class="math display">\[
+P(X&gt;m+n|X&gt;m)=P(X&gt;n)
+\]</span> <em>简单解释即为，在做了<span class="math inline">\(m\)</span>次实验后，再多做<span class="math inline">\(n\)</span>次试验后成功的概率，与直接做<span class="math inline">\(n\)</span>次试验后成功的概率相同，相当于之前做的<span class="math inline">\(m\)</span>次试验被遗忘了（无记忆）。</em></p>
+<p>证明：</p>
+<p>根据几何分布的分布列，有： <span class="math display">\[
+P(X&gt;n)=\sum^{+\infty}_{k=n+1}(1-p)^{k-1}p
+\]</span> 用等比数列求和公式可化简得： <span class="math display">\[
+\sum^{+\infty}_{k=n+1}(1-p)^{k-1}p =\frac{p(1-p)^n}{1-(1-p)}=(1-p)^n
+\]</span> 根据条件概率定义，有： <span class="math display">\[
+P(X&gt;m+n|X&gt;m)=\frac{P((X&gt;m+n)\bigcap(X&gt;m))}{P(X&gt;m)}
+\]</span> 因为有$X&gt;m+n X &gt; m <span class="math inline">\(，所以\)</span>(X&gt;m+n) (X&gt;m) = X &gt; m + n$，于是有： <span class="math display">\[
+P(X&gt;m+n|X&gt;m) =\frac {P(X&gt;m+n)}{P(X&gt;m)}
+\]</span> 将分子分母同时展开得： <span class="math display">\[
+P(X&gt;m+n|X&gt;m)=\frac{(1-p)^{m+n}}{(1-p)^m}=(1-p)^n=P(X&gt;n)
+\]</span></p></li>
+</ul>
+<p><strong>负二项分布</strong>：记随机变量<span class="math inline">\(X=\)</span>“直到<span class="math inline">\(r\)</span>次成功时，伯努利试验的次数”</p>
+<ul>
+<li><p><span class="math inline">\(X\)</span>的取值范围：<span class="math inline">\(r,r+1,...\)</span></p></li>
+<li><p><span class="math inline">\(X\)</span>的分布列： <span class="math display">\[
+P(X=k)=C^{r-1}_{k-1}(1-p)^{k-r}p^r,k=r,r+1,...
+\]</span></p></li>
+<li><p>记作<span class="math inline">\(X\sim Nb(r,p)\)</span></p></li>
+</ul>
+<p><strong>几何分布</strong>与<strong>负二项分布</strong>的关系：</p>
+<ul>
+<li><p>几何分布是负二项分布的特例，即<span class="math inline">\(r=1\)</span>时，负二项分布演化为几何分布</p></li>
+<li><p>负二项分布可以被看做<span class="math inline">\(r\)</span>个独立同分布的几何分布之和</p></li>
+</ul>
+<h2 id="泊松分布">泊松分布</h2>
+<p><strong>泊松分布</strong>：通常是计算单位时间(或单位面积)内随机事件的平均发生次数</p>
+<ul>
+<li><p><span class="math inline">\(X\)</span>的分布列： <span class="math display">\[
+P(X=k)=\frac{\lambda^k}{k!}e^{-\lambda}
+\]</span> 其中<span class="math inline">\(k=0,1,2,...,\lambda\)</span>为大于<span class="math inline">\(0\)</span>的参数。</p>
+<p>该分布列的非负性易证，在此证明其正则性：</p>
+<p>令<span class="math inline">\(f(x)=e^{\lambda x}\)</span>，</p>
+<p>在<span class="math inline">\(x=x_0\)</span>处泰勒展开，得： <span class="math display">\[
+f(x) = f(x_0)+\sum^{+\infty}_{k=1}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+\]</span> 又： <span class="math display">\[
+f^{(k)}(x)=\lambda^ke^{\lambda x}
+\]</span> 代入得： <span class="math display">\[
+f(x)=f(x_0)+\sum^{+\infty}_{k=1}\frac{\lambda^ke^{\lambda x_0}}{k!}(x-x_0)^k
+\]</span> 令<span class="math inline">\(x=1,x_0=0\)</span>，则有： <span class="math display">\[
+e^\lambda=\sum^{+\infty}_{k=0}\frac{\lambda^k}{k!}
+\]</span> 所以有： <span class="math display">\[
+\sum ^{+\infty}_{k=0}P(X=k)=\sum ^{+\infty}_{k=0}\frac{\lambda^k}{k!}e^{-\lambda}=1
+\]</span></p></li>
+</ul>
+<p><strong>泊松分布</strong>与<strong>二项分布</strong>的关系：在样本量极大时，二项分布可以使用泊松分布的分布列求得。</p>
+<p>对于<span class="math inline">\(n\)</span>重独立伯努利试验，设结果为成功的概率为<span class="math inline">\(p_n\)</span>，则当<span class="math inline">\(n→\infty\)</span>且<span class="math inline">\(n*p_n→\lambda\)</span>时，有： <span class="math display">\[
+\lim_{n→\infty}C^k_n(p_n)^k(1-p_n)^{n-k}=\frac{\lambda^k}{k!}e^{-\lambda}
+\]</span> 证明：令<span class="math inline">\(\lambda_n=n*p_n\)</span>，即<span class="math inline">\(p_n=\displaystyle\frac{\lambda_n}{n}\)</span></p>
+<p>代入展开左式得： <span class="math display">\[
+C^k_n(p_n)^k(1-p_n)^{n-k}=\frac{n(n-1)...(n-k+1)}{k!}(\frac{\lambda_n}{n})^k(1-\frac{\lambda_n}{n})^{n-k}
+\]</span> 进一步化简得： <span class="math display">\[
+C^k_n(p_n)^k(1-p_n)^{n-k}=\frac{(\lambda_n)^k}{k!}(1-\frac1n)...(1-\frac{k-1}n)(1-\frac{\lambda_n}{n})^{n-k}
+\]</span> 由于<span class="math inline">\(k\)</span>为常数，于是有： <span class="math display">\[
+\lim_{n→\infty}(1-\frac1n)...(1-\frac{k-1}n)=1
+\]</span> 于是原式可化为： <span class="math display">\[
+C^k_n(p_n)^k(1-p_n)^{n-k}=\frac{(\lambda_n)^k}{k!}((1-\frac{1}{\frac{n}{\lambda_n}})^\frac{n}{\lambda_n})^{\lambda_n}
+\]</span> 又因为有<span class="math inline">\(\displaystyle\lim_{n→\infty}(1+\frac1n)^n=e\)</span>，于是有： <span class="math display">\[
+\lim_{n→\infty}((1-\frac{1}{\frac{n}{\lambda_n}})^\frac{n}{\lambda_n})^{\lambda_n}=e^{-\lambda}
+\]</span> 于是有： <span class="math display">\[
+\lim_{n→\infty}C^k_n(p_n)^k(1-p_n)^{n-k}=\frac{(\lambda)^k}{k!}e^{-\lambda}
+\]</span></p>
 
     </div>
 
@@ -250,7 +308,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/CSAPP/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i></a>
           </div>
 
         
@@ -259,13 +317,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/12/28/8-1/" rel="prev" title="8.1">
-      <i class="fa fa-chevron-left"></i> 8.1
+    <a href="/2021/03/13/%E4%B8%80%E5%85%83%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89%20&%20%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%20&%20%E5%88%86%E5%B8%83%E5%88%97%20&%20%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0/" rel="prev" title="随机变量 & 分布函数 & 分布列 & 密度函数">
+      <i class="fa fa-chevron-left"></i> 随机变量 & 分布函数 & 分布列 & 密度函数
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/30/9-9/" rel="next" title="动态内存分配相关概念">
-      动态内存分配相关概念 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -324,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑控制流"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑控制流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发流"><span class="nav-number">1.2.</span> <span class="nav-text">并发流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#私有地址空间"><span class="nav-number">1.3.</span> <span class="nav-text">私有地址空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户模式和内核模式"><span class="nav-number">1.4.</span> <span class="nav-text">用户模式和内核模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文切换"><span class="nav-number">1.5.</span> <span class="nav-text">上下文切换</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二项分布与二点分布"><span class="nav-number">1.</span> <span class="nav-text">二项分布与二点分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几何分布与负二项分布"><span class="nav-number">2.</span> <span class="nav-text">几何分布与负二项分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泊松分布"><span class="nav-number">3.</span> <span class="nav-text">泊松分布</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
