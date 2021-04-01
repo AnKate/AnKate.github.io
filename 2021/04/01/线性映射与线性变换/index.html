@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="线性映射 集合之间的映射（函数）：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性映射与线性变换">
+<meta property="og:url" content="https://ankate.github.io/2021/04/01/%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="线性映射 集合之间的映射（函数）：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-01T07:19:57.000Z">
+<meta property="article:modified_time" content="2021-04-01T07:19:59.648Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="数据科学数学基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/04/01/%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>线性映射与线性变换 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">19</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/01/%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线性映射与线性变换
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-01 15:19:57 / Modified: 15:19:59" itemprop="dateCreated datePublished" datetime="2021-04-01T15:19:57+08:00">2021-04-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="线性映射"><strong>线性映射</strong></h2>
+<p><strong>集合之间的映射（函数）</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V,W}\)</span>是两个非空集合，如果存在一个法则<span class="math inline">\(f\)</span>，使得对<span class="math inline">\(\mathbb{V}\)</span>中每个元素<span class="math inline">\(v\)</span>，按法则<span class="math inline">\(f\)</span>，在<span class="math inline">\(\mathbb{W}\)</span>中有唯一确定的元素<span class="math inline">\(w\)</span>与之对应，则称<span class="math inline">\(f\)</span>为从<span class="math inline">\(\mathbb{V}\)</span>到<span class="math inline">\(\mathbb{W}\)</span>的映射，记作 <span class="math display">\[
+f:\mathbb{V}\rightarrow\mathbb{W},
+\]</span> 其中<span class="math inline">\(w\)</span>称为元素<span class="math inline">\(v\)</span>在映射<span class="math inline">\(f\)</span>下的<strong>像</strong>，记作<span class="math inline">\(f(v)\)</span>，即 <span class="math display">\[
+w=f(v),
+\]</span> 而元素<span class="math inline">\(v\)</span>称为元素<span class="math inline">\(w\)</span>在映射<span class="math inline">\(f\)</span>下的一个<strong>原像</strong>；集合<span class="math inline">\(\mathbb{V}\)</span>称为映射<span class="math inline">\(f\)</span>的<strong>定义域</strong>，记作<span class="math inline">\(D_f\)</span>，即<span class="math inline">\(D_f=\mathbb{V}\)</span>;<span class="math inline">\(\mathbb{V}\)</span>中的所有元素的像所组成的集合称为映射<span class="math inline">\(f\)</span>的值域，记作<span class="math inline">\(R_f\)</span>或<span class="math inline">\(f(\mathbb{V})\)</span>，即 <span class="math display">\[
+R_f=f(\mathbb{V})=\{f(v)|v \in \mathbb{V}\}.
+\]</span></p>
+<p><strong>集合之间的特殊映射</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V,W}\)</span>是任意两个集合，<span class="math inline">\(\varphi:\mathbb{V}\rightarrow\mathbb{W}\)</span>是一个映射，则有三种特殊映射：</p>
+<ul>
+<li><strong>单射</strong>：对任意<span class="math inline">\(v_1,v_2 \in \mathbb{V}\)</span>，当且仅当<span class="math inline">\(v_1=v_2\)</span>时，有<span class="math inline">\(f(v_1)=f(v_2)\)</span></li>
+<li><p><strong>满射</strong>：对任意<span class="math inline">\(w\in\mathbb{W}\)</span>，存在<span class="math inline">\(v\in\mathbb{V}\)</span>满足<span class="math inline">\(f(v)=w\)</span></p></li>
+<li><p><strong>双射</strong>：同时满足单射与双射</p></li>
+</ul>
+<p>简言之，<strong>单射</strong>是指每个原像都对应一个不同的像，此时值域中可能有取不到的值；<strong>双射</strong>指每个像都有至少一个原像与之对应，可能有多个原像同时映射到同一个像。</p>
+<p><strong>线性映射</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V,W}\)</span>是属于<span class="math inline">\(\mathbb{K}\)</span>上的两个有限维的向量空间，<span class="math inline">\(\varphi\)</span>是<span class="math inline">\(\mathbb{V}\)</span>到<span class="math inline">\(\mathbb{W}\)</span>的一个映射（<span class="math inline">\(\varphi:\mathbb{V} \rightarrow \mathbb{W}\)</span>）。如果对任何向量<span class="math inline">\(x,y\in\mathbb{V}\)</span>及任意的<span class="math inline">\(\alpha,\beta\in\mathbb{K}\)</span>，有 <span class="math display">\[
+\varphi(\alpha x+\beta y)=\alpha \varphi(x)+\beta \varphi(y),
+\]</span> 则称<span class="math inline">\(\varphi\)</span>为<span class="math inline">\(\mathbb{V}\)</span>到<span class="math inline">\(\mathbb{W}\)</span>的<strong>线性映射</strong>。</p>
+<p><strong>向量空间之间的特殊映射</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V,W}\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的两个有限维的向量空间：</p>
+<ul>
+<li><span class="math inline">\(\varphi:\mathbb{V}\rightarrow\mathbb{W}\)</span>是线性映射，则<span class="math inline">\(\mathbb{V,W}\)</span><strong>同态</strong>，<span class="math inline">\(\varphi\)</span>称为同态映射；</li>
+<li><span class="math inline">\(\varphi:\mathbb{V} \rightarrow \mathbb{W}\)</span>是线性映射且双射，则<span class="math inline">\(\mathbb{V,W}\)</span><strong>同构</strong>，<span class="math inline">\(\varphi\)</span>称为同构映射；</li>
+<li><span class="math inline">\(\varphi:\mathbb{V}\rightarrow \mathbb{V}\)</span>是线性映射，则<span class="math inline">\(\mathbb{V}\)</span><strong>自同态</strong>，<span class="math inline">\(\varphi\)</span>称为自同态映射；</li>
+<li><span class="math inline">\(\varphi:\mathbb{V} \rightarrow \mathbb{V}\)</span>是线性映射且双射，则<span class="math inline">\(\mathbb{V}\)</span><strong>自同构</strong>，<span class="math inline">\(\varphi\)</span>称为自同构映射。</li>
+</ul>
+<p><strong>定理</strong>：设<span class="math inline">\(\mathbb{X_1,X_2}\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的两个有限维向量空间，<span class="math inline">\(\mathbb{X_1,X_2}\)</span>同构，当且仅当<span class="math inline">\(\dim(\mathbb{X_1})=\dim(\mathbb{X_2})\)</span></p>
+<p>两个相同维数的向量空间之间存在一个满足双射的线性映射，说明维数是有限维向量空间的唯一本质特征。</p>
+<p><strong>逆映射（逆函数）</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V,W}\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的两个有限维的向量空间，如果<span class="math inline">\(\varphi:\mathbb{V}\rightarrow \mathbb{W}\)</span>是一个双射，则可以定义其<strong>逆映射</strong>，记作<span class="math inline">\(\varphi^{-1}:\mathbb{W} \rightarrow \mathbb{V}\)</span>，对于<span class="math inline">\(\forall x\in \mathbb{V}\)</span>和<span class="math inline">\(\forall y \in \mathbb{W}\)</span>使得 <span class="math display">\[
+\varphi^{-1}(\varphi(x))=\varepsilon(x)=x,~\varphi(\varphi^{-1}(y))=\varepsilon(y)=y
+\]</span></p>
+<p><strong>定理（复合函数）</strong>：</p>
+<p>考虑向量空间<span class="math inline">\(\mathbb{V,W,X}\)</span>，则有</p>
+<ul>
+<li>对于线性映射<span class="math inline">\(\varphi:\mathbb{V}\rightarrow \mathbb{W}\)</span>和<span class="math inline">\(\phi:\mathbb{W}\rightarrow \mathbb{X}\)</span>，则<span class="math inline">\(\phi(\varphi)\)</span>也是线性映射</li>
+<li>如果<span class="math inline">\(\varphi:\mathbb{V}\rightarrow \mathbb{W}\)</span>是同构映射，则<span class="math inline">\(\varphi^{-1}:\mathbb{W} \rightarrow \mathbb{V}\)</span>也是一个同构映射</li>
+<li>如果<span class="math inline">\(\varphi:\mathbb{V} \rightarrow \mathbb{W}\)</span>和<span class="math inline">\(\phi:\mathbb{W}\rightarrow \mathbb{X}\)</span>是线性映射，且<span class="math inline">\(\lambda\in\mathbb{R}\)</span>，则<span class="math inline">\(\varphi + \phi\)</span>和<span class="math inline">\(\lambda \varphi\)</span>也是线性映射</li>
+</ul>
+<h2 id="线性映射的矩阵表示">线性映射的矩阵表示</h2>
+<p><strong>有序基</strong>：若一个<span class="math inline">\(n\)</span>维向量空间<span class="math inline">\(\mathbb{V}\)</span>的基底<span class="math inline">\(\{b_1,...,b_n\}\)</span>是有序的，我们称<span class="math inline">\(n\)</span>元数组<span class="math inline">\(B=(b_1,...,b_n)\)</span>为向量空间<span class="math inline">\(\mathbb{V}\)</span>的一组<strong>有序基</strong>。</p>
+<p><strong>变换矩阵</strong>：</p>
+<p>考虑向量空间<span class="math inline">\(\mathbb{V,W}\)</span>的有序基<span class="math inline">\(B=(b_1,...,b_n)\)</span>和<span class="math inline">\(C=(c_1,...,c_m)\)</span>.然后考虑一个线性映射<span class="math inline">\(\Phi:\mathbb{V} \rightarrow \mathbb{W}\)</span>，对于<span class="math inline">\(j\in\{1,...,n\}\)</span> <span class="math display">\[
+\Phi(b_j)=a_{1j}c_1+...+a_{mj}c_m=\sum^m_{i=1}a_{ij}c_i
+\]</span> <span class="math inline">\(\Phi(b_j)\)</span>是关于<span class="math inline">\(C\)</span>的唯一表示，那么我们称这个<span class="math inline">\(m*n\)</span>的矩阵为<span class="math inline">\(A_\Phi\)</span>，它的元素为： <span class="math display">\[
+A_\Phi(i,j)=a_{ij}
+\]</span> 该矩阵是<span class="math inline">\(\Phi\)</span>的<strong>变换矩阵</strong>，<span class="math inline">\(\Phi(b_j)\)</span>在<span class="math inline">\(\mathbb{W}\)</span>的有序基<span class="math inline">\(C\)</span>下的坐标是<span class="math inline">\(A_\Phi\)</span>的第<span class="math inline">\(j\)</span>列。</p>
+<p>记<span class="math inline">\(\Phi(B)=(\Phi(b_1),\Phi(b_2),...,\Phi(b_n))\)</span>，则 <span class="math display">\[
+\Phi(B)=CA_\Phi
+\]</span> 设<span class="math inline">\(x\in\mathbb{V}\)</span>关于<span class="math inline">\(B\)</span>的坐标是<span class="math inline">\(\hat x\)</span>，<span class="math inline">\(y=\Phi(x)\in \mathbb{W}\)</span>关于<span class="math inline">\(C\)</span>的坐标是<span class="math inline">\(\hat y\)</span>，于是有坐标映射关系： <span class="math display">\[
+\hat y = A_\Phi \hat x
+\]</span></p>
+<p><strong>基变换</strong>：</p>
+<p>对于一个线性映射<span class="math inline">\(\Phi:\mathbb{V} \rightarrow \mathbb{W}, \mathbb{V}\)</span>的两个有序基底： <span class="math display">\[
+B=(b_1,...,b_n),\tilde B=(\tilde{b_1},...,\tilde{b_2})
+\]</span> 和<span class="math inline">\(\mathbb{W}\)</span>的两个有序基底： <span class="math display">\[
+C=(c_1,...,c_n),\tilde C=(\tilde{c_1},...,\tilde{c_n})
+\]</span> 以及在基<span class="math inline">\(B,C\)</span>下关于<span class="math inline">\(\Phi\)</span>的变换矩阵<span class="math inline">\(A_\Phi\)</span>，在基<span class="math inline">\(\tilde B, \tilde C\)</span>下关于<span class="math inline">\(\Phi\)</span>的变换矩阵<span class="math inline">\(\tilde {A_\Phi}\)</span>可以表示为 <span class="math display">\[
+\tilde {A_\phi}=T^{-1}A_\Phi S,
+\]</span> 其中<span class="math inline">\(S\in\mathbb{R}^{n*n}\)</span>是<span class="math inline">\(\mathbb{V}\)</span>中自同态映射的坐标变换矩阵（<span class="math inline">\(B\rightarrow \tilde B\)</span>），<span class="math inline">\(T\in \mathbb{R^{m*m}}\)</span>是<span class="math inline">\(\mathbb{W}\)</span>中自同态映射的坐标变换矩阵（<span class="math inline">\(C \rightarrow \tilde C\)</span>）</p>
+<p><strong>等价</strong>：如果对于两个矩阵<span class="math inline">\(A,B\in\mathbb{R}^{m*n}\)</span>，存在可逆矩阵<span class="math inline">\(S\in\mathbb{R}^{n*n},T\in\mathbb{R}^{m*m}\)</span>使得<span class="math inline">\(A=T^{-1}BS\)</span>成立，则称<span class="math inline">\(A,B\)</span><strong>等价</strong>。</p>
+<p>根据基变换的定义可知，在一组基<span class="math inline">\(B,C\)</span>下的变换矩阵<span class="math inline">\(A_\Phi\)</span>与在基<span class="math inline">\(\tilde B,\tilde C\)</span>下的变换矩阵<span class="math inline">\(\tilde{A_\Phi}\)</span>等价。</p>
+<p><strong>相似</strong>：如果对于两个矩阵<span class="math inline">\(A,B\in \mathbb{R^{n*n}}\)</span>，存在可逆矩阵<span class="math inline">\(S\in\mathbb{R^{n*n}}\)</span>使得，<span class="math inline">\(A=S^{-1}BS\)</span>成立，则称<span class="math inline">\(A,B\)</span><strong>相似</strong>。</p>
+<p><strong>相似矩阵必定等价，等价矩阵不一定相似。</strong></p>
+<p><strong>复合线性映射的变换矩阵</strong>：</p>
+<p>对向量空间<span class="math inline">\(\mathbb{V,W,X}\)</span>，线性映射的复合仍是线性映射： <span class="math display">\[
+\Phi:\mathbb{V} \rightarrow \mathbb{W}
+\]</span></p>
+<p><span class="math display">\[
+\Psi:\mathbb{W} \rightarrow \mathbb{X}
+\]</span></p>
+<p><span class="math display">\[
+\Psi \circ \Phi:\mathbb{V} \rightarrow \mathbb{X}
+\]</span></p>
+<p>记<span class="math inline">\(A_\Phi,A_\Psi\)</span>是对应的变换矩阵，即 <span class="math display">\[
+A_{\Psi \circ \Phi}=A_\Psi A_\Phi
+\]</span></p>
+<p>对于<span class="math inline">\(\Phi:\mathbb{V} \rightarrow \mathbb{W}\)</span>，定义<strong>核空间（零空间）</strong>： <span class="math display">\[
+ker(\Phi):=\Phi^{-1}(0_W)=\{v\in\mathbb{V}:\Phi(v)=0_W\}
+\]</span> 即线性方程组<span class="math inline">\(Ax=0\)</span>的所有解<span class="math inline">\(x\)</span>的集合。</p>
+<p><strong>像空间（值域）</strong>： <span class="math display">\[
+Im(\Phi):=\Phi(\mathbb{V})=\{w\in \mathbb{W}|\exists v\in\mathbb{V}:\Phi(v)=w\}
+\]</span> 即线性空间<span class="math inline">\(\mathbb{V}\)</span>中的所有值经映射后的值域。</p>
+<p>考虑线性映射<span class="math inline">\(\Phi:\mathbb{V} \rightarrow \mathbb{W}\)</span>，有以下结论：</p>
+<ul>
+<li>始终存在<span class="math inline">\(\Phi(0_\mathbb{V})=0_\mathbb{W}\)</span>，<span class="math inline">\(0_\mathbb{V} \in ker(\Phi)\)</span>，即<strong>零空间始终非空</strong></li>
+<li><span class="math inline">\(Im(\Phi)\)</span>是<span class="math inline">\(\mathbb{W}\)</span>的子空间，<span class="math inline">\(ker(\Phi)\)</span>是<span class="math inline">\(\mathbb{V}\)</span>的子空间</li>
+<li>当且仅当<span class="math inline">\(ker(\Phi)=0\)</span>时，<span class="math inline">\(\Phi\)</span>是<strong>单射</strong>：存在且仅存在<span class="math inline">\(0_\mathbb{V}\in ker(\Phi)\)</span></li>
+<li><span class="math inline">\(rank(A)=\dim(Im(\Phi))\)</span>：矩阵的秩是相应线性映射的像空间维度</li>
+</ul>
+<p><strong>列空间</strong>：<span class="math inline">\(A\)</span>的列向量张成的空间</p>
+<p><span class="math inline">\(\Phi\)</span>的像空间是可以由<span class="math inline">\(A\)</span>的列向量张成的</p>
+<h2 id="线性变换">线性变换</h2>
+<p><strong>线性变换</strong>：设<span class="math inline">\(\mathbb{V}\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的向量空间，如果对任何向量<span class="math inline">\(x,y\in\mathbb{V}\)</span>及任意的<span class="math inline">\(\alpha,\beta \in \mathbb{K}\)</span>，有 <span class="math display">\[
+\mathcal{A}(\alpha x+\beta y)=\alpha\mathcal{A}(x)+\beta\mathcal{A}(y)
+\]</span> 则称<span class="math inline">\(\mathcal{A}\)</span>为<span class="math inline">\(\mathbb{V}\)</span>上的线性变换，<span class="math inline">\(\mathcal{A}(x)\)</span>和<span class="math inline">\(\mathcal{A}(y)\)</span>代表元素<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>在变换<span class="math inline">\(\mathcal{A}\)</span>下的像。</p>
+<p><strong>线性变换与矩阵之间的关系</strong>：</p>
+<p>对于向量空间<span class="math inline">\(\mathbb{V}\)</span>，有一组基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>，任一向量<span class="math inline">\(a\)</span>都可以被这组基线性表出： <span class="math display">\[
+a=a_1\varepsilon_1+a_2\varepsilon_2+...+a_n\varepsilon_n
+\]</span> 其中的系数<span class="math inline">\(a_1,a_2,...,a_n\)</span>即为<span class="math inline">\(a\)</span>在这组基下的坐标，由于线性变换保持线性关系不变，于是像<span class="math inline">\(\mathcal{A}a\)</span>满足： <span class="math display">\[
+\mathcal{A}a=\mathcal{A}(a_1\varepsilon_1+a_2\varepsilon_2+...+a_n\varepsilon_n)=a_1\mathcal{A}(\varepsilon_1)+a_2\mathcal{A}(\varepsilon_2)+...+a_n\mathcal{A}(\varepsilon_n)
+\]</span></p>
+<p><strong>定理</strong>：</p>
+<ol type="1">
+<li><p>设<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>是向量空间<span class="math inline">\(\mathbb{V}\)</span>的一组基，如果线性变换<span class="math inline">\(\mathcal{A,B}\)</span>在这组基上的作用相同，即 <span class="math display">\[
+\mathcal{A}\varepsilon_i=\mathcal{B}\varepsilon_i
+\]</span> 则有<span class="math inline">\(\mathcal{A=B}\)</span></p>
+<p>该定理指出，<strong>一个线性变换完全被它在一组基上的作用所决定</strong>。</p></li>
+<li><p>设<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>是向量空间<span class="math inline">\(\mathbb{V}\)</span>的一组基，对于任意一组向量<span class="math inline">\(a_1,a_2,...,a_n\)</span>，一定存在一个线性变换<span class="math inline">\(\mathcal{A}\)</span>使得 <span class="math display">\[
+\mathcal{A}\varepsilon_i=a_i
+\]</span> 即，<strong>基向量的像可以是任意的</strong>。</p></li>
+<li><p>设<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>是向量空间<span class="math inline">\(\mathbb{V}\)</span>的一组基，<span class="math inline">\(a_1,a_2,...,a_n\)</span>是<span class="math inline">\(\mathbb{V}\)</span>中任意<span class="math inline">\(n\)</span>个向量，存在唯一的线性变换<span class="math inline">\(\mathcal{A}\)</span>使得 <span class="math display">\[
+\mathcal{A}\varepsilon_i=a_i
+\]</span></p></li>
+</ol>
+<p><strong>线性变换与矩阵之间的关系</strong>：</p>
+<p>设<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上<span class="math inline">\(n\)</span>维向量空间<span class="math inline">\(\mathbb{V}\)</span>的一组基，<span class="math inline">\(\mathcal{A}\)</span>是<span class="math inline">\(\mathbb{V}\)</span>的一个线性变换，基向量的像可以被基线性表出： <span class="math display">\[
+\begin{cases}
+\mathcal{A}\varepsilon_1=a_{11}\varepsilon_1+a_{21}\varepsilon_2+...+a_{n1}\varepsilon_n,\\
+\\......\\\\
+\mathcal{A}\varepsilon_n=a_{1n}\varepsilon_1+a{2n}\varepsilon_2+...+a_{nn}\varepsilon_n.
+\end{cases}
+\]</span> 用矩阵表示为： <span class="math display">\[
+\mathcal{A}(\varepsilon_1,\varepsilon_2,...,\varepsilon_n)=(\mathcal{A}\varepsilon_1,\mathcal{A}\varepsilon_2,...,\mathcal{A}\varepsilon_n)=(\varepsilon_1,\varepsilon_2,...,\varepsilon_n)A
+\]</span> 矩阵<span class="math inline">\(A\)</span>称为<span class="math inline">\(\mathcal{A}\)</span>在基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>下的矩阵。</p>
+<p><strong>坐标变换公式</strong>：</p>
+<p>设线性变换<span class="math inline">\(\mathcal{A}\)</span>在基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>下的矩阵是<span class="math inline">\(A\)</span>，且向量<span class="math inline">\(x\)</span>在基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>下的坐标为<span class="math inline">\((x_1,x_2,...,x_n)\)</span>，则<span class="math inline">\(\mathcal{A}x\)</span>在基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>下的坐标<span class="math inline">\((y_1,y_2,...,y_n)\)</span>可以按照公式 <span class="math display">\[
+\left(
+\begin{matrix}
+y_1\\y_2\\ ...\\y_n
+\end{matrix}
+\right)
+=A
+\left(
+\begin{matrix}
+x_1\\x_2\\...\\x_n
+\end{matrix}
+\right)
+\]</span> 计算。</p>
+<h2 id="仿射映射">仿射映射</h2>
+<p><strong>仿射映射</strong>：</p>
+<p>设两个线性空间<span class="math inline">\(\mathbb{V,W}\)</span>与一个线性映射<span class="math inline">\(\Phi:\mathbb{V}\rightarrow\mathbb{W}\)</span>，则映射<span class="math inline">\(\phi:\mathbb{V} \rightarrow \mathbb{W}\)</span>且<span class="math inline">\(a\in\mathbb{W}\)</span> <span class="math display">\[
+\phi(x)=a+\Phi(x)
+\]</span> 是一个从<span class="math inline">\(\mathbb{V}\)</span>到<span class="math inline">\(\mathbb{W}\)</span>的<strong>仿射映射</strong>，向量<span class="math inline">\(a\)</span>称为<span class="math inline">\(\phi\)</span>的<strong>平移向量</strong>。</p>
+<ul>
+<li>仿射映射是由一个线性映射和一个平移变换复合而成的，这两个变换方法都是<strong>唯一确定</strong>的</li>
+<li>两个仿射映射的复合也是仿射映射</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/01/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/" rel="prev" title="向量空间">
+      <i class="fa fa-chevron-left"></i> 向量空间
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性映射"><span class="nav-number">1.</span> <span class="nav-text">线性映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性映射的矩阵表示"><span class="nav-number">2.</span> <span class="nav-text">线性映射的矩阵表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性变换"><span class="nav-number">3.</span> <span class="nav-text">线性变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仿射映射"><span class="nav-number">4.</span> <span class="nav-text">仿射映射</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

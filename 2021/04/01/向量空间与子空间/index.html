@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="向量空间与子空间 向量空间：设\(\mathbb{V}\)是由\(n\)维向量组成的非空集合，\(\mathbb{K}\)是一个数域。在\(\mathbb{V}\)上定义了加法，在\(\mathbb{K}\)与集合\(\mathbb{V}\)上定义了数乘，并且\(\forall a,b\in \mathbb{V},\forall k \in \mathbb{K}\)，有\(a+b\in \mat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="向量空间">
+<meta property="og:url" content="https://ankate.github.io/2021/04/01/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="向量空间与子空间 向量空间：设\(\mathbb{V}\)是由\(n\)维向量组成的非空集合，\(\mathbb{K}\)是一个数域。在\(\mathbb{V}\)上定义了加法，在\(\mathbb{K}\)与集合\(\mathbb{V}\)上定义了数乘，并且\(\forall a,b\in \mathbb{V},\forall k \in \mathbb{K}\)，有\(a+b\in \mat">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-01T07:19:25.000Z">
+<meta property="article:modified_time" content="2021-04-01T07:19:33.692Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="数据科学数学基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/04/01/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>向量空间 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">19</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/01/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          向量空间
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-01 15:19:25 / Modified: 15:19:33" itemprop="dateCreated datePublished" datetime="2021-04-01T15:19:25+08:00">2021-04-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="向量空间与子空间">向量空间与子空间</h2>
+<p><strong>向量空间</strong>：设<span class="math inline">\(\mathbb{V}\)</span>是由<span class="math inline">\(n\)</span>维向量组成的非空集合，<span class="math inline">\(\mathbb{K}\)</span>是一个数域。在<span class="math inline">\(\mathbb{V}\)</span>上定义了加法，在<span class="math inline">\(\mathbb{K}\)</span>与集合<span class="math inline">\(\mathbb{V}\)</span>上定义了数乘，并且<span class="math inline">\(\forall a,b\in \mathbb{V},\forall k \in \mathbb{K}\)</span>，有<span class="math inline">\(a+b\in \mathbb{V},ka\in \mathbb{V}\)</span>，则称<span class="math inline">\(\mathbb{V}\)</span>对于向量的加法和数乘两种运算<strong>封闭</strong>，<span class="math inline">\(\mathbb{V}\)</span>为数域<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>为<strong>向量空间</strong>或<strong>线性空间</strong>。</p>
+<p>证明某个集合为线性空间时，即为证明该集合内所有元素的加法与数乘是否封闭。</p>
+<p><strong>子空间</strong>：设<span class="math inline">\(\mathbb{X}\)</span>是<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>维线性空间，<span class="math inline">\(\mathbb{Y}\)</span>是<span class="math inline">\(\mathbb{X}\)</span>的子集且满足：若<span class="math inline">\(x,y\in \mathbb{Y}\)</span>，则<span class="math inline">\(x+y \in \mathbb{Y}\)</span>；若<span class="math inline">\(a\in \mathbb{K},x\in \mathbb{Y}\)</span>，则<span class="math inline">\(ax \in \mathbb{Y}\)</span>，则称<span class="math inline">\(\mathbb{Y} 是\mathbb{X}\)</span>的线性子空间。</p>
+<p>非空的线性空间一定会有的子空间：<strong>自身</strong>和<span class="math inline">\(\{0\}\)</span>。只含零向量的子集称作<strong>零子空间</strong>。零子空间和线性空间本身统称为<strong>平凡子空间</strong>，其它子空间叫做<strong>平凡子空间</strong>。</p>
+<p><strong>子空间的交</strong>：若用<span class="math inline">\(\mathbb{Y}_1 \cap \mathbb{Y}_2\)</span>表示<span class="math inline">\(\mathbb{Y}_1\)</span>与<span class="math inline">\(\mathbb{Y}_2\)</span>中的公共元素集合，则<span class="math inline">\(\mathbb{Y}_1\cap \mathbb{Y}_2\)</span>也是<span class="math inline">\(\mathbb{X}\)</span>的子空间，且称<span class="math inline">\(\mathbb{Y}_1\cap \mathbb{Y}_2\)</span>为<span class="math inline">\(\mathbb{Y}_1\)</span>与<span class="math inline">\(\mathbb{Y}_2\)</span>的交。</p>
+<p><strong>子空间的和</strong>：若用<span class="math inline">\(\mathbb{Y}_1 + \mathbb{Y}_2\)</span>表示全体形如<span class="math inline">\(y_1+y_2(y_1\in \mathbb{Y}_1,y_2\in \mathbb{Y})\)</span>的向量组成的集合，则<span class="math inline">\(\mathbb{Y}_1+ \mathbb{Y}_2\)</span>也是<span class="math inline">\(\mathbb{X}\)</span>的子空间，且称<span class="math inline">\(\mathbb{Y}_1+ \mathbb{Y}_2\)</span>为<span class="math inline">\(\mathbb{Y}_1\)</span>与<span class="math inline">\(\mathbb{Y}_2\)</span>的和。</p>
+<p><strong>子空间的直和</strong>：如果<span class="math inline">\(\mathbb{Y}\)</span>中的每个向量<span class="math inline">\(x\)</span>可唯一地表示成<span class="math inline">\(x=y_1+y_2(y_1\in \mathbb{Y}_1,y_2\in \mathbb{Y}_2)\)</span>的形式，则称<span class="math inline">\(\mathbb{Y}\)</span>为<span class="math inline">\(\mathbb{Y}_1\)</span>与<span class="math inline">\(\mathbb{Y}_2\)</span>的直和，记作<span class="math inline">\(\mathbb{Y}=\mathbb{Y}_1+\mathbb{Y}_2\)</span>或<span class="math inline">\(\mathbb{Y}_1\oplus\mathbb{Y}_2\)</span>.</p>
+<p><span class="math inline">\(\mathbb{Y}_1+\mathbb{Y}_2\)</span>为直和的充要条件是由<span class="math inline">\(y_1+y_2=0(y_1\in \mathbb{Y}_1,y_2\in\mathbb{Y}_2)\)</span>可推出<span class="math inline">\(y_1=y_2=0\)</span>.</p>
+<p><span class="math inline">\(\mathbb{Y}_1+\mathbb{Y}_2\)</span>为直和的充要条件是<span class="math inline">\(\mathbb{Y}_1\cap \mathbb{Y}_2=\{0\}\)</span>.</p>
+<p>简言之，即是当<span class="math inline">\(\mathbb{Y_1}\)</span>和<span class="math inline">\(\mathbb{Y}_2\)</span>两个空间中的元素没有关系时，才能满足直和条件。</p>
+<h2 id="线性相关与线性无关">线性相关与线性无关</h2>
+<p><strong>线性组合</strong>：设向量<span class="math inline">\(a_1,a_2,...,a_3\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>维向量组，<span class="math inline">\(k_1,k_2,...,k_s\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的一组数，那么表达式 <span class="math display">\[
+k_1a_1+k_2a_2+...+k_sa_s
+\]</span> 称为向量组<span class="math inline">\(a_1,a_2,...,a_s\)</span>的一个<strong>线性组合</strong>，而<span class="math inline">\(k_1,k_2,...,k_s\)</span>称为<strong>组合系数</strong>。</p>
+<p><strong>线性表出</strong>：若向量<span class="math inline">\(b\)</span>是向量组<span class="math inline">\(a_1,a_2,...,a_s\)</span>的一个线性组合，即 <span class="math display">\[
+b=k_1a_1+k_2a_2+...+k_sa_s
+\]</span> 则称<span class="math inline">\(b\)</span>可以由向量组<span class="math inline">\(a_1,a_2,...,a_s\)</span><strong>线性表出</strong>。</p>
+<p><strong>线性相关</strong>与<strong>线性无关</strong>：设<span class="math inline">\(a_i\in \mathbb{K}^n(i=1,2,...,r)\)</span>，若在<span class="math inline">\(\mathbb{K}\)</span>中存在<span class="math inline">\(r\)</span>个不全为零的数<span class="math inline">\(\lambda_i(i=1,2,...,r)\)</span>，使<span class="math inline">\(\displaystyle\sum^r_{i=1}\lambda_ia_i=0\)</span>，则称向量组<span class="math inline">\(a_1,a_2,...,a_r\)</span><strong>线性相关</strong>。反之，若只有当<span class="math inline">\(\lambda_1,\lambda_2,...,\lambda_r\)</span>全为零时，才有<span class="math inline">\(\displaystyle\sum^r_{i=1}\lambda_ia_i=0\)</span>，则称向量组<span class="math inline">\(a_1,a_2,...,a_r\)</span><strong>线性无关</strong>。</p>
+<p><strong>极大线性无关组</strong>：如果向量组的一部分组本身线性无关，但从原向量组的其余向量中人去一个添加进去后，所得的部分组都线性相关，那么这个部分组就被称作<strong>极大线性无关组</strong>。</p>
+<p><strong>等价</strong>：设<span class="math inline">\(a_1,a_2,...,a_s\)</span>和<span class="math inline">\(b_1,b_2,...,b_t\)</span>都是数域<span class="math inline">\(\mathbb{K}\)</span>上的两个向量组，如果向量组<span class="math inline">\(a_1,a_2,...,a_s\)</span>中的每一个向量<span class="math inline">\(a_i(i=1,2,...,s)\)</span>都可以用向量组<span class="math inline">\(b_1,b_2,...,b_t\)</span>线性表出，那么称向量组<span class="math inline">\(a_1,a_2,...,a_s\)</span>可以用向量组<span class="math inline">\(b_1,b_2,...,b_t\)</span>线性表出。如果两个向量组互相可以线性表出，则称它们<strong>等价</strong>。</p>
+<h2 id="生成集">生成集</h2>
+<p><strong>生成集</strong>：设<span class="math inline">\(a_1,a_2,...,a_r\)</span>是<span class="math inline">\(\mathbb{V}\)</span>的一组向量，则这组向量所有可能的线性组合<span class="math inline">\(\displaystyle\sum^r_{k=1}\lambda_ka_k\)</span>所成的集合是<span class="math inline">\(\mathbb{V}\)</span>的一个子空间，成为由<span class="math inline">\(a_1,a_2,...,a_r\)</span><strong>张成的子空间</strong>，记作<span class="math inline">\(L(a_1,a_2,...,a_r)\)</span>或<span class="math inline">\(span(a_1,a_2,...,a_r)\)</span>. <span class="math inline">\(\{a_1,a_2,...,a_r\}\)</span>叫做<span class="math inline">\(\mathbb{V}\)</span>的一个<strong>生成集</strong>。</p>
+<p>两个向量组张成相同的子空间的充要条件是<strong>两个向量组等价</strong>。</p>
+<p><strong>基</strong>：如果在向量空间<span class="math inline">\(\mathbb{V}\)</span>中有<span class="math inline">\(n\)</span>个线性无关的向量<span class="math inline">\(a_1,a_2,...,a_n\)</span>，且<span class="math inline">\(\mathbb{V}\)</span>中任一向量都可以用它们线性表出，则称<span class="math inline">\(\mathbb{V}\)</span>为<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>维线性空间，<span class="math inline">\(n\)</span>成为<span class="math inline">\(\mathbb{V}\)</span>的维数，记作<span class="math inline">\(dim(\mathbb{V})=n\)</span>.而<span class="math inline">\(a_1,a_2,...,a_n\)</span>就是<span class="math inline">\(\mathbb{V}\)</span>的一组<strong>基</strong>。</p>
+<p><strong>基和线性无关的关系</strong>：令<span class="math inline">\(\mathbb{V}\)</span>是一向量空间，<span class="math inline">\(\mathbb{B} \subset \mathbb{V},\mathbb{B}\neq \emptyset\)</span>，则下列命题等价：</p>
+<ul>
+<li><span class="math inline">\(\mathbb{B}\)</span>是<span class="math inline">\(\mathbb{V}\)</span>的一个基</li>
+<li><span class="math inline">\(\mathbb{B}\)</span>是最小生成集</li>
+<li><span class="math inline">\(\mathbb{B}\)</span>是<span class="math inline">\(\mathbb{V}\)</span>中的极大线性无关组</li>
+<li><span class="math inline">\(\mathbb{V}\)</span>中每一个向量能被<span class="math inline">\(\mathbb{B}\)</span>线性表出</li>
+</ul>
+<p>所以求某个向量空间中的基，即为求该向量空间中的极大线性无关组。</p>
+<p><strong>标准基</strong>：每一个向量长度均为1的一组基</p>
+<p><strong>子空间的扩张</strong>：设<span class="math inline">\(\mathbb{Y}=L{(a_1,a_2,...,a_m)}\)</span>是<span class="math inline">\(n\)</span>维空间<span class="math inline">\(\mathbb{X}\)</span>的一个<span class="math inline">\(m\)</span>维子空间，且<span class="math inline">\(L(a_{m+1},...,a_n)\)</span>是<span class="math inline">\(\mathbb{Y}\)</span>的一个子空间，则向量组<span class="math inline">\(a_1,a_2,...,a_m\)</span>可以扩张为<span class="math inline">\(a_1,a_2,...,a_m,a_{m+1},...,a_n\)</span>，使得<span class="math inline">\(\mathbb{X}=L(a_1,a_2,...,a_m,a_{m+1},...,a_n)\)</span>。</p>
+<p>可以表示为： <span class="math display">\[
+L(a_{m+1},...,a_n)\oplus L(a_1,a_2,...,a_m)=L(a_1,a_2,...,a_m,a_{m+1},...,a_n)
+\]</span> <strong>求空间维数的公式</strong>：<span class="math inline">\(\dim(\mathbb{Y_1}+\mathbb{Y_2})=\dim\mathbb{Y_1}+\dim\mathbb{Y_2}-\dim(\mathbb{Y_1}\cap\mathbb{Y_2})\)</span></p>
+<p><strong>直和</strong>为特殊情况：<span class="math inline">\(\dim(\mathbb{Y_1}\oplus\mathbb{Y_2})=\dim\mathbb{Y_1}+\dim\mathbb{Y_2}\)</span></p>
+<p><strong>线性空间的维数</strong>：如果一个向量空间<span class="math inline">\(\mathbb{V}\)</span>中任一向量都能被<span class="math inline">\(n\)</span>个线性无关的向量线性表出时，<span class="math inline">\(\mathbb{V}\)</span>称为<strong>有限维线性空间</strong>，否则称为<strong>无限维线性空间</strong>。</p>
+<p><em>若一个向量空间的维数<span class="math inline">\(\dim(\mathbb{X})&lt;\infty\)</span>，则为有限维线性空间，否则为无限维线性空间</em>。</p>
+<p><strong>坐标</strong>：在<span class="math inline">\(n\)</span>维向量空间<span class="math inline">\(\mathbb{V}\)</span>中，<span class="math inline">\(n\)</span>个线性无关的向量<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>称为<span class="math inline">\(\mathbb{V}\)</span>的一组基。设<span class="math inline">\(a\)</span>是<span class="math inline">\(\mathbb{V}\)</span>中任一向量，于是<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n,a\)</span>线性相关，因此<span class="math inline">\(a\)</span>可以被基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>线性表出： <span class="math display">\[
+a=a_1\varepsilon_1+a_2\varepsilon_2+...+a_n\varepsilon_n
+\]</span> 其中的系数<span class="math inline">\(a_1,a_2,...,a_n\)</span>是被向量<span class="math inline">\(a\)</span>和基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>唯一确定的，这组数就称为<span class="math inline">\(a\)</span>在基<span class="math inline">\(\varepsilon_1,\varepsilon_2,...,\varepsilon_n\)</span>下的坐标，即为<span class="math inline">\((a_1,a_2,...,a_n)\)</span>。</p>
+<h2 id="秩">秩</h2>
+<p><strong>向量的秩</strong>：向量组<span class="math inline">\(a_1,a_2,...,a_r\)</span>的极大线性无关组中所含向量的个数称为这个向量组的秩，记作<span class="math inline">\(rank\{a_1,a_2,...,a_r\}\)</span></p>
+<p><strong>矩阵的秩</strong>：矩阵<span class="math inline">\(A\)</span>的行（列）向量组的秩称为行（列）秩，矩阵的行秩和列秩相等，都称作矩阵<span class="math inline">\(A\)</span>的秩，记作<span class="math inline">\(rank(A)\)</span></p>
+<p><strong>维数与秩的关系</strong>：一个向量组<span class="math inline">\(a_1,a_2,...,a_r\)</span>的维数等于该向量组的秩，即： <span class="math display">\[
+\dim~L(a_1,a_2,...,a_r)=rank\{a_1,a_2,...a_3\}
+\]</span></p>
+<h2 id="仿射子空间">仿射子空间</h2>
+<p><strong>仿射子空间</strong>：令<span class="math inline">\(\mathbb{Y}\)</span>是一线性空间，<span class="math inline">\(x_0\in \mathbb{V}\)</span>且<span class="math inline">\(\mathbb{U}\subset\mathbb{V}\)</span>是一线性子空间，则子集 <span class="math display">\[
+\mathbb{L}=x_0+\mathbb{U}:=\{x_0+u|u\in\mathbb{U}\}\subset\mathbb{V}
+\]</span> 是一仿射子空间。<strong>定义线性子空间的维数为仿射子空间的维数</strong>。</p>
+<ul>
+<li>如果<span class="math inline">\(x_0\notin \mathbb{U}\)</span>，则仿射子空间<span class="math inline">\(\mathbb{L}\)</span>不是一个线性子空间</li>
+<li>如果<span class="math inline">\(\mathbb{U}\)</span>有一基底<span class="math inline">\(a_1,a_2,...,a_m\)</span>，则<span class="math inline">\(\mathbb{L}\)</span>中的每一个元素<span class="math inline">\(x\)</span>均可写成<span class="math inline">\(x_0+k_1a_1+k_2a_2+...+k_ma_m\)</span>.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/31/%E4%B8%80%E5%85%83%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/" rel="prev" title="常见的连续随机变量">
+      <i class="fa fa-chevron-left"></i> 常见的连续随机变量
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/01/%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/" rel="next" title="线性映射与线性变换">
+      线性映射与线性变换 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间与子空间"><span class="nav-number">1.</span> <span class="nav-text">向量空间与子空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性相关与线性无关"><span class="nav-number">2.</span> <span class="nav-text">线性相关与线性无关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成集"><span class="nav-number">3.</span> <span class="nav-text">生成集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秩"><span class="nav-number">4.</span> <span class="nav-text">秩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仿射子空间"><span class="nav-number">5.</span> <span class="nav-text">仿射子空间</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
