@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="多维随机变量 n维随机变量：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多维随机变量及常见分布">
+<meta property="og:url" content="https://ankate.github.io/2021/04/09/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="多维随机变量 n维随机变量：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-09T00:00:08.000Z">
+<meta property="article:modified_time" content="2021-04-09T00:00:13.166Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="概率论和数理统计">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/04/09/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>多维随机变量及常见分布 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">21</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/09/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多维随机变量及常见分布
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-09 08:00:08 / Modified: 08:00:13" itemprop="dateCreated datePublished" datetime="2021-04-09T08:00:08+08:00">2021-04-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="多维随机变量">多维随机变量</h2>
+<p><strong>n维随机变量</strong>：</p>
+<p>如果<span class="math inline">\(X_1(\omega),X_2(\omega),...,X_n(\omega)\)</span>是定义在同一个样本空间<span class="math inline">\(\Omega=\{\omega\}\)</span>上的<span class="math inline">\(n\)</span>个随机变量，则称 <span class="math display">\[
+X(\omega)=(X_1(\omega),X_2(\omega),...,X_n(\omega))
+\]</span> 为<span class="math inline">\(n\)</span><strong>维随机变量</strong>或<strong>随机向量</strong>。</p>
+<p><strong>联合分布函数</strong>：</p>
+<p>对任意的<span class="math inline">\(n\)</span>个实数<span class="math inline">\(x_1,x_2,...,x_n\)</span>，<span class="math inline">\(n\)</span>个事件<span class="math inline">\(\{X_1\leq x_1\},\{X_2 \leq x_2\},...,\{X_n \leq x_n\}\)</span>同时发生的概率 <span class="math display">\[
+F(x_1,x_2,...,x_n)=P(X_1\leq x_1, X_2\leq x_2,...,X_n\leq x_n)
+\]</span> 称为<span class="math inline">\(n\)</span>维随机变量<span class="math inline">\((X_1,X_2,...,X_n)\)</span>的<strong>联合分布函数</strong>。</p>
+<p><strong>性质</strong>：</p>
+<ul>
+<li><strong>单调性</strong>：固定<span class="math inline">\(x\)</span>时，<span class="math inline">\(\forall y_1&lt;y_2,F(x,y_1)\leq F(x,y_2)\)</span>；固定<span class="math inline">\(y\)</span>时，<span class="math inline">\(\forall x_1&lt;x_2,F(x_1,y)\leq F(x_2,y)\)</span></li>
+<li><p><strong>有界性</strong>：<span class="math inline">\(0\leq F(x,y) \leq 1\)</span>，且<span class="math inline">\(\displaystyle\lim_{x\rightarrow -\infty}F(x,y)=0,\displaystyle\lim_{y\rightarrow -\infty}F(x,y)=0,\displaystyle\lim_{x,y\rightarrow \infty}F(x,y)=1\)</span></p></li>
+<li><p><strong>右连续性</strong>：<span class="math inline">\(F(x+0,y)=F(x,y),F(x,y+0)=F(x,y)\)</span></p></li>
+<li><p><strong>非负性</strong>：<span class="math inline">\(\forall a&lt;b,c&lt;d,P(a&lt;X\leq b, c &lt; Y \leq d)=F(b,d)-F(a,d)-F(b,c)+F(a,c)\geq 0\)</span></p></li>
+</ul>
+<p>任一二维分布函数<span class="math inline">\(F(x,y)\)</span>必须满足上述四条性质。</p>
+<p>尤其注意非负性，存在反例满足单调性、有界性、右连续性，但不满足非负性： <span class="math display">\[
+G(x,y)=\begin{cases}
+0,&amp;x+y&lt;0\\
+1,&amp;x+y\geq0
+\end{cases}
+\]</span> 该函数不是二维分布函数。</p>
+<p><strong>边际分布</strong>：已知<span class="math inline">\((X,Y)\)</span>的联合分布函数<span class="math inline">\(F(X,Y)\)</span>，可以求得<span class="math inline">\(F_X(x)=F(x,+\infty),F_Y(y)=F(+\infty,y)\)</span>，此时求得分布函数即为<strong>边际分布</strong>。</p>
+<p><strong>联合分布列（离散连续随机变量）</strong>：</p>
+<p>对只取有限个或可列个数的<span class="math inline">\((X,Y)\)</span>，称作二维<strong>离散随机变量</strong>，记作 <span class="math display">\[
+p_{ij}=P(X=x_i,Y=y_j)
+\]</span> 与一维随机变量的分布列相同，可以列出联合分布列： <span class="math display">\[
+\begin{array}{c|cc}
+&amp;y_1&amp;y_2&amp;...&amp;y_j&amp;...\\
+\hline
+x_1&amp;p_{11}&amp;p_{12}&amp;...&amp;p_{1j}&amp;...\\
+\hline
+x_2&amp;p_{21}&amp;p_{22}&amp;...&amp;p_{2j}&amp;...\\
+\hline
+...&amp;...&amp;...&amp;...&amp;...&amp;...\\
+\hline
+x_i&amp;p_{i1}&amp;p_{i2}&amp;...&amp;p_{ij}&amp;...\\
+\hline
+...&amp;...&amp;...&amp;...&amp;...&amp;...
+\end{array}
+\]</span> 将该分布列的第<span class="math inline">\(i\)</span>行的概率全部相加，即可求得<span class="math inline">\(P(X=x_i)\)</span>，记作： <span class="math display">\[
+P(X=x_i)=p_{i\cdot}=\sum^n_{k=1}p_{ik}
+\]</span> 同理，有： <span class="math display">\[
+P(Y=y_j)=p_{\cdot j}=\sum^n_{k=1}p_{kj}
+\]</span> <strong>性质</strong>：</p>
+<ul>
+<li><strong>非负性</strong>：<span class="math inline">\(p_{ij}\geq0\)</span></li>
+<li><strong>正则性</strong>：<span class="math inline">\(\displaystyle\sum^\infty_{i=1}\sum^\infty_{j=1}p_{ij}=1\)</span></li>
+</ul>
+<p><strong>联合密度函数（连续）</strong>：</p>
+<p>如果存在二元非负函数<span class="math inline">\(p(x,y)\)</span>，使得二维随机变量<span class="math inline">\((X,Y)\)</span>的分布函数<span class="math inline">\(F(x,y)\)</span>可表示为 <span class="math display">\[
+F(x,y)=\int^x_{-\infty}\int^y_{-\infty}p(u,v)dvdu
+\]</span> 自称<span class="math inline">\((X,Y)\)</span>为<strong>二维连续随机变量</strong>，称<span class="math inline">\(p(u,v)\)</span>为<span class="math inline">\((X,Y)\)</span>的<strong>联合密度函数</strong>。</p>
+<p>同理，也有： <span class="math display">\[
+p(x,y)=\frac {\partial^2}{\partial x\partial y}F(x,y)
+\]</span></p>
+<p><span class="math display">\[
+p_X(x)=\int^{+\infty}_{-\infty}p(u,v)dv,~p_Y(y)=\int^{+\infty}_{-\infty}p(u,v)du
+\]</span></p>
+<h2 id="常见的多维分布">常见的多维分布</h2>
+<p><strong>多项分布（二项分布）</strong>：</p>
+<p>进行<span class="math inline">\(n\)</span>次独立重复试验，如果每次实验有<span class="math inline">\(r\)</span>个互不相容的结果：<span class="math inline">\(A_1,A_2,...,A_r\)</span>之一发生，且每次试验中<span class="math inline">\(A_i\)</span>发生的概率为<span class="math inline">\(p_i=P(A_i),i=1,2,...,r\)</span>，且<span class="math inline">\(p_1+p_2+...+p_r=1.\)</span></p>
+<p>记<span class="math inline">\(X_i\)</span>为<span class="math inline">\(n\)</span>次独立重复试验中<span class="math inline">\(A_i\)</span>出现的次数，则<span class="math inline">\((X_1,X_2,...,X_r)\)</span>取值<span class="math inline">\((n_1,n_2,...,n_r)\)</span>，即<span class="math inline">\(A_1\)</span>出现<span class="math inline">\(n_1\)</span>次，<span class="math inline">\(A_2\)</span>出现<span class="math inline">\(n_2\)</span>次…<span class="math inline">\(A_r\)</span>出现<span class="math inline">\(n_r\)</span>次的概率为 <span class="math display">\[
+P(X_1=n_1,X_2=n_2,...,X_r=n_r)=\frac{n!}{n_1!n_2!...n_r!}p_1^{n_1}p_2^{n_2}...p_r^{n_r}
+\]</span> <span class="math inline">\(r\)</span>项分布其实是<span class="math inline">\(r-1\)</span>维随机变量的分布：</p>
+<p><span class="math inline">\(r=2,P(X_1=x_1,X_2=n-x_1)=\frac{n!}{x_1!(n-x_1)!}p_1^{x_1}(1-p_1)^{n-x_1}\)</span>；</p>
+<p><span class="math inline">\(r=3,O(X_1=x_1,X_2=x_2,X_3=n-x_1-x_2)=\frac{n!}{x_1!x_2!(n-x_1-x_2)!}p_1^{x_1}p_2^{x_2}(1-p_1-p_2)^{n-x_1-x_2}\)</span></p>
+<p><strong>三项分布的边际分布是二项分布</strong>：</p>
+<p>对于任意三项分布，求边际分布： <span class="math display">\[
+P(X_1=x_1)=\sum^{n-x_1}_{x_2=0}P(X_1=x_1,X_2=x_2)
+\]</span> 即为： <span class="math display">\[
+P(X_1=x_1)=\sum^{n-x_1}_{x_2=0}\frac{n!}{x_1!x_2!(n-x_1-x_2)!}p_1^{x_1}p_2^{x_2}(1-p_1-p_2)^{n-x_1-x_2}
+\]</span> 将与<span class="math inline">\(x_2\)</span>无关的项提取： <span class="math display">\[
+P(X_1=x_1)=\frac{n!}{x_1!}p_1^{x_1}\sum^{n-x_1}_{x_2=0}\frac{1}{x_2!(n-x_1-x_2)!}p_2^{x_2}(1-p_1-p_2)^{n-x_1-x_2}
+\]</span> 配系数： <span class="math display">\[
+P(X_1=x_1)=\frac{n!}{x_1!(n-x_1)!}p_1^{x_1}(1-p_1)^{n-x_1}\sum^{n-x_1}_{x_2=0}\frac{(n-x_1)!}{x_2!(n-x_1-x_2)!}(\frac{p_2}{1-p_1})^{x_2}(1-\frac{p_2}{1-p_1})^{n-x_1-x_2}
+\]</span> 此时求和的项可以视作某事件的概率和，即为1，于是有： <span class="math display">\[
+p(X_1=x_1)=\frac{n!}{x_1!(n-x_1)!}p_1^{x_1}(1-p_1)^{n-x_1}
+\]</span> 得证。</p>
+<p><strong>多维均匀分布</strong>：</p>
+<p>设<span class="math inline">\(D\)</span>为<span class="math inline">\(R^n\)</span>中的一个有界区域，其度量（平面的面积，空间的体积）记作<span class="math inline">\(S_D\)</span>，如果多维随机变量<span class="math inline">\((X_1,X_2,...,X_n)\)</span>的联合密度函数为 <span class="math display">\[
+p(x_1,x_2,...,x_n)=
+\begin{cases}
+\frac1{S_D},&amp;(x_1,x_2,...,x_n)\in D,\\
+0,&amp;其它
+\end{cases}
+\]</span> 则称<span class="math inline">\((X_1,X_2,...,X_n)\)</span>服从<span class="math inline">\(D\)</span>上的<strong>多维均匀分布</strong>，记作<span class="math inline">\((X_1,X_2,...,X_n)\sim U(D)\)</span>。</p>
+<p>二维均匀分布描述的随机现象即是向平面区域中随机投点，坐标<span class="math inline">\((X,Y)\)</span>落在子区域中的概率只与该子区域的面积有关，即为 <span class="math display">\[
+P((X,Y)\in G)=\frac{S_G}{S_D}
+\]</span></p>
+<p><strong>二维指数分布</strong>：</p>
+<p>二维随机变量<span class="math inline">\((X_1,X_2)\)</span>服从二维指数分布，则有分布函数 <span class="math display">\[
+F(x_1,x_2)=
+\begin{cases}
+1-e^{-x_1}-e^{-x_2}+e^{-x_1-x_2-\lambda x_1x_2},&amp;x_1,x_2&gt;0\\
+0,&amp;其它
+\end{cases}
+\]</span> <strong>二维指数分布的边际分布服从参数为1的指数分布</strong>：</p>
+<p><span class="math inline">\(F_{X_1}(x_1)=F(x_1,\infty)=1-e^{-x_1}\)</span>，此时<span class="math inline">\(p_{X_1}(x_1)=e^{-x_1}\sim Exp(1)\)</span></p>
+<p><span class="math inline">\(X_2\)</span>的情况同理。</p>
+<p><strong>多维正态分布</strong>：</p>
+<p>多维随机变量<span class="math inline">\((X_1,X_2,...,X_n)\)</span>服从多维正态分布，记列向量<span class="math inline">\(\overrightarrow{X}=(X_1,X_2,...,X_n)^T\)</span>，则有密度函数 <span class="math display">\[
+p(X_1,X_2,...,X_n)=(2\pi)^{-\frac n2}|\Sigma|^{-\frac12}\exp\{-\frac12(\overrightarrow X- \overrightarrow \mu)^T\Sigma^{-1}(\overrightarrow X- \overrightarrow \mu)\}
+\]</span> 其中<span class="math inline">\(\overrightarrow\mu=(\mu_1,\mu_2,...,\mu_n)^T\)</span><span class="math inline">\(\Sigma\)</span>是一个<span class="math inline">\(n\times n\)</span>的对称矩阵且正定。</p>
+<p><strong>二维正态分布</strong>： <span class="math display">\[
+p(x,y)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}\exp\{-\frac{1}{2(1-\rho^2)}\left[\frac{(x-\mu_1)^2}{\sigma_1^2}-2\rho\frac{(x-\mu_1)(x-\mu_2)}{\sigma_1\sigma_2}+\frac{(y-\mu_2)^2}{\sigma_2^2}\right]\}
+\]</span> 记作<span class="math inline">\((X,Y)\sim N(\mu_1,\mu_2,\sigma_1^2,\sigma_2^2,\rho)\)</span>，其中 <span class="math display">\[
+-\infty&lt;\mu_1,\mu_2&lt;\infty,~\sigma_1,\sigma_2&gt;0,~-1\leq \rho \leq 1
+\]</span> <span class="math inline">\(\mu_1,\mu_2\)</span>是<span class="math inline">\(X,Y\)</span>的均值，<span class="math inline">\(\sigma_1^2,\sigma_2^2\)</span>是<span class="math inline">\(X,Y\)</span>的方差，<span class="math inline">\(\rho\)</span>是<span class="math inline">\(X,Y\)</span>的相关系数。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/01/%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2/" rel="prev" title="线性映射与线性变换">
+      <i class="fa fa-chevron-left"></i> 线性映射与线性变换
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/" rel="next" title="矩阵的基本特征">
+      矩阵的基本特征 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多维随机变量"><span class="nav-number">1.</span> <span class="nav-text">多维随机变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的多维分布"><span class="nav-number">2.</span> <span class="nav-text">常见的多维分布</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

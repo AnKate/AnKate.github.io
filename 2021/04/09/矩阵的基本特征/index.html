@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="行列式 二阶行列式：对于二阶矩阵\(A&#x3D;\left(\begin{matrix}a_{11}&amp;a_{12}\\a_{21}&amp;a_{22}\end{matrix}\right)\)，定义其二阶行列式为主对角元素乘积与副对角元素乘积的差，记为\(\det(A)&#x3D;a_{11}a_{22}-a_{21}a_{12}\)，或者记为 \[ |A|&#x3D;\left| \begin{matrix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵的基本特征">
+<meta property="og:url" content="https://ankate.github.io/2021/04/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="行列式 二阶行列式：对于二阶矩阵\(A&#x3D;\left(\begin{matrix}a_{11}&amp;a_{12}\\a_{21}&amp;a_{22}\end{matrix}\right)\)，定义其二阶行列式为主对角元素乘积与副对角元素乘积的差，记为\(\det(A)&#x3D;a_{11}a_{22}-a_{21}a_{12}\)，或者记为 \[ |A|&#x3D;\left| \begin{matrix">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-09T00:01:41.000Z">
+<meta property="article:modified_time" content="2021-04-09T00:01:44.357Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="数据科学数学基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/04/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>矩阵的基本特征 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">21</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          矩阵的基本特征
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-09 08:01:41 / Modified: 08:01:44" itemprop="dateCreated datePublished" datetime="2021-04-09T08:01:41+08:00">2021-04-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="行列式">行列式</h2>
+<p><strong>二阶行列式</strong>：对于二阶矩阵<span class="math inline">\(A=\left(\begin{matrix}a_{11}&amp;a_{12}\\a_{21}&amp;a_{22}\end{matrix}\right)\)</span>，定义其<strong>二阶行列式</strong>为主对角元素乘积与副对角元素乘积的差，记为<span class="math inline">\(\det(A)=a_{11}a_{22}-a_{21}a_{12}\)</span>，或者记为 <span class="math display">\[
+|A|=\left|
+\begin{matrix}
+a_{11}&amp;a_{12}\\a_{21}&amp;a_{22}
+\end{matrix}
+\right|
+=a_{11}a_{22}-a_{21}a_{12}
+\]</span> <strong>排列</strong>：<span class="math inline">\(n\)</span>个不同的元素排成一列，叫做这<span class="math inline">\(n\)</span>个元素的<strong>全排列</strong>。一个排列中，如果一个大元素在一个小元素前，则称这两个数构成一个<strong>逆序</strong>。一个排列中存在的所有逆序的数目称为排列的<strong>逆序数</strong>。排列<span class="math inline">\(j_1,j_2,...,j_n\)</span>的逆序数记为<span class="math inline">\(\tau(j_1,j_2,...,j_n)\)</span>.如果逆序数为奇数，则称这个排列为<strong>奇排列</strong>；如果逆序数为偶数，则称这个排列为<strong>偶排列</strong>。</p>
+<p><strong>行列式的值</strong>：</p>
+<p><span class="math inline">\(n\)</span>阶行列式 <span class="math display">\[
+\det(A)=\left|
+\begin{matrix}
+a_{11}&amp;...&amp;a_{1n}\\
+...&amp;...&amp;...\\
+a_{n1}&amp;...&amp;a_{nn}
+\end{matrix}
+\right|
+\]</span> 等于所有取自不同行、不同列的<span class="math inline">\(n\)</span>个元素的乘积<span class="math inline">\(a_{1j_1}...a_{nj_n}\)</span>的代数和，其中<span class="math inline">\(j_1,...,j_n\)</span>是<span class="math inline">\(1,...,n\)</span>的一个排列，<strong>该排列为偶排列时，该项乘积带正号；该排列为奇排列时，该项乘积带负号</strong>。</p>
+<p>即 <span class="math display">\[
+\det(A)=\sum_{j_1,...,j_n}(-1)^{\tau(j_1,...,j_n)}a_{1j_1}...a_{nj_n}
+\]</span> 其中<span class="math inline">\(\displaystyle\sum_{j_1,...,j_n}\)</span>表示对<span class="math inline">\(1,2,...,n\)</span>的所有排列求和。</p>
+<p>行列式也可以简记为<span class="math inline">\(D=|A|=|a_{ij}|\)</span>或<span class="math inline">\(\det(a_{ij})\)</span>。</p>
+<p><strong>行列式是一个将矩阵空间<span class="math inline">\(\mathbb{R}^{n\times n}\)</span>中的矩阵<span class="math inline">\(A\)</span>映射为<span class="math inline">\(\mathbb{R}\)</span>中的一个实数的函数。</strong></p>
+<p><strong>余子式</strong>：</p>
+<p><span class="math inline">\(n\)</span>阶行列式中，划去元素<span class="math inline">\(a_{ij}\)</span>所在第<span class="math inline">\(i\)</span>行和第<span class="math inline">\(j\)</span>列元素，剩余的元素按原来的次序组成的<span class="math inline">\(n-1\)</span>阶行列式称为元素<span class="math inline">\(a_{ij}\)</span>的<strong>余子式</strong>，记成<span class="math inline">\(M_{ij}\)</span>。令<span class="math inline">\(A_{ij}=(-1)^{i+j}M_{ij}\)</span>，称<span class="math inline">\(A_{ij}\)</span>是元素<span class="math inline">\(a_{ij}\)</span>的<strong>代数余子式</strong>。</p>
+<p><strong>按行或列展开求行列式值</strong>： <span class="math display">\[
+\det(A)=\sum^n_{j=1}a_{ij}A_{ij}=\sum^n_{i=1}a_{ij}A_{ij}
+\]</span></p>
+<p><strong>Cramer法则（解线性方程组）</strong>：</p>
+<p>设线性方程组为 <span class="math display">\[
+Ax=b,
+\]</span> 记<span class="math inline">\(b\)</span>为常数列，<span class="math inline">\(|A|_j\)</span>为用常数列<span class="math inline">\(b\)</span>代替<span class="math inline">\(A\)</span>中的第<span class="math inline">\(j\)</span>列，其余列不变所得矩阵的行列式。则若<span class="math inline">\(|A|\ne0\)</span>，则线性方程组有唯一解，且 <span class="math display">\[
+x_1=\frac{|A|_1}{|A|},x_2=\frac{|A|_2}{|A|},...,x_n=\frac{|A|_n}{|A|}
+\]</span></p>
+<p><strong>行列式性质</strong>：</p>
+<ol type="1">
+<li><p><strong>交换矩阵的任意两行（或两列）改变矩阵行列式的符号</strong></p></li>
+<li><p>行列式关于矩阵的每行（或每列）是<strong>线性的</strong>： <span class="math display">\[
+\left|
+\begin{matrix}
+a_{11}&amp;...&amp;k_1a_{1k}+k_2b_{1k}&amp;...&amp;a_{1n}\\
+a_{21}&amp;...&amp;k_1a_{2k}+k_2b_{2k}&amp;...&amp;a_{2n}\\
+...&amp;&amp;...&amp;&amp;...\\
+a_{n1}&amp;...&amp;k_1a_{nk}+k_2b_{nk}&amp;...&amp;a_{nn}
+\end{matrix}
+\right|
+=k_1
+\left|
+\begin{matrix}
+a_{11}&amp;...&amp;a_{1k}&amp;...&amp;a_{1n}\\
+a_{21}&amp;...&amp;a_{2k}&amp;...&amp;a_{2n}\\
+...&amp;&amp;...&amp;&amp;...\\
+a_{n1}&amp;...&amp;a_{nk}&amp;...&amp;a_{nn}
+\end{matrix}
+\right|
++k_2
+\left|
+\begin{matrix}
+a_{11}&amp;...&amp;b_{1k}&amp;...&amp;a_{1n}\\
+a_{21}&amp;...&amp;b_{2k}&amp;...&amp;a_{2n}\\
+...&amp;&amp;...&amp;&amp;...\\
+a_{n1}&amp;...&amp;b_{nk}&amp;...&amp;a_{nn}
+\end{matrix}
+\right|
+\]</span></p></li>
+<li><p>某一行（或列）全为零，则行列式为零</p>
+<p>推论：</p>
+<ul>
+<li>有两行（或列）相等，则行列式为零</li>
+<li>有一行（或列）是另一行（或列）的<span class="math inline">\(k\)</span>倍，则行列式为零</li>
+<li>将某一行（或列）<span class="math inline">\(k\)</span>倍加到另一行（或列），行列式值不变</li>
+</ul></li>
+<li><p><span class="math inline">\(n\)</span>阶行列式任意一行（列）元素与另一行（列）相应元素的代数余子式的两两乘积之和等于零，即当<span class="math inline">\(i\ne k\)</span>，有 <span class="math display">\[
+\sum^n_{k=1}a_{ik}A_{jk}=
+\begin{cases}
+|A|,&amp;i=j\\
+0,&amp;i\ne j
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\sum^n_{k=1}a_{ki}A_{kj}=
+\begin{cases}
+|A|,&amp;i=j\\
+0,&amp;i\ne j
+\end{cases}
+\]</span></p></li>
+<li><p>设<span class="math inline">\(A,B\in\mathbb{R}^{n\times n}\)</span></p>
+<ul>
+<li><span class="math inline">\(\det(A)=\det(A^T)\)</span></li>
+<li><span class="math inline">\(\det(aA)=a^n\det(A)\)</span></li>
+<li><span class="math inline">\(\det(AB)=\det(BA)=\det(A)\det(B)\)</span></li>
+<li>当且仅当<span class="math inline">\(\det(A)\ne0\)</span>时，矩阵<span class="math inline">\(A\)</span>可逆</li>
+<li>若<span class="math inline">\(A\)</span>是可逆矩阵，则<span class="math inline">\(\det(A^{-1})=\frac1{\det(A)}\)</span></li>
+</ul></li>
+</ol>
+<p><strong>伴随矩阵</strong>：</p>
+<p>矩阵 <span class="math display">\[
+A^*=
+\left(
+\begin{matrix}
+A_{11}&amp;A_{21}&amp;...&amp;A_{n1}\\
+A_{12}&amp;A_{22}&amp;...&amp;A_{n2}\\
+...&amp;...&amp;...&amp;...\\
+A_{1n}&amp;A_{2n}&amp;...&amp;A_{nn}
+\end{matrix}
+\right)
+\]</span> 称为<span class="math inline">\(A\)</span>的伴随矩阵，其中伴随矩阵<span class="math inline">\(A^*\)</span>的第<span class="math inline">\(i\)</span>行第<span class="math inline">\(j\)</span>列元素是矩阵<span class="math inline">\(A\)</span>的第<span class="math inline">\(j\)</span>行第<span class="math inline">\(i\)</span>列元素的代数余子式。</p>
+<p><strong>伴随矩阵求逆矩阵</strong>： <span class="math display">\[
+AA^*=A^*A=
+\left(
+\begin{matrix}
+|A|&amp;0&amp;...&amp;0\\
+0&amp;|A|&amp;...&amp;0\\
+...&amp;...&amp;...&amp;...\\
+0&amp;0&amp;...&amp;|A|
+\end{matrix}
+\right)
+=|A|I
+\]</span> 所以当<span class="math inline">\(A\)</span>可逆时，有 <span class="math display">\[
+A^*=|A|A^{-1},~A^{-1}=\frac1{|A|}A^*
+\]</span></p>
+<h2 id="迹和二次型">迹和二次型</h2>
+<p><strong>迹</strong>：方阵<span class="math inline">\(A_{n\times n}\)</span>对角元素的和称为<strong>迹</strong>，记作<span class="math inline">\(Tr(A)=\displaystyle\sum^n_{i=0}a_{ii}\)</span></p>
+<p><strong>迹的性质</strong>：</p>
+<ul>
+<li><span class="math inline">\(Tr(A+B)=Tr(A)+Tr(B)\)</span></li>
+<li><span class="math inline">\(Tr(\alpha A)=\alpha Tr(A),\alpha \in \mathbb{R}\)</span></li>
+<li><span class="math inline">\(Tr(I_n)=n\)</span></li>
+<li><span class="math inline">\(Tr(AB)=Tr(BA)\)</span></li>
+</ul>
+<p><strong>迹的循环置换不变性</strong>： <span class="math display">\[
+Tr(ABC)=Tr(CAB)=Tr(BCA)
+\]</span> 其中<span class="math inline">\(A\in \mathbb{R}^{n \times l}, B \in \mathbb{R}^{l \times m}, C \in \mathbb{R}^{m\times n}\)</span></p>
+<p>该性质可扩展到任意多矩阵的乘积。</p>
+<p>根据上述性质，有 <span class="math display">\[
+Tr(Q^{-1}AQ)=Tr(QQ^{-1}A)=Tr(A)
+\]</span> 即<strong>相似矩阵的迹相等</strong>。</p>
+<p><strong>二次型</strong>：</p>
+<p>一个系数在数域<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(x_1,x_2,...,x_n\)</span>的二次齐次多项式 <span class="math display">\[
+f(x_1,x_2,...,x_n)=a_{11}x_1^2+2a_{12}x_1x_2+...+2a_{1n}x_1x_n+a_{22}x_2^2+2a_{23}x_2^2+...+2a_{2n}x_2x_n+......+a_{nn}x_n^2
+\]</span> 称为数域<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span><strong>元二次型</strong>，简称<strong>二次型</strong>，当<span class="math inline">\(\mathbb{K}\)</span>为<span class="math inline">\(\mathbb{R}\)</span>或<span class="math inline">\(\mathbb{C}\)</span>时，分别称为<strong>实二次型</strong>或<strong>复二次型</strong>。</p>
+<p><strong>对称矩阵</strong>是转置和自身相等的矩阵，即 <span class="math display">\[
+A=A^T
+\]</span> 上述二次型的系数构成对称矩阵 <span class="math display">\[
+A=\left(
+\begin{matrix}
+a_{11}&amp;a_{12}&amp;...&amp;a_{1n}\\
+a_{21}&amp;a_{22}&amp;...&amp;a_{2n}\\
+...&amp;...&amp;...&amp;...\\
+a_{n1}&amp;a_{n2}&amp;...&amp;a_{nn}
+\end{matrix}
+\right)
+\]</span> 称为所给<strong>二次型的矩阵</strong>，其中<span class="math inline">\(a_{ij}=a_{ji},i,j=1,2,...,n\)</span>.</p>
+<p>若令<span class="math inline">\(x=(x_1,x_2,...,x_n)^T\)</span>，则所给的二次型可表示为 <span class="math display">\[
+f(x_1,x_2,...,x_n)=x^TAx=Tr(x^TAx)
+\]</span></p>
+<p><strong>二次型间的变换</strong>：</p>
+<p>对<span class="math inline">\(x\)</span>做可逆的线性变换，即<span class="math inline">\(x=Cy,y=C^{-1}x\)</span>，那么<span class="math inline">\(x^TAx=y^TC^TACy\)</span>.</p>
+<p>通过线性变换，二次型<span class="math inline">\(f(x_1,x_2,...,x_n)=x^TAx\)</span>化作新的二次型<span class="math inline">\(f=y^TC^TACy\)</span>，此时的新的二次型矩阵为<span class="math inline">\(C^TAC\)</span>仍然为对称矩阵。</p>
+<p><strong>合同矩阵</strong>：</p>
+<p>设<span class="math inline">\(A,B\)</span>是<span class="math inline">\(n\)</span>阶矩阵，若存在可逆矩阵<span class="math inline">\(C\)</span>使得 <span class="math display">\[
+C^TAC=B
+\]</span> 则称<span class="math inline">\(A\)</span>合同于<span class="math inline">\(B\)</span>，记作<span class="math inline">\(A\simeq B\)</span>.</p>
+<p><strong>性质</strong>：</p>
+<ul>
+<li><strong>反身性</strong>：<span class="math inline">\(A\simeq A\)</span></li>
+<li><strong>对称性</strong>：<span class="math inline">\(A\simeq B\)</span>，则<span class="math inline">\(B\simeq A\)</span></li>
+<li><strong>传递性</strong>：<span class="math inline">\(A\simeq B, B\simeq C\)</span>，则<span class="math inline">\(A\simeq C\)</span></li>
+</ul>
+<p>同时满足<strong>反身性、对称性</strong>和<strong>传递性</strong>的关系叫做<strong>等价关系</strong>。</p>
+<p>等价矩阵、相似矩阵、合同矩阵都是等价关系。</p>
+<p><strong>合同变换</strong>：</p>
+<p>对称矩阵<span class="math inline">\(A\)</span>的下列变换都是合同变换：</p>
+<ul>
+<li>交换<span class="math inline">\(A\)</span>的第<span class="math inline">\(i\)</span>行和第<span class="math inline">\(j\)</span>行，再交换其第<span class="math inline">\(i\)</span>列和第<span class="math inline">\(j\)</span>列</li>
+<li>将<span class="math inline">\(A\)</span>的第<span class="math inline">\(i\)</span>行乘以非零常数<span class="math inline">\(k\)</span>，再将第<span class="math inline">\(i\)</span>列乘以<span class="math inline">\(k\)</span></li>
+<li>将<span class="math inline">\(A\)</span>的第<span class="math inline">\(i\)</span>行乘以<span class="math inline">\(k\)</span>加到第<span class="math inline">\(j\)</span>行，再将第<span class="math inline">\(i\)</span>列乘以<span class="math inline">\(k\)</span>加到第<span class="math inline">\(j\)</span>列</li>
+</ul>
+<p>合同变换即为对行列做<strong>成对</strong>的初等变换。</p>
+<p><strong>引理</strong>：设<span class="math inline">\(A\)</span>是属于<span class="math inline">\(\mathbb{K}\)</span>上的非零对称矩阵，则必存在非奇异矩阵<span class="math inline">\(C\)</span>，使<span class="math inline">\(C^TAC\)</span>的第1行第1个元素不为零。</p>
+<p><strong>对称矩阵必然合同于对角矩阵</strong>：设<span class="math inline">\(A\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>阶对称阵，则必然存在<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>阶非奇异矩阵<span class="math inline">\(C\)</span>，使得<span class="math inline">\(C^TAC\)</span>为对角矩阵。</p>
+<p><strong>标准型</strong>：</p>
+<p>数域<span class="math inline">\(\mathbb{K}\)</span>上任意一个二次型都可经过非退化的线性替换化为平方和 <span class="math display">\[
+d_1y_1^2+d_2y_2^2+...+d_ny_n^2
+\]</span> 的形式，它称为所给二次型的<strong>标准型</strong>。</p>
+<p><strong>计算标准型的方法</strong>：</p>
+<p>在矩阵<span class="math inline">\(A\)</span>下方拼接一个单位矩阵<span class="math inline">\(I\)</span>，对<span class="math inline">\(A\)</span>作成对的初等行列变换，对<span class="math inline">\(I\)</span>只作其中的初等列变换，所得的对角矩阵<span class="math inline">\(D\)</span>即为系数<span class="math inline">\(d_1,d_2,...,d_n\)</span>，<span class="math inline">\(C\)</span>是非退化的线性替换矩阵。</p>
+<p><strong>二次型分类</strong>：</p>
+<p>设<span class="math inline">\(f(x_1,x_2,...,x_n)=x^TAx\)</span>为<span class="math inline">\(n\)</span>元实二次型，若对任一组不全为零的实数<span class="math inline">\(c_1,c_2,...,c_n\)</span>都有</p>
+<ul>
+<li><span class="math inline">\(f(c_1,c_2,...,c_n)&gt;0(&lt;0)\)</span>，则称<span class="math inline">\(f(x_1,x_2,...,x_n)\)</span>为<strong>正定二次型（负定二次型）</strong>，此时称<span class="math inline">\(A\)</span>为<strong>正定矩阵（负定矩阵）</strong></li>
+<li><span class="math inline">\(f(c_1,c_2,...,c_n)\geq0(\leq0)\)</span>，则称<span class="math inline">\(f(x_1,x_2,...,x_n)\)</span>为<strong>正半定二次型（负半定二次型）</strong>，此时称<span class="math inline">\(A\)</span>为<strong>正半定矩阵（负半定矩阵）</strong></li>
+<li>若<span class="math inline">\(f(x_1,x_2,...,x_n)\)</span>既不是正半定，又不是负半定，则称<span class="math inline">\(f(x_1,x_2,...,x_n)\)</span>为<strong>不定二次型</strong></li>
+</ul>
+<p><strong>利用合同矩阵判断正定性</strong>：</p>
+<p>存在线性变换使得 <span class="math display">\[
+f(x)=x^TAx=yC^TACy=\lambda_1y_1^2+\lambda_2y_2^2+...+\lambda_ny_n^2
+\]</span> 如果<span class="math inline">\(\lambda_1,\lambda_2,...,\lambda_n\)</span>全部为正，则原矩阵<span class="math inline">\(A\)</span>为正定矩阵；</p>
+<p>如果<span class="math inline">\(\lambda_1,\lambda_2,...,\lambda_n\)</span>全部为负，则原矩阵<span class="math inline">\(A\)</span>为负定矩阵。</p>
+<h2 id="特征值与特征向量">特征值与特征向量</h2>
+<p>给定<span class="math inline">\(n\)</span>阶方阵<span class="math inline">\(A\)</span>，如果存在数<span class="math inline">\(\lambda\)</span>和非零向量<span class="math inline">\(x\)</span>，满足<span class="math inline">\(Ax=\lambda x\)</span>，那么<span class="math inline">\(\lambda\)</span>称为矩阵的<strong>特征值</strong>，<span class="math inline">\(x\)</span>称为<span class="math inline">\(\lambda\)</span>对于矩阵<span class="math inline">\(A\)</span>的<strong>特征向量</strong>。</p>
+<p><span class="math inline">\(\lambda I-A\)</span>称为<strong>特征矩阵</strong>，行列式<span class="math inline">\(\det(\lambda I-A)\)</span>为<span class="math inline">\(\lambda\)</span>的<span class="math inline">\(n\)</span>次多项式，称为<strong>特征多项式</strong>；称方程<span class="math inline">\(\det(\lambda I-A)=0\)</span>为<strong>特征方程</strong>；特征方程的解为<strong>特征根</strong>，即为所求的特征值。</p>
+<p><strong>特征子空间</strong>：线性变换<span class="math inline">\(A\)</span>的同一个特征值<span class="math inline">\(\lambda_i\)</span>对应的特征向量构成的线性子空间，称为<strong>特征子空间</strong>，即为<span class="math inline">\(V_\lambda(A)\)</span></p>
+<p><strong>矩阵的特征系</strong>：特征值、特征向量、特征多项式、特征方程、特征根、特征子空间统称为矩阵的<strong>特征系</strong></p>
+<p><strong>矩阵的谱</strong>：特征值的集合称为<strong>矩阵的谱</strong>，记为<span class="math inline">\(\lambda(A)\)</span>；矩阵的谱的绝对值的最大值<span class="math inline">\(r=\max\{|\lambda_1|,|\lambda_2|,...,|\lambda_n|\}\)</span>叫做<strong>矩阵谱半径</strong></p>
+<p><strong>性质</strong>：</p>
+<ul>
+<li>设<span class="math inline">\(\lambda\)</span>是<span class="math inline">\(A\)</span>的特征值，<span class="math inline">\(x_1,x_2\)</span>都是<span class="math inline">\(A\)</span>的属于<span class="math inline">\(\lambda\)</span>的特征向量，则<span class="math inline">\(c_1x_1+c_2x_2\)</span>也是<span class="math inline">\(A\)</span>的属于<span class="math inline">\(\lambda\)</span>的特征向量</li>
+<li>设<span class="math inline">\(\lambda\)</span>是<span class="math inline">\(A\)</span>的特征值，<span class="math inline">\(x\)</span>是<span class="math inline">\(A\)</span>的属于<span class="math inline">\(\lambda\)</span>的特征向量，则
+<ul>
+<li><span class="math inline">\(k\lambda\)</span>是<span class="math inline">\(kA\)</span>的特征值</li>
+<li><span class="math inline">\(\lambda^m\)</span>是<span class="math inline">\(A^m\)</span>的特征值</li>
+<li>若<span class="math inline">\(A\)</span>可逆，则<span class="math inline">\(\lambda^{-1}\)</span>是<span class="math inline">\(A^{-1}\)</span>的特征值</li>
+</ul></li>
+<li>设<span class="math inline">\(\lambda\)</span>是<span class="math inline">\(A\)</span>的特征值，<span class="math inline">\(x\)</span>是<span class="math inline">\(A\)</span>的属于<span class="math inline">\(\lambda\)</span>的特征向量，则<span class="math inline">\(f(\lambda)\)</span>是<span class="math inline">\(f(A)\)</span>的特征值，其中<span class="math inline">\(f\)</span>是一多项式</li>
+<li><p>矩阵<span class="math inline">\(A\)</span>的特征值和为矩阵<span class="math inline">\(A\)</span>的迹，矩阵<span class="math inline">\(A\)</span>的特征值的积为矩阵<span class="math inline">\(A\)</span>的行列式</p></li>
+<li>若<span class="math inline">\(A,B\)</span>相似，<span class="math inline">\(B=Q^{-1}AQ,A=QBQ^{-1}\)</span>
+<ul>
+<li>若<span class="math inline">\(\lambda\)</span>是<span class="math inline">\(A\)</span>的特征值，<span class="math inline">\(\lambda\)</span>也是<span class="math inline">\(B\)</span>的特征值</li>
+<li>若<span class="math inline">\(x\)</span>是<span class="math inline">\(A\)</span>的特征向量，<span class="math inline">\(Q^{-1}x\)</span>是<span class="math inline">\(B\)</span>的特征向量</li>
+<li><span class="math inline">\(A,B\)</span>具有相同的特征方程，反之不成立</li>
+</ul></li>
+</ul>
+<p><strong>对称矩阵与对角矩阵的关系</strong>：</p>
+<p>设<span class="math inline">\(A\)</span>为<span class="math inline">\(n\)</span>阶对称矩阵，则有正交矩阵<span class="math inline">\(P\)</span>，使<span class="math inline">\(P^{-1}AP=P^TAP=\Lambda\)</span>，其中<span class="math inline">\(\Lambda\)</span>是以<span class="math inline">\(A\)</span>的<span class="math inline">\(n\)</span>个特征值为对角元的对角阵。</p>
+<p>该定理说明，<strong>对称矩阵等价、合同、相似于一个对角矩阵</strong>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/09/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83/" rel="prev" title="多维随机变量及常见分布">
+      <i class="fa fa-chevron-left"></i> 多维随机变量及常见分布
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#行列式"><span class="nav-number">1.</span> <span class="nav-text">行列式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迹和二次型"><span class="nav-number">2.</span> <span class="nav-text">迹和二次型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征值与特征向量"><span class="nav-number">3.</span> <span class="nav-text">特征值与特征向量</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
