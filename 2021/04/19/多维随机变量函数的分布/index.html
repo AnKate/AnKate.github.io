@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="已知\((X_1,X_2,...,X_n)\)的联合分布（或分布列、密度函数），求\(Y&#x3D;g(X_1,X_2,...,X_n)\)的分布 可加性（卷积公式）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多维随机变量函数的分布">
+<meta property="og:url" content="https://ankate.github.io/2021/04/19/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="已知\((X_1,X_2,...,X_n)\)的联合分布（或分布列、密度函数），求\(Y&#x3D;g(X_1,X_2,...,X_n)\)的分布 可加性（卷积公式）">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-19T05:09:02.000Z">
+<meta property="article:modified_time" content="2021-04-19T05:09:04.677Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="概率论和数理统计">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/04/19/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>多维随机变量函数的分布 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">23</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/19/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多维随机变量函数的分布
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-19 13:09:02 / Modified: 13:09:04" itemprop="dateCreated datePublished" datetime="2021-04-19T13:09:02+08:00">2021-04-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>已知<span class="math inline">\((X_1,X_2,...,X_n)\)</span>的联合分布（或分布列、密度函数），求<span class="math inline">\(Y=g(X_1,X_2,...,X_n)\)</span>的分布</p>
+<h2 id="可加性卷积公式">可加性（卷积公式）</h2>
+<h3 id="离散场合">离散场合</h3>
+<p>对独立同分布的随机事件<span class="math inline">\(X,Y\)</span>，求<span class="math inline">\(Z=X+Y\)</span>的分布。</p>
+<p>例：（泊松分布的可加性）<span class="math inline">\(X\sim P(\lambda_1),~Y\sim P(\lambda_2),~X,Y\)</span>独立，求<span class="math inline">\(Z=X+Y\)</span>的分布</p>
+<p>X和Y的密度函数： <span class="math display">\[
+p_X(x)=\frac{\lambda_1^x}{x!}e^{-\lambda_1},~~x=0,1,2,...\\
+p_Y(y)=\frac{\lambda_2^y}{y!}e^{-\lambda_2},~~y=0,1,2,...
+\]</span> 对于<span class="math inline">\(Z=X+Y\)</span>，确定<span class="math inline">\(z\)</span>的取值范围：<span class="math inline">\(0,1,2,...\)</span></p>
+<p>对于事件<span class="math inline">\(\{Z=z\}\)</span>，有： <span class="math display">\[
+\{Z=z\}=\bigcup^z_{k=0}\{X=k,~Y=z-k\}
+\]</span></p>
+<p><span class="math display">\[
+P(Z=z)=P(\bigcup^z_{k=0}\{X=k,~Y=z-k\})
+\]</span></p>
+<p>根据概率的<strong>极限可加性</strong>，有 <span class="math display">\[
+P(Z=z)=\sum^z_{k=0}P(\{X=k,~Y=z-k\})
+\]</span> 因为<span class="math inline">\(X,Y\)</span><strong>相互独立</strong>，于是 <span class="math display">\[
+P(Z=z)=\sum^z_{k=0}P(X=k)P(Y=z-k)
+\]</span></p>
+<p><span class="math display">\[
+P(Z=z)=\sum^z_{k=0}\frac{\lambda_1^k}{k!}e^{-\lambda_1}\cdot\frac{\lambda_2^{z-k}}{(z-k)!}e^{-\lambda_2}
+\]</span></p>
+<p>提取与求和无关的项得： <span class="math display">\[
+P(Z=z)=e^{-\lambda_1-\lambda_2}\sum^z_{k=0}\frac{1}{k!(z-k)!}\lambda_1^k\lambda_2^{z-k}
+\]</span> 配系数、做标准化，将求和号内的式子配成二项分布的分布列： <span class="math display">\[
+P(Z=z)=\frac{(\lambda_1+\lambda_2)^z}{z!}\cdot e^{-\lambda_1-\lambda_2}\sum^z_{k=0}\frac{z!}{k!(z-k)!}(\frac{\lambda_1}{\lambda_1+\lambda_2})^k(\frac{\lambda_2}{\lambda_1+\lambda_2})^{z-k}
+\]</span> 此时二项分布的分布列之和为0，所以 <span class="math display">\[
+P(Z=z)=\frac{(\lambda_1+\lambda_2)^z}{z!}\cdot e^{-\lambda_1-\lambda_2}
+\]</span> 即<span class="math inline">\(Z\sim P(\lambda_1+\lambda_2)\)</span></p>
+<p><strong>离散随机分布的可加性</strong>：</p>
+<ul>
+<li><strong>泊松分布</strong>：<span class="math inline">\(P(\lambda_1)*P(\lambda_2)=P(\lambda_1+\lambda_2)\)</span></li>
+<li><strong>二项分布</strong>：<span class="math inline">\(b(n,p)*b(m,p)=b(n+m,p)\)</span></li>
+<li><strong>负二项分布</strong>：<span class="math inline">\(Nb(r_1,p)*Nb(r_2,p)=Nb(r_1+r_2,p)\)</span></li>
+</ul>
+<h3 id="连续场合">连续场合</h3>
+<p><strong>定理</strong>：</p>
+<p>设<span class="math inline">\(X,Y\)</span>是两个独立的连续随机变量，密度函数分别为<span class="math inline">\(p_X(x),p_Y(y)\)</span>，则<span class="math inline">\(Z=X+Y\)</span>的密度函数为 <span class="math display">\[
+p_Z(z)=\int^{+\infty}_{-\infty}p_X(z-y)p_Y(y)dy=\int^{+\infty}_{-\infty}p_X(x)p_Y(z-x)dx
+\]</span> 例：（伽马分布的可加性）<span class="math inline">\(X\sim Ga(\alpha_1,\lambda),~Y\sim Ga(\alpha_2,\lambda)\)</span>，且<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>独立，求<span class="math inline">\(Z=X+Y\)</span></p>
+<p>X和Y的密度函数： <span class="math display">\[
+p_X(x)=\frac{\lambda^{\alpha_1}}{\Gamma(\alpha_1)}x^{\alpha_1-1}e^{-\lambda x},~x\geq 0
+\]</span></p>
+<p><span class="math display">\[
+p_Y(y)=\frac{\lambda^{\alpha_2}}{\Gamma(\alpha_2)}y^{\alpha_2-1}e^{-\lambda y},~y\geq0
+\]</span></p>
+<p>使用卷积公式： <span class="math display">\[
+p_Z(z)=\int^z_0\frac{\lambda^{\alpha_1}}{\Gamma(\alpha_1)}(z-y)^{\alpha_1-1}e^{-\lambda(z-y)}\cdot\frac{\lambda^{\alpha_2}}{\Gamma(\alpha_2)}y^{\alpha_2-1}e^{-\lambda y}dy
+\]</span> 整理得 <span class="math display">\[
+p_Z(z)=\frac{\lambda^{\alpha_1+\alpha_2}e^{-\lambda z}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\int^z_0(z-y)^{\alpha_1-1}y^{\alpha_2-1}dy
+\]</span> 配出贝塔分布的密度函数 <span class="math display">\[
+p_Z(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}z^{\alpha_1+\alpha_2-1}e^{-\lambda z}\int^1_0(1-t)^{\alpha_1-1}t^{\alpha_2-1}dt
+\]</span></p>
+<p><span class="math display">\[
+p_Z(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}z^{\alpha_1+\alpha_2-1}e^{-\lambda z}\cdot\frac{\Gamma(\alpha_1)\Gamma(\alpha_2)}{\Gamma(\alpha_1+\alpha_2)}
+\]</span></p>
+<p><span class="math display">\[
+p_Z(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1+\alpha_2)}z^{\alpha_1+\alpha_2-1}e^{-\lambda z}
+\]</span></p>
+<p>即<span class="math inline">\(Z\sim \Gamma(\alpha_1+\alpha_2,\lambda)\)</span></p>
+<p><strong>连续随机分布的可加性</strong>：</p>
+<ul>
+<li><strong>伽马分布</strong>：<span class="math inline">\(Ga(\alpha_1,\lambda)*Ga(\alpha_2,\lambda)=Ga(\alpha_1+\alpha_2,\lambda)\)</span></li>
+<li><strong>卡方分布</strong>：<span class="math inline">\(\chi(1)*\chi(1)=\chi(2)\)</span></li>
+<li><strong>正态分布</strong>：<span class="math inline">\(N(\mu_1,\sigma_1^2)*N(\mu_2,\sigma_2^2)=N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)\)</span>
+<ul>
+<li>任意个相互独立的<span class="math inline">\(X_i\sim N(\mu_i,\sigma_i^2)\)</span>的线性组合仍服从<span class="math inline">\(N(\mu_o,\sigma_0^2)\)</span></li>
+</ul></li>
+</ul>
+<h2 id="极值分布">极值分布</h2>
+<p><strong>最大值分布</strong>：</p>
+<p>设<span class="math inline">\(X_1,X_2,...,X_n\)</span>是相互独立的<span class="math inline">\(n\)</span>个随机变量，若<span class="math inline">\(Y=\max\{X_1,X_2,...,X_n\}\)</span>，则下述各种情况中，对应<span class="math inline">\(Y\)</span>的分布为:</p>
+<ul>
+<li><p><span class="math inline">\(X_i\sim F_i(x)\)</span>: <span class="math display">\[
+F_Y(y)=P(Y\leq y)= P(\max\{X_1,X_2,...,X_n\}\leq y)
+\]</span></p>
+<p><span class="math display">\[
+F_Y(y)=P(X_1\leq y)P(X_2\leq y)...P(X_n\leq y)=\prod^n_{i=1}F_i(y)
+\]</span></p></li>
+<li><p>诸<span class="math inline">\(X_i\)</span>同分布，即<span class="math inline">\(X_i\sim F(x)\)</span>: <span class="math display">\[
+F_Y(y)=[F(y)]^n
+\]</span></p></li>
+<li></li>
+<li><p>诸<span class="math inline">\(X_i\)</span>为连续随机变量且同分布，即<span class="math inline">\(X_i\)</span>的密度函数均为<span class="math inline">\(p(x)\)</span>: <span class="math display">\[
+p_Y(y)=F_Y&#39;(y)=n[F(y)]^{n-1}p(y)
+\]</span></p></li>
+<li><p><span class="math inline">\(X_i\sim Exp(\lambda)\)</span>: <span class="math display">\[
+F_Y(y)=\begin{cases}
+0&amp;,y&lt;0\\
+(1-e^{-\lambda y})^n&amp;,y\geq0
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+p_Y(y)=\begin{cases}
+0&amp;,y&lt;0\\
+n(1-e^{-\lambda y})^{n-1}\lambda e^{-\lambda y}&amp;,y\geq0
+\end{cases}
+\]</span></p></li>
+</ul>
+<p><strong>最小值分布</strong>：</p>
+<p>设<span class="math inline">\(X_1,X_2,...,X_n\)</span>是相互独立的<span class="math inline">\(n\)</span>个随机变量，若<span class="math inline">\(Z=\min\{X_1,X_2,...,X_n\}\)</span>，则下述各种情况中，对应<span class="math inline">\(Z\)</span>的分布为:</p>
+<ul>
+<li><p><span class="math inline">\(X_i\sim F_i(x)\)</span>: <span class="math display">\[
+F_Z(z)=P(\min\{X_1,X_2,...,X_n\}\leq z)=1-P(\min\{X_1,X_2,...,X_n\}&gt; z)
+\]</span></p>
+<p><span class="math display">\[
+F_Z(z)=1-P(X_1&gt;z)P(X_2&gt;z)...P(X_n&gt;z)=1-\prod^n_{i=1}[1-F_i(z)]
+\]</span></p></li>
+<li><p>诸<span class="math inline">\(X_i\)</span>同分布，即<span class="math inline">\(X_i\sim F(x)\)</span>: <span class="math display">\[
+F_Z(z)=1-\prod^n_{i=1}[1-F(z)]^n
+\]</span></p></li>
+<li><p>诸<span class="math inline">\(X_i\)</span>为连续随机变量且同分布，即<span class="math inline">\(X_i\)</span>的密度函数均为<span class="math inline">\(p(x)\)</span>: <span class="math display">\[
+p_Z(z)=F_z&#39;(z)=n[1-F(z)]^{n-1}p(z)
+\]</span></p></li>
+<li><p><span class="math inline">\(X_i\sim Exp(\lambda)\)</span>: <span class="math display">\[
+F_Z(z)=
+\begin{cases}
+0&amp;,z&lt;0\\
+1-e^{-n\lambda z}&amp;,z\geq 0
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+p_Z(z)=
+\begin{cases}
+0&amp;,z&lt;0\\
+n\lambda e^{-n\lambda z}&amp;,z\geq0
+\end{cases}
+\]</span></p></li>
+</ul>
+<h2 id="变量变换法">变量变换法</h2>
+<p><strong>二维情况</strong>：</p>
+<p>设二维随机变量<span class="math inline">\((X,Y)\)</span>的联合密度函数为<span class="math inline">\(p_{XY}(x,y)\)</span>，如果函数 <span class="math display">\[
+\begin{cases}
+u=g_1(x,y)\\
+v=g_2(x,y)
+\end{cases}
+\]</span> 有连续偏导数，且存在唯一的反函数 <span class="math display">\[
+\begin{cases}
+x=x(u,v)\\
+y=y(u,v)
+\end{cases}
+\]</span> 其变换的雅可比行列式 <span class="math display">\[
+J=\frac{\partial(x,y)}{\partial(u,v)}=
+\left |
+\begin{matrix}
+\frac{\partial{x}}{\partial{u}}&amp;\frac{\partial{x}}{\partial{v}}\\
+\frac{\partial{y}}{\partial{u}}&amp;\frac{\partial{y}}{\partial{v}}
+\end{matrix}
+\right |
+\ne0
+\]</span> 若 <span class="math display">\[
+\begin{cases}
+U=g_1(X,Y)\\
+V=g_2(X,Y)
+\end{cases}
+\]</span> 则<span class="math inline">\((U,V)\)</span>的联合密度函数为 <span class="math display">\[
+p_{UV}(u,v)=p_{XY}(x(u,v),y(u,v))\cdot |J|
+\]</span> 例题：<em>Prob. &amp; Stat. P152 ex. 3.3.10</em></p>
+<p><strong>扩展到多维情况</strong>：</p>
+<p>设多维随机变量<span class="math inline">\(\overrightarrow X=(X_1,X_2,...,X_n)\)</span>的联合密度函数为<span class="math inline">\(p_{(X_1,X_2,...,X_n)}(x_1,x_2,...,x_n)\)</span>，如果函数 <span class="math display">\[
+\begin{cases}
+y_1=g_1(X_1,X_2,...,X_n)\\
+y_2=g_2(X_1,X_2,...,X_n)\\
+......\\
+y_n=g_n(X_1,X_2,...,X_n)
+\end{cases}
+\]</span> 有连续偏导数，且存在唯一的反函数 <span class="math display">\[
+\overrightarrow X= \overrightarrow h(\overrightarrow Y)=
+\begin{cases}
+X_1=h_1(Y_1,Y_2,...,Y_n)\\
+X_2=h_2(Y_1,Y_2,...,Y_n)\\
+......\\
+X_n=h_n(Y_1,Y_2,...,Y_n)
+\end{cases}
+\]</span> 其变换的雅可比行列式 <span class="math display">\[
+J_{n\times n}=\left| \left(\frac{\partial x}{\partial y}\right)_{n\times n} \right|\ne 0
+\]</span> 若 <span class="math display">\[
+\overrightarrow Y=\overrightarrow g(\overrightarrow X)=
+\begin{cases}
+Y_1=g_1(X_1,X_2,...,X_n)\\
+Y_2=g_2(X_1,X_2,...,X_n)\\
+......\\
+Y_n=g_n(X_1,X_2,...,X_n)
+\end{cases}
+\]</span> 则<span class="math inline">\((Y_1,Y_2,...,Y_n)\)</span>的联合密度函数为： <span class="math display">\[
+p_{(Y_1,Y_2,...,Y_n)}(y_1,y_2,...,y_n)=p_{(X_1,X_2,...,X_n)}(\overrightarrow h(\overrightarrow y))\cdot|J|
+\]</span></p>
+<p><strong>增补变量法</strong>：</p>
+<p>增补变量法实质上是变量变换法的一种应用，增补一个新的随机变量<span class="math inline">\(V=h(X,Y)\)</span>，以求出和函数<span class="math inline">\(U=g(X,Y)\)</span>的联合密度函数<span class="math inline">\(p_{UV}(u,v)\)</span>，最后对<span class="math inline">\(p_{UV}(u,v)\)</span>关于<span class="math inline">\(v\)</span>积分，求出<span class="math inline">\(U\)</span>的边际密度函数</p>
+<p>例：（<strong>两个随机变量的积的公式</strong>）</p>
+<p>设随机变量<span class="math inline">\(X,Y\)</span>相互独立，其密度函数分别为<span class="math inline">\(p_X(x),p_Y(y)\)</span>，则<span class="math inline">\(U=XY\)</span>的密度函数为 <span class="math display">\[
+p_U(u)=\int^{+\infty}_{-\infty}p_X(\frac uv)p_Y(v)\frac{1}{|v|}dv
+\]</span> 证明：</p>
+<p>记<span class="math inline">\(V=Y\)</span>，则<span class="math inline">\(\begin{cases}u=xy\\v=y \end{cases}\)</span>的反函数为<span class="math inline">\(\begin{cases} x=\frac uv \\ y= v\end{cases}\)</span>，雅可比行列式为 <span class="math display">\[
+J=\left |
+\begin{matrix}
+\frac 1v &amp; -\frac{u}{v^2}\\
+0&amp;1
+\end{matrix}
+\right |
+=\frac 1v
+\]</span> 所以<span class="math inline">\((U,V)\)</span>的联合密度函数为 <span class="math display">\[
+p_{UV}(u,v)=p_X(\frac{u}{v})p_Y(v)\cdot \frac{1}{|v|}
+\]</span> 对该密度函数关于<span class="math inline">\(v\)</span>积分即得。</p>
+<p>同理，<span class="math inline">\(U=\frac{X}Y\)</span>的密度函数为 <span class="math display">\[
+p_U(u)=\int^{+\infty}_{-\infty}p_X(uv)p_Y(v)|v|dv
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/11/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%B9%E5%BE%81%E6%95%B0/" rel="prev" title="多维随机变量的特征数">
+      <i class="fa fa-chevron-left"></i> 多维随机变量的特征数
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#可加性卷积公式"><span class="nav-number">1.</span> <span class="nav-text">可加性（卷积公式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离散场合"><span class="nav-number">1.1.</span> <span class="nav-text">离散场合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续场合"><span class="nav-number">1.2.</span> <span class="nav-text">连续场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极值分布"><span class="nav-number">2.</span> <span class="nav-text">极值分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量变换法"><span class="nav-number">3.</span> <span class="nav-text">变量变换法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
