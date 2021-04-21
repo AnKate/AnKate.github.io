@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="数学期望 期望向量：对于\(n\)维随机向量\(\overrightarrow X&#x3D;(X_1,X_2,...,X_n)^T\)，有期望向量\(E(\overrightarrow X)&#x3D;(E(X_1),E(X_2),...,E(X_n))^T\)，其中\(E(X_i)\)表示每个随机事件的数学期望。">
+  <meta name="description" content="引例：Simpson悖论 在分组研究多个变量时，可能出现在分组比较中都占优势的一方，在总评中反而失势的情况。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多维随机变量的特征数">
-<meta property="og:url" content="https://ankate.github.io/2021/04/11/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%B9%E5%BE%81%E6%95%B0/index.html">
+<meta property="og:title" content="条件分布与条件期望">
+<meta property="og:url" content="https://ankate.github.io/2021/04/21/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="数学期望 期望向量：对于\(n\)维随机向量\(\overrightarrow X&#x3D;(X_1,X_2,...,X_n)^T\)，有期望向量\(E(\overrightarrow X)&#x3D;(E(X_1),E(X_2),...,E(X_n))^T\)，其中\(E(X_i)\)表示每个随机事件的数学期望。">
+<meta property="og:description" content="引例：Simpson悖论 在分组研究多个变量时，可能出现在分组比较中都占优势的一方，在总评中反而失势的情况。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-04-11T04:39:47.000Z">
-<meta property="article:modified_time" content="2021-04-11T04:39:54.779Z">
+<meta property="article:published_time" content="2021-04-21T12:42:18.000Z">
+<meta property="article:modified_time" content="2021-04-21T12:42:20.243Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="概率论和数理统计">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://ankate.github.io/2021/04/11/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%B9%E5%BE%81%E6%95%B0/">
+<link rel="canonical" href="https://ankate.github.io/2021/04/21/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>多维随机变量的特征数 | AnKate</title>
+  <title>条件分布与条件期望 | AnKate</title>
   
 
 
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/11/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%B9%E5%BE%81%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/21/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          多维随机变量的特征数
+          条件分布与条件期望
         </h1>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-11 12:39:47 / Modified: 12:39:54" itemprop="dateCreated datePublished" datetime="2021-04-11T12:39:47+08:00">2021-04-11</time>
+              <time title="Created: 2021-04-21 20:42:18 / Modified: 20:42:20" itemprop="dateCreated datePublished" datetime="2021-04-21T20:42:18+08:00">2021-04-21</time>
             </span>
 
           
@@ -194,86 +194,110 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="数学期望">数学期望</h2>
-<p><strong>期望向量</strong>：对于<span class="math inline">\(n\)</span>维随机向量<span class="math inline">\(\overrightarrow X=(X_1,X_2,...,X_n)^T\)</span>，有期望向量<span class="math inline">\(E(\overrightarrow X)=(E(X_1),E(X_2),...,E(X_n))^T\)</span>，其中<span class="math inline">\(E(X_i)\)</span>表示每个随机事件的数学期望。</p>
-<p><strong>多维随机变量函数的数学期望</strong>：</p>
-<p>已知<span class="math inline">\(X_1,X_2,...,X_n\)</span>的分布列<span class="math inline">\(P(X_1=x_1,X_2=x_2,...,X_n=x_n)\)</span>（或密度函数<span class="math inline">\(p(x_1,x_2,...,x_n)\)</span>），则<span class="math inline">\(Y=g(X_1,X_2,...,X_n)\)</span>的数学期望为 <span class="math display">\[
-E(Y)=
-\begin{cases}
-\displaystyle\sum_{x_1,x_2,...,x_n}g(x_1,x_2,...,x_n)P(X_1=x_1,X_2=x_2,...,X_n=x_n)&amp;,在离散场合
-\\
-\displaystyle\int^{+\infty}_{-\infty}···\int^{+\infty}_{-\infty}g(x_1,x_2,...,x_n)p(x_1,x_2,...,x_n)&amp;,在连续场合
-\end{cases}
-\]</span> <strong>性质</strong>：</p>
-<ul>
-<li><p><strong>对任意的<span class="math inline">\(n\)</span>个随机变量</strong>，<span class="math inline">\(E(X_1+X_2+···+X_n)=E(X_1)+E(X_2)+···+E(X_n)\)</span></p></li>
-<li><p><strong>对<span class="math inline">\(n\)</span>个相互独立的事件</strong>：</p>
-<ul>
-<li><p><span class="math inline">\(E(\displaystyle\prod^{n}_{i=1}X_i)=\prod^n_{i=1}E(X_i)\)</span></p></li>
-<li><p><span class="math inline">\(Var(X_1 + X_2 + ··· + X_n)=Var(X_1)+Var(X_2)+···+Var(X_n)\)</span>；</p>
-<p><span class="math inline">\(Var(X_1 - X_2 - ··· - X_n)=Var(X_1)+Var(X_2)+···+Var(X_n)\)</span>.</p></li>
-</ul></li>
-</ul>
-<h2 id="协方差">协方差</h2>
-<p>描述两个分量间相互关系的特征数即为<strong>协方差</strong>。</p>
-<p><strong>协方差</strong>：</p>
-<p>设<span class="math inline">\((X,Y)\)</span>是一个二维随机变量，若<span class="math inline">\(E[(X-E(X))(Y-E(Y))]\)</span>存在，则称此数学期望为<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>的<strong>协方差</strong>，或称为<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>的<strong>相关（中心）矩</strong>，记为 <span class="math display">\[
-Cov(X,Y)=E[(X-E(X))(Y-E(Y))]
-\]</span> 特别地，<span class="math inline">\(Cov(X,X)=E(X)\)</span>.</p>
-<p><strong>含义</strong>：</p>
-<p>协方差可正可负，也可为零，不同取值对应含义如下</p>
-<ul>
-<li><span class="math inline">\(Cov(X,Y)&gt;0\)</span>时，称<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span><strong>正相关</strong>，表明<span class="math inline">\(X,Y\)</span>有同时增加或减少的倾向</li>
-<li><span class="math inline">\(Cov(X,Y)&lt;0\)</span>时，称<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span><strong>负相关</strong>，表明<span class="math inline">\(X,Y\)</span>的变化有相反的倾向</li>
-<li><span class="math inline">\(Cov(X,Y)=0\)</span>时，称<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span><strong>不存在线性相关</strong>，此时<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>可能独立，也可能存在某种非线性相关（<em>Prob. &amp; Stat. P160 ex.3.4.6</em>）</li>
-</ul>
-<p><strong>不相关</strong>的概念弱于<strong>独立</strong>，即<strong>独立是不相关的子集</strong>。</p>
-<p><strong>性质</strong>：</p>
-<ul>
-<li><span class="math inline">\(Cov(X,Y)=E(XY)-E(X)E(Y)\)</span>；特别地，<span class="math inline">\(X,Y\)</span>独立时，<span class="math inline">\(Cov(X,Y)=0\)</span></li>
-<li>对任意<span class="math inline">\(n\)</span>个随机变量，<span class="math inline">\(Var(\displaystyle\sum^n_{i=1}X_i)=\sum^n_{i=1}Var(X_i)+2\sum^n_{i=1}\sum^{i-1}_{j=1}Cov(X_i,X_j)\)</span></li>
-<li><span class="math inline">\(Cov(X,Y)=Cov(Y,X)\)</span></li>
-<li><span class="math inline">\(Cov(X,a)=0\)</span></li>
-<li><span class="math inline">\(Cov(aX,bY)=ab\cdot Cov(X,Y)\)</span></li>
-<li>对任意三个随机变量<span class="math inline">\(X,Y,Z\)</span>，<span class="math inline">\(Cov(X+Y,Z)=Cov(X,Z)+Cov(Y,Z)\)</span></li>
-</ul>
-<p><strong>方差-协方差矩阵</strong>：用矩阵形式刻画<span class="math inline">\(n\)</span>维随机变量的方差</p>
-<p>对<span class="math inline">\(n\)</span>维随机向量<span class="math inline">\(\overrightarrow X=(X_1,X_2,...,X_n)\)</span>，有协方差矩阵 <span class="math display">\[
-\left(
-\begin{matrix}
-Var(X_1)&amp;Cov(X_1,X_2)&amp;...&amp;Cov(X_1,X_n)\\
-Cov(X_2,X_1)&amp;Var(X_2)&amp;...&amp;Cov(X_2,X_n)\\
-...&amp;...&amp;...&amp;...\\
-Cov(X_n,X_1)&amp;Cov(X_n,X_2)&amp;...&amp;Var(X_n)
-\end{matrix}
-\right)
-\]</span> 该矩阵是一个<strong>对称的非负定矩阵</strong>，即为<span class="math inline">\(n\)</span>元正态分布中的矩阵<span class="math inline">\(\Sigma\)</span>.</p>
-<h2 id="相关系数">相关系数</h2>
-<p>消除量纲对变量相关性的影响的特征值即为<strong>相关系数</strong>。</p>
-<p><strong>相关系数</strong>：</p>
-<p>设<span class="math inline">\((X,Y)\)</span>是一个二维随机变量，且<span class="math inline">\(Var(X)=\sigma_X^2&gt;0,Var(Y)=\sigma_Y^2&gt;0.\)</span>则称 <span class="math display">\[
-\rho =Corr(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)}\sqrt{Var(Y)}}=\frac{Cov(X,Y)}{\sigma_X\sigma_Y}
-\]</span> 为<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>的（线性）<strong>相关系数</strong>。</p>
-<p>相关系数与协方差取相同符号，也能反映出随机变量的正相关、负相关或不相关。</p>
-<p>相关系数也是<strong>相应标准化变量的协方差</strong>：</p>
-<p>记<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>的数学期望分别为<span class="math inline">\(\mu_X,\mu_Y\)</span>，其标准化变量为： <span class="math display">\[
-X^*=\frac{X-\mu_X}{\sigma_X},~Y^*=\frac{Y-\mu_Y}{\sigma_Y}
-\]</span> 则有 <span class="math display">\[
-Cov(X^*,Y^*)=Corr(X,Y)
-\]</span> 相关系数也是<strong>多元正态分布中的参数之一</strong>。</p>
-<p><strong>Schwarz不等式</strong>：</p>
-<p>对任意二维随机变量<span class="math inline">\((X,Y)\)</span>，若<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>的方差都存在，且记<span class="math inline">\(\sigma_X^2=Var(X),\sigma_Y^2=Var(Y)\)</span>，则有 <span class="math display">\[
-[Cov(X,Y)]^2\leq \sigma_X^2\sigma_Y^2
-\]</span> 利用该不等式，可以得到相关系数的<strong>重要性质</strong>： <span class="math display">\[
--1\leq\rho\leq 1
+        <p>引例：Simpson悖论</p>
+<p>在分组研究多个变量时，可能出现<strong>在分组比较中都占优势的一方，在总评中反而失势</strong>的情况。</p>
+<p>由此引入多维随机变量的<strong>条件分布</strong>的定义。</p>
+<h2 id="条件分布">条件分布</h2>
+<p><strong>离散场合</strong>：</p>
+<p>设二维离散随机变量<span class="math inline">\((X,Y)\)</span>的联合分布列为 <span class="math display">\[
+p_{ij}=P(X=x_i,Y=y_j),~i=1,2,...,~j=1,2,...
+\]</span> 对一切使<span class="math inline">\(P(Y=y_j)=p_{\cdot j}=\displaystyle\sum^{\infty}_{i=1}p_{ij}&gt;0\)</span>的<span class="math inline">\(y_j\)</span>，称 <span class="math display">\[
+p_{i|j}=P(X=x_i|Y=y_j)=\frac{P(X=x_i,Y=y_j)}{P(Y=y_j)}=\frac{p_{ij}}{p_{\cdot j}}
+\]</span> 为给定<span class="math inline">\(Y=y_j\)</span>条件下的<span class="math inline">\(X\)</span>的条件分布列。</p>
+<p>同理，对一切使<span class="math inline">\(P(X=x_i)=p_{i\cdot }=\displaystyle\sum^{\infty}_{j=1}p_{ij}&gt;0\)</span>的<span class="math inline">\(x_i\)</span>，称 <span class="math display">\[
+p_{j|i}=P(Y=y_j|X=x_i)=\frac{P(X=x_i,Y=y_j)}{P(X=x_i)}=\frac{p_{ij}}{p_{i\cdot }}
+\]</span> 为给定<span class="math inline">\(X=x_i\)</span>条件下的<span class="math inline">\(Y\)</span>的条件分布列。</p>
+<p>根据条件分布列，定义<strong>条件分布函数</strong>如下：</p>
+<p>给定<span class="math inline">\(Y=y_j\)</span>条件下<span class="math inline">\(X\)</span>的条件分布函数为 <span class="math display">\[
+F(x|y_j)=\sum_{x_i\leq x}P(X=x_i|Y=y_j)=\sum_{x_i\leq x}p_{i|j}
+\]</span> 给定<span class="math inline">\(X=x_i\)</span>条件下<span class="math inline">\(Y\)</span>的条件分布函数为 <span class="math display">\[
+F(y|x_i)=\sum_{y_j\leq y}P(Y=y_j|X=x_i)=\sum_{y_j\leq y}p_{j|i}
+\]</span> 例题：<em>Prob. &amp; Stat. P 175 ex.3.5.2 3.5.3</em></p>
+<p><strong>连续场合</strong>：</p>
+<p>设二维连续随机变量<span class="math inline">\((X,Y)\)</span>的联合密度函数为<span class="math inline">\(p(x,y)\)</span>，边际密度函数为<span class="math inline">\(p_X(x),p_Y(y)\)</span></p>
+<p>由于连续场合<span class="math inline">\(P(Y=y)=0\)</span>，此时不能采用与离散场合相同的定义，于是将<span class="math inline">\(P(X\leq x | Y= y)\)</span>看作<span class="math inline">\(h\rightarrow 0\)</span>时<span class="math inline">\(P(X\leq x | y\leq Y \leq y+h)\)</span>的极限，即 <span class="math display">\[
+P(X\leq x |Y=y) = \lim_{h\rightarrow0}P(X\leq x| y\leq Y \leq y + h) 
 \]</span></p>
-<ul>
-<li><span class="math inline">\(\rho=0\)</span>时，<span class="math inline">\(X,Y\)</span>之间不存在线性关系</li>
-<li><span class="math inline">\(\rho=1\)</span>时，<span class="math inline">\(X,Y\)</span><strong>完全正相关</strong>；<span class="math inline">\(\rho=-1\)</span>时，<span class="math inline">\(X,Y\)</span><strong>完全负相关</strong>
-<ul>
-<li>此时，二元正态分布退化为一元正态分布，二元的分布列不再适用</li>
-</ul></li>
-</ul>
+<p><span class="math display">\[
+P(X\leq x | Y =y)=\lim_{h\rightarrow 0}\frac{P(X\leq x,y\leq Y\leq y+h)}{P(y\leq Y \leq y+h)}
+\]</span></p>
+<p>已知密度函数，分别使用积分求概率，得 <span class="math display">\[
+P(X\leq x | Y =y)=\lim_{h\rightarrow 0}\frac{\displaystyle\int^x_{-\infty}\int^{y+h}_{y}p(u,v)dudv}{\displaystyle\int^{y+h}_yp_Y(v)dv}
+\]</span> 根据<strong>积分中值定理</strong>，有 <span class="math display">\[
+\int^{x+k}_{x}f(t)dt=f(x+\varepsilon\cdot k)\cdot k
+\]</span> 分子分母同乘<span class="math inline">\(\frac 1h\)</span>，则有 <span class="math display">\[
+\lim_{h\rightarrow0}\frac 1h \int^{y+h}_yp(u,v)dv =\lim_{h\rightarrow 0}p(u,y+\varepsilon_1h)=p(u,y)
+\]</span></p>
+<p><span class="math display">\[
+\lim_{h\rightarrow0}\frac 1h \int^{y+h}_yp_Y(v)dv =\lim_{h\rightarrow 0}p_Y(y+\varepsilon_2h)=p_Y(y)
+\]</span></p>
+<p>所以原式 <span class="math display">\[
+P(X\leq x| Y=y)=\int^x_{-\infty}\frac{p(u,y)}{p_Y(y)}du
+\]</span> 于是定义如下的连续随机变量的条件分布函数与条件密度函数。</p>
+<p>对一切使<span class="math inline">\(p_Y(y)&gt;0\)</span>的<span class="math inline">\(y\)</span>，给定<span class="math inline">\(Y=y\)</span>条件下的<span class="math inline">\(X\)</span>的条件分布函数和条件密度函数为 <span class="math display">\[
+F(x|y)=\int^x_{-\infty}\frac{p(u,y)}{p_Y(y)}du
+\]</span></p>
+<p><span class="math display">\[
+p(x|y)=\frac{p(x,y)}{p_Y(y)}
+\]</span></p>
+<p>同理，对一切使<span class="math inline">\(p_X(x)&gt;0\)</span>的<span class="math inline">\(x\)</span>，给定<span class="math inline">\(X=x\)</span>条件下<span class="math inline">\(Y\)</span>的条件分布函数和条件密度函数为 <span class="math display">\[
+F(y|x)=\int^{y}_{-\infty}\frac{p(x,v)}{p_X(x)}dv
+\]</span></p>
+<p><span class="math display">\[
+p(y|x)=\frac{p(x,y)}{p_X(x)}
+\]</span></p>
+<p>在连续场合下，可以根据上述定义给出全概率公式和贝叶斯公式：</p>
+<p><strong>全概率公式</strong>： <span class="math display">\[
+p_Y(y)=\int^{\infty}_{-\infty}p_X(x)p(y|x)dx
+\]</span></p>
+<p><span class="math display">\[
+p_X(x)=\int^{\infty}_{-\infty}p_Y(y)p(x|y)dy
+\]</span></p>
+<p><strong>贝叶斯公式</strong>： <span class="math display">\[
+p(x|y)=\frac{p_X(x)p(y|x)}{\displaystyle\int^{\infty}_{-\infty}p_X(x)p(y|x)dx}
+\]</span></p>
+<p><span class="math display">\[
+p(y|x)=\frac{p_Y(y)p(x|y)}{\displaystyle\int^{\infty}_{-\infty}p_Y(y)p(x|y)dy}
+\]</span></p>
+<h2 id="条件数学期望和条件方差">条件数学期望和条件方差</h2>
+<p>条件分布的数学期望即为<strong>条件期望</strong>，定义： <span class="math display">\[
+E(X|Y=y)=
+\begin{cases}
+\displaystyle\sum_ix_iP(X=x_i|Y=y)&amp;,离散场合\\
+\displaystyle\int^{\infty}_{-\infty}xp(x|y)dx&amp;,连续场合
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+E(Y|X=x)=\begin{cases}
+\displaystyle\sum_jy_jP(Y=y_j|X=x)&amp;,离散场合\\
+\displaystyle\int^{\infty}_{-\infty}yp(y|x)dx&amp;,连续场合
+\end{cases}
+\]</span></p>
+<p>条件期望也是数学期望，所以<strong>具有所有的数学期望的性质</strong>。</p>
+<p><span class="math inline">\(E(X|Y=y)\)</span>是<span class="math inline">\(y\)</span>的函数，所以可以记作 <span class="math display">\[
+E(X|Y=y)=g(y)
+\]</span> 而<span class="math inline">\(E(X|Y=y)\)</span>实际上又是随机变量<span class="math inline">\(Y=y\)</span>时，<span class="math inline">\(E(X|Y)\)</span>的一个取值，所以<span class="math inline">\(E(X|Y)\)</span>也是一个随机变量。</p>
+<p>于是有<strong>重期望公式</strong>： <span class="math display">\[
+E(X)=E_Y(E_X(X|Y))
+\]</span> 类似地，有<strong>条件方差</strong>的定义： <span class="math display">\[
+Var(X|Y)=E((X-E(X|Y))^2|Y)
+\]</span> 还有类似的性质： <span class="math display">\[
+Var(X)=E_Y(Var_X(X|Y))+Var_Y(E_X(X|Y))
+\]</span></p>
+<p><strong>随机变量个随机变量和的数学期望</strong>： <span class="math display">\[
+E(\sum^N_{i=1}X)=E(X_1)E(N)
+\]</span> 证明过程见<em>Prob. &amp; Stat. P183 ex.3.5.10</em></p>
+<p>还有<strong>条件方差</strong>： <span class="math display">\[
+Var(\sum^N_{i=1}X_i)=Var(X_1)E(N)+E(X_1)^2Var(N)
+\]</span> 证明： <span class="math display">\[
+Var(\sum^N_{i=1}X_i)=E_N[Var(\sum^N_{i=1}X_i|N)]+Var_N[(E(\sum^N_{i=1}X_i|N))]
+\]</span></p>
+<p><span class="math display">\[
+Var(\sum^N_{i=1}X_i)=E_N(Var(NX_1))+Var_N(E(NX_1))=E_N(NVar(X_1))+Var_N(NE(X_1))
+\]</span></p>
+<p><span class="math display">\[
+Var(\sum^N_{i=1}X_i)=Var(X_1)E(N)+Var(N)E(X_1)^2
+\]</span></p>
 
     </div>
 
@@ -293,13 +317,10 @@ Cov(X^*,Y^*)=Corr(X,Y)
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/09/%E7%9F%A9%E9%98%B5%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/" rel="prev" title="矩阵的基本特征">
-      <i class="fa fa-chevron-left"></i> 矩阵的基本特征
+    <a href="/2021/04/19/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/" rel="prev" title="多维随机变量函数的分布">
+      <i class="fa fa-chevron-left"></i> 多维随机变量函数的分布
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/19/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/" rel="next" title="多维随机变量函数的分布">
-      多维随机变量函数的分布 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -358,7 +379,7 @@ Cov(X^*,Y^*)=Corr(X,Y)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数学期望"><span class="nav-number">1.</span> <span class="nav-text">数学期望</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协方差"><span class="nav-number">2.</span> <span class="nav-text">协方差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关系数"><span class="nav-number">3.</span> <span class="nav-text">相关系数</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件分布"><span class="nav-number">1.</span> <span class="nav-text">条件分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件数学期望和条件方差"><span class="nav-number">2.</span> <span class="nav-text">条件数学期望和条件方差</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
