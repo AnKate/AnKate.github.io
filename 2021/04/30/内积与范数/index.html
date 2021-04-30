@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="向量范数 向量范数：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内积与范数">
+<meta property="og:url" content="https://ankate.github.io/2021/04/30/%E5%86%85%E7%A7%AF%E4%B8%8E%E8%8C%83%E6%95%B0/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="向量范数 向量范数：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-30T00:07:55.000Z">
+<meta property="article:modified_time" content="2021-04-30T00:08:02.659Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="数据科学数学基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/04/30/%E5%86%85%E7%A7%AF%E4%B8%8E%E8%8C%83%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>内积与范数 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">25</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/30/%E5%86%85%E7%A7%AF%E4%B8%8E%E8%8C%83%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内积与范数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-30 08:07:55 / Modified: 08:08:02" itemprop="dateCreated datePublished" datetime="2021-04-30T08:07:55+08:00">2021-04-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="向量范数">向量范数</h2>
+<p><strong>向量范数</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V}\)</span>是数域<span class="math inline">\(\mathbb{K}\)</span>上的<span class="math inline">\(n\)</span>维线性空间，函数 <span class="math display">\[
+||\cdot||:\mathbb{V}\rightarrow\mathbb{R},~x\mapsto ||x||
+\]</span> 将向量<span class="math inline">\(x\)</span>映射为长度<span class="math inline">\(||x||\in\mathbb{R}\)</span>，并且使得对<span class="math inline">\(\forall \lambda \in \mathbb{R}\)</span>和<span class="math inline">\(\forall x,y\in \mathbb{V}\)</span>，满足：</p>
+<ul>
+<li><strong>非负性</strong>：<span class="math inline">\(||x||\geq 0, ||x||=0\)</span>当且仅当<span class="math inline">\(x=0\)</span></li>
+<li><strong>齐次性</strong>：<span class="math inline">\(||\lambda x||=|\lambda|\cdot||x||\)</span></li>
+<li><strong>三角不等式</strong>：<span class="math inline">\(||x+y||\leq ||x||+||y||\)</span></li>
+</ul>
+<p>称<span class="math inline">\(||x||\)</span>是向量<span class="math inline">\(x\)</span>的<strong>向量范数</strong>，称定义了范数的线性空间<span class="math inline">\(\mathbb{V}\)</span>为<strong>赋范线性空间</strong></p>
+<p><span class="math inline">\(l_p\)</span><strong>范数</strong>：</p>
+<p>对于任意<span class="math inline">\(x=(x_1,x_2,...,x_n)\in \mathbb{R}^n\)</span>，由 <span class="math display">\[
+||x||_p=(\sum^n_{i=1}|x_i|^p)^{\frac1p},1\leq p &lt; \infty
+\]</span> 定义的<span class="math inline">\(||\cdot||_p\)</span>是<span class="math inline">\(\mathbb{R}^n\)</span>上的向量范数，称为<strong><span class="math inline">\(p\)</span>范数</strong>或<strong><span class="math inline">\(l_p\)</span>范数</strong></p>
+<ul>
+<li><span class="math inline">\(p=1\)</span>时，得到的范数又称<strong>曼哈顿范数（曼哈顿距离）</strong></li>
+<li><span class="math inline">\(p=2\)</span>时，得到的范数又称<strong>欧几里得范数（欧氏距离）</strong></li>
+<li><span class="math inline">\(0&lt;p&lt;1\)</span>时，得到的不是<span class="math inline">\(\mathbb{R}^n\)</span>上的向量范数</li>
+</ul>
+<p><span class="math inline">\(l_\infty\)</span><strong>范数</strong>：</p>
+<p>对于任意<span class="math inline">\(x=(x_1,x_2,...,x_n)\in \mathbb{R}^n\)</span>，由 <span class="math display">\[
+||x||_\infty=\lim_{p\rightarrow\infty}||x||_p=\max_{i=1,...,n}|x_i|
+\]</span> 定义的<span class="math inline">\(||\cdot||_\infty\)</span>是<span class="math inline">\(\mathbb{R}^n\)</span>上的向量范数，称为<span class="math inline">\(\infty\)</span><strong>范数</strong>或<span class="math inline">\(l_\infty\)</span><strong>范数</strong></p>
+<p><span class="math inline">\(l_0\)</span><strong>范数</strong>：</p>
+<p>向量<span class="math inline">\(x\)</span>的<strong>基数函数</strong>定义为<span class="math inline">\(x\)</span>中非零元素的个数，即 <span class="math display">\[
+card(x)=\sum^n_{i=1}\mathcal{I}(x_i\neq0)
+\]</span> 其中 <span class="math display">\[
+\mathcal{I}(x_i\ne0)=\begin{cases}
+1&amp;,x_i\neq0\\
+0&amp;,x_i=0
+\end{cases}
+\]</span> 基数函数也被称作<span class="math inline">\(l_0\)</span><strong>范数</strong>，但不满足范数的定义</p>
+<p><strong>单位范数球</strong>：</p>
+<p>对于<span class="math inline">\(l_p\)</span>范数小于等于<span class="math inline">\(1\)</span>的向量集合 <span class="math display">\[
+\mathcal{B}=\{x\in\mathbb{R}^n:||x||_p\leq 1\}
+\]</span> 称为<span class="math inline">\(l_p\)</span>的<strong>单位范数球</strong></p>
+<p><strong>范数的收敛性</strong>：</p>
+<p>设<span class="math inline">\(\{x^{(k)}\}\)</span>为<span class="math inline">\(\mathbb{R}^n\)</span>中一向量序列，<span class="math inline">\(x^*\in\mathbb{R}^n\)</span>，其中 <span class="math display">\[
+x^{(k)}=(x_1^{(k)},x_2^{(k)},...,x_n^{(k)})^T,~x^*=(x_1^*,x_2^*,...,x_n^*)^T
+\]</span> 如果<span class="math inline">\(\displaystyle\lim_{k\rightarrow\infty}x_i^{(k)}=x_i^*(i=1,2,...,n)\)</span>，则称<span class="math inline">\(x^{(k)}\)</span><strong>收敛</strong>于向量<span class="math inline">\(x^*\)</span>，记作 <span class="math display">\[
+\lim_{k\rightarrow\infty}x^{(k)}=x^*
+\]</span> <strong>范数的连续性</strong>：设非负函数<span class="math inline">\(N(x)=||x||\)</span>为<span class="math inline">\(\mathbb{R}^n\)</span>上任一向量范数，则<span class="math inline">\(N(x)\)</span>是<span class="math inline">\(x\)</span>分量<span class="math inline">\(x_1,x_2,...,x_n\)</span>的连续函数</p>
+<p><strong>柯西收敛原理</strong>：实数域<span class="math inline">\(\mathbb{R}\)</span>（或复数域<span class="math inline">\(\mathbb{C}\)</span>）上的有限维线性空间按任何范数<span class="math inline">\(||\cdot||\)</span>必定完备</p>
+<p><strong>向量序列收敛定理</strong>：</p>
+<p>设<span class="math inline">\(\{x^{(k)}\}\)</span>为<span class="math inline">\(\mathbb{R}^n\)</span>中一向量序列，<span class="math inline">\(x^*\in \mathbb{R}^n\)</span>，则 <span class="math display">\[
+\lim_{k\rightarrow\infty}x^{(k)}=x^*~\Longleftrightarrow~\lim_{k\rightarrow\infty}\Vert x^{(k)}-x^*\Vert=0
+\]</span> 其中<span class="math inline">\(\Vert\cdot\Vert\)</span>为向量的任一种范数。</p>
+<p><strong>范数的等价性</strong>：</p>
+<p>设<span class="math inline">\(\Vert x\Vert_s, \Vert x \Vert_t\)</span>为<span class="math inline">\(\R^n\)</span>上的任意两种向量范数，则存在两个与向量的正常数<span class="math inline">\(c_1,c_2&gt;0\)</span>，使得下面的不等式对一切<span class="math inline">\(x\in\R^n\)</span>成立 <span class="math display">\[
+c_1\Vert x \Vert_s\leq \Vert x \Vert_t \leq c_2\Vert x\Vert_s
+\]</span> 称<span class="math inline">\(\Vert x \Vert_t\)</span>和<span class="math inline">\(\Vert x \Vert_s\)</span>为<span class="math inline">\(\R^n\)</span>上的等价的范数。</p>
+<h2 id="内积距离夹角与正交性">内积、距离、夹角与正交性</h2>
+<p><strong>标准内积（点积）</strong>：</p>
+<p><span class="math inline">\(n\)</span>维实向量空间<span class="math inline">\(\R^n\)</span>的<strong>标准内积</strong>是两个向量的对应元素乘积之和，即 <span class="math display">\[
+\langle x,y \rangle=x^Ty=\sum^n_{i=1}x_iy_i
+\]</span> <strong>性质</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V}\)</span>是数域上<span class="math inline">\(\mathbb{K}\)</span>的<span class="math inline">\(n\)</span>维线性空间，函数<span class="math inline">\(\langle ~\cdot~, ~\cdot~\rangle:\mathbb{V}\times\mathbb{V}\rightarrow \R\)</span>把向量<span class="math inline">\(x,y\in\mathbb{V}\)</span>映射为一个实数<span class="math inline">\(\langle x,y\rangle\in \R\)</span>，且使得对<span class="math inline">\(\forall \lambda \in \R\)</span>和<span class="math inline">\(\forall x,y,z \in \mathbb{V}\)</span>，满足</p>
+<ul>
+<li><strong>非负性</strong>：<span class="math inline">\(\langle x,x\rangle\geq0\)</span>，<span class="math inline">\(\langle x, x \rangle = 0\)</span>当且仅当<span class="math inline">\(x=0\)</span></li>
+<li><strong>对称性</strong>：<span class="math inline">\(\langle x,y \rangle = \langle y, x \rangle\)</span></li>
+<li><strong>齐次性</strong>：<span class="math inline">\(\langle \lambda x,y \rangle=\lambda \langle x,y\rangle\)</span></li>
+<li><strong>线性性</strong>：<span class="math inline">\(\langle x+y,z\rangle=\langle x,z\rangle+\langle y,z\rangle\)</span></li>
+</ul>
+<p>则称该函数<span class="math inline">\(\langle x,y\rangle\)</span>是向量<span class="math inline">\(x,y\)</span>的内积，称定义了内积的线性空间<span class="math inline">\(\mathbb{V}\)</span>为<strong>内积空间</strong>。若内积是点积（标准内积）时，称定义了标准内积的线性空间为<strong>欧式空间</strong>。</p>
+<p><strong>对称与正定矩阵的内积表示</strong>：</p>
+<p>若对称矩阵<span class="math inline">\(A\in\R^{n\times n}\)</span>满足 <span class="math display">\[
+\forall x\in\mathbb{V}\backslash\{0\}:x^TAx&gt;0
+\]</span> 则称<span class="math inline">\(A\)</span>为<strong>对称正定矩阵</strong>或<strong>正定矩阵</strong>；</p>
+<p>若满足 <span class="math display">\[
+\forall x \in \mathbb{V}\backslash\{0\}:x^TAx\geq0
+\]</span> 则称<span class="math inline">\(A\)</span>为<strong>对称正半定矩阵</strong>或<strong>正半定矩阵</strong></p>
+<p>对于一个实值有限维空间<span class="math inline">\(\mathbb{V}\)</span>和<span class="math inline">\(\mathbb{V}\)</span>下一个有序基底<span class="math inline">\(B\)</span>，当且仅当存在一个对称、正定矩阵<span class="math inline">\(A\in\R^{n\times n}\)</span>满足 <span class="math display">\[
+\langle x,y\rangle = \hat x^TA\hat y
+\]</span> <span class="math inline">\(\langle\cdot,\cdot\rangle:\mathbb{V}\times\mathbb{V}\rightarrow\R\)</span>是一个内积。</p>
+<p>如果矩阵<span class="math inline">\(A\in\R^{n\times n}\)</span>是对称正定矩阵，则</p>
+<ul>
+<li><strong><span class="math inline">\(A\)</span>的零空间只包含<span class="math inline">\(0\)</span></strong>，因为<span class="math inline">\(x^TAx&gt;0\)</span>对任意<span class="math inline">\(x\ne0\)</span>成立，即如果<span class="math inline">\(x\ne0\)</span>，则<span class="math inline">\(Ax\ne 0\)</span></li>
+<li><strong><span class="math inline">\(A\)</span>的对角元是正的</strong>，因为<span class="math inline">\(a_{ii}=e_i^TAe_i&gt;0\)</span>，其中<span class="math inline">\(e_i\)</span>是<span class="math inline">\(\R^n\)</span>中的标准基</li>
+</ul>
+<p><strong>内积导出的范数</strong>：</p>
+<p>设<span class="math inline">\(\mathbb{V}\)</span>是内积空间，则由 <span class="math display">\[
+\Vert x \Vert=\sqrt{\langle x, x\rangle},~\forall x\in\mathbb{V}
+\]</span> 定义的函数<span class="math inline">\(\Vert \cdot \Vert\)</span>是<span class="math inline">\(\mathbb{V}\)</span>上的向量范数，称为由内积<span class="math inline">\(\langle\cdot,\cdot\rangle\)</span>导出的范数。</p>
+<ul>
+<li><p>并非所有范数都可以由内积导出，如<span class="math inline">\(l_1\)</span>和<span class="math inline">\(l_\infty\)</span>范数不能由内积导出</p></li>
+<li><p>标准内积与<span class="math inline">\(2-\)</span>范数之间存在联系: <span class="math display">\[
+\Vert x\Vert^2_2=x^Tx
+\]</span></p></li>
+</ul>
+<p><strong>柯西施瓦兹不等式</strong>：</p>
+<p>若<span class="math inline">\(\Vert \cdot \Vert\)</span>是由<span class="math inline">\((\mathbb{V},\langle{\cdot,\cdot}\rangle)\)</span>导出的范数，那么 <span class="math display">\[
+\langle x,y \rangle^2\leq \Vert x\Vert^2 \Vert y\Vert^2
+\]</span></p>
+<p><strong>距离</strong>：</p>
+<p>考虑一个内积空间<span class="math inline">\(\langle \mathbb{V}, \langle \cdot, \cdot \rangle \rangle\)</span>，我们称 <span class="math display">\[
+d(x,y):=\Vert {x-y} \Vert= \sqrt{\langle x-y, x-y \rangle}
+\]</span> 为<span class="math inline">\(x,y\in \mathbb{V}\)</span>的距离。如果我们用点积作为内积，则上述距离称为<strong>欧几里得距离</strong>，简称<strong>欧氏距离</strong></p>
+<p><strong>度量</strong>：</p>
+<p>考虑一个内积空间<span class="math inline">\(\langle \mathbb{V}, \langle \cdot, \cdot \rangle \rangle\)</span>，我们称映射 <span class="math display">\[
+d:\mathbb{V}\times \mathbb{V} \rightarrow \R
+\]</span></p>
+<p><span class="math display">\[
+(x,y)\mapsto d(x,y)
+\]</span></p>
+<p>为度量。</p>
+<p><strong>度量空间</strong>：</p>
+<p>一个<strong>度量空间</strong>由一个有序对<span class="math inline">\((\mathbb{V},d)\)</span>表示，其中<span class="math inline">\(\mathbb{V}\)</span>是一种集合，<span class="math inline">\(d\)</span>是定义在<span class="math inline">\(V\)</span>上的一种度量： <span class="math display">\[
+d:\mathbb{V}\times\mathbb{V}\rightarrow \R
+\]</span> 且对任意<span class="math inline">\(x,y,z\in\mathbb{V}\)</span>，需满足</p>
+<ul>
+<li><strong>非负性</strong>：<span class="math inline">\(d(x,y)\geq 0\)</span>，且<span class="math inline">\(d(x,y)=0 \Longleftrightarrow x=y\)</span><br>
+</li>
+<li><strong>对称性</strong>：<span class="math inline">\(d(x,y)=d(y,x)\)</span></li>
+<li><strong>三角不等式</strong>：<span class="math inline">\(d(x,z)\leq d(x,y)+d(y,z)\)</span></li>
+</ul>
+<p>赋范线性空间由范数导出的距离<span class="math inline">\(\Vert x-y \Vert\)</span>构成一个特殊的度量空间。</p>
+<p><strong>夹角</strong>：</p>
+<p>向量<span class="math inline">\(x,y\)</span>之间的夹角<span class="math inline">\(\theta\)</span>的计算公式 <span class="math display">\[
+\cos\theta=\frac{x^Ty}{\Vert x \Vert_2 \Vert y \Vert_2}
+\]</span> <span class="math inline">\(x^Ty=0\)</span>时，向量夹角为<span class="math inline">\(90°\)</span>，两向量<strong>正交</strong>；</p>
+<p><span class="math inline">\(\theta=0°\)</span>或<span class="math inline">\(180°\)</span>时，<span class="math inline">\(x,y\)</span><strong>平行</strong>，有<span class="math inline">\(y=kx, k \in \mathbb{K}\)</span>.</p>
+<p><strong>正交</strong>：</p>
+<p>设向量<span class="math inline">\(x,y \in \mathbb{X}\)</span>，如果<span class="math inline">\(\langle x,y \rangle =0\)</span>，则称<span class="math inline">\(x,y\)</span><strong>正交</strong>，记作<span class="math inline">\(x\bot y\)</span>。</p>
+<p>特别地，<span class="math inline">\(\Vert x \Vert = 1 =\Vert y \Vert\)</span>，也即是单位向量时，称<span class="math inline">\(x,y\)</span><strong>标准正交</strong>。</p>
+<p>零向量与任何向量正交。</p>
+<p>对于非零向量组<span class="math inline">\(\{x_1,x_2,...,x_d\}\)</span>，如果对于<span class="math inline">\(\forall i\ne j\)</span>，有<span class="math inline">\(\langle x_i,x_j\rangle = 0\)</span>，则称向量组两两正交，且<strong>两两正交的向量组线性无关</strong>。</p>
+<p><strong>正交矩阵</strong>：</p>
+<p>方阵<span class="math inline">\(A\in\R^{n\times n}\)</span>是一个正交矩阵当且仅当它的列向量是标准正交的，即 <span class="math display">\[
+AA^T=I=A^TA
+\]</span> 因此<span class="math inline">\(A^{-1}=A^T\)</span></p>
+<p><strong>正交矩阵变换不会改变两个向量的长度和夹角</strong></p>
+<h2 id="相似性度量">相似性度量</h2>
+<p><strong>闵可夫斯基距离</strong>：</p>
+<p>给定特征空间或样本集合<span class="math inline">\(X\)</span>，<span class="math inline">\(X\)</span>是由范数或内积导出的<span class="math inline">\(m\)</span>维度量空间<span class="math inline">\(\R^m\)</span>中点的集合，其中<span class="math inline">\(x_i,x_j\in X,x_i=(x_{1i},x_{2i},...,x_{mi})^T, x_j=(x_{1j},x_{2j},...,x_{mj})^T\)</span>，样本<span class="math inline">\(x_i\)</span>与样本<span class="math inline">\(x_j\)</span>的<strong>闵可夫斯基距离</strong>，简称<strong>闵式距离</strong>，定义为 <span class="math display">\[
+d(x_i,x_j)=\sqrt[p]{\sum^m_{k=1}|x_{ki}-x_{kj}|^p}=\Vert x_i-x_j\Vert_p
+\]</span></p>
+<ul>
+<li>当<span class="math inline">\(p=2\)</span>时，对应欧氏距离</li>
+<li>当<span class="math inline">\(p=1\)</span>时，对应曼哈顿距离</li>
+<li>当<span class="math inline">\(p\rightarrow\infty\)</span>时，对应切比雪夫距离</li>
+</ul>
+<p><strong>欧氏距离</strong>指的是<span class="math inline">\(n\)</span>维空间中各个点之间的直线距离，计算公式 <span class="math display">\[
+d(x_i,x_j)=\sqrt{\sum^m_{k=1}|x_{ki}-x_{kj}|^2}=\Vert{x_i-x_j}\Vert_2
+\]</span></p>
+<p><strong>曼哈顿距离</strong>，用以表明两个点在标准坐标系上的绝对轴距总和，计算公式 <span class="math display">\[
+d(x_i,x_j)=\sum^m_{k=1}|x_{ki}-x_{kj}|=||x_i-x_j||_1
+\]</span> <strong>切比雪夫距离</strong>是将二个点其各坐标数值差绝对值的最大值作为距离 <span class="math display">\[
+d(x_i,x_j)=\max|x_{ki}-x_{kj}|=||x_i-x_j||_\infty
+\]</span></p>
+<p><strong>余弦相似度</strong>：</p>
+<p>通过计算两个样本特征向量<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>之间夹角的余弦值，以此作为两个样本间相似度大小的衡量，计算公式 <span class="math display">\[
+sim_{cos}(x_i,x_j)=\frac{x_i\cdot x_j}{|x_i||x_j|}=\frac{\displaystyle\sum^m_{k=1}x_{ki}x_{kj}}{\left[\displaystyle\sum^m_{k=1} x_{ki}^2\displaystyle\sum^m_{k=1}x_{kj}^2\right]^{\frac 12}}
+\]</span> 取值范围：<span class="math inline">\(sim_{cos}(x_i,x_j)\in [-1,1]\)</span></p>
+<p>夹角余弦越大，两个向量夹角越小；夹角余弦越小，两向量夹角越大。</p>
+<p>两向量同向时取到最大值1，反向时取到最小值-1.</p>
+<p><strong>汉明距离</strong>：表示两个相同长度的字符串在对应位置上的值不等的个数</p>
+<ul>
+<li>1011101与1001001之间的汉明距离为2</li>
+<li>'toned' 与 'roses'之间的汉明距离为3</li>
+</ul>
+<h2 id="矩阵内积">矩阵内积</h2>
+<p>向量的内积和范数可以推广到矩阵。</p>
+<p>令<span class="math inline">\(m\times n\)</span>的实矩阵<span class="math inline">\(A=[a_1,...,a_n]\)</span>，将这个矩阵拉长为<span class="math inline">\(mn\times 1\)</span>的向量 <span class="math display">\[
+a=vec(A)=\left[
+\begin{matrix}
+a_1\\a_2\\...\\a_n
+\end{matrix}
+\right]
+\]</span> <span class="math inline">\(vec(A)\)</span>称为矩阵<span class="math inline">\(A\)</span>的<strong>列向量化</strong>。</p>
+<p><strong>矩阵内积</strong>：</p>
+<p>设矩阵<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>是线性空间<span class="math inline">\(\R^{m\times n}\)</span>中任意两个实矩阵，其矩阵内积为： <span class="math display">\[
+\langle A,B \rangle = \langle vec(A),~vec(B)\rangle = \sum^n_{i=1}a_ib_i=\sum^n_{i=1}\langle a_i,b_i\rangle
+\]</span> 或等价写作 <span class="math display">\[
+\langle A, B \rangle = vec(A)^Tvec(B)=Tr(A^TB)
+\]</span></p>
+<p><strong>矩阵范数</strong>：</p>
+<p>对于任意的<span class="math inline">\(A,B \in \R^{m\times n}\)</span>，<span class="math inline">\(c\in\R\)</span>，如果函数<span class="math inline">\(\Vert\cdot\Vert:\R^{m\times n}\rightarrow \R\)</span>满足</p>
+<ul>
+<li><p>正定条件：<span class="math inline">\(\Vert A\Vert\geq 0, \Vert A\Vert = 0 \Longleftrightarrow A=O\)</span></p></li>
+<li>齐次条件：<span class="math inline">\(\Vert cA\Vert = |c|\cdot\Vert A\Vert, c\)</span>为实数</li>
+<li><p>三角不等式：<span class="math inline">\(\Vert A+B\Vert \leq \Vert A \Vert + \Vert B \Vert\)</span></p></li>
+</ul>
+<p>则称<span class="math inline">\(\Vert \cdot \Vert\)</span>是<span class="math inline">\(\R^{m \times n}\)</span>上的一个<strong>矩阵范数</strong>。</p>
+<p><strong><span class="math inline">\(l_1\)</span>范数</strong>：</p>
+<p>对任意<span class="math inline">\(A \in \R^{m \times n}\)</span>，由 <span class="math display">\[
+\Vert A \Vert_{m_1}:=\sum^m_{i=1}\sum^n_{j=1}|a_{ij}|
+\]</span> 定义的<span class="math inline">\(\Vert \cdot \Vert_{m_1}\)</span>是<span class="math inline">\(\R^{m\times n}\)</span>上的矩阵范数，称为<span class="math inline">\(l_1\)</span>范数。</p>
+<p><strong><span class="math inline">\(l_\infty\)</span>范数</strong>：</p>
+<p>对任意<span class="math inline">\(A\in \R^{m \times n}\)</span>，由 <span class="math display">\[
+\Vert A \Vert_{m_\infty}:=\max_{1\leq i \leq m, 1 \leq j \leq n}|a_{ij}|
+\]</span> 定义的<span class="math inline">\(\Vert\cdot \Vert_{m_\infty}\)</span>是<span class="math inline">\(\R^{m\times n }\)</span>上的矩阵范数，称为<span class="math inline">\(l_\infty\)</span>范数。</p>
+<p><strong><span class="math inline">\(l_2\)</span>范数</strong>：</p>
+<p>对任意<span class="math inline">\(A\in \R^{m \times n}\)</span>，由 <span class="math display">\[
+\Vert A \Vert_F:= (\sum^m_{i=1}\sum^n_{j=1}|a_{ij}|^2)^{\frac{1}{2}}=(Tr(A^TA))^{\frac12}
+\]</span> 定义的<span class="math inline">\(\Vert \cdot \Vert_F\)</span>是<span class="math inline">\(\R^{m \times n}\)</span>上的矩阵范数，称为<span class="math inline">\(l_2\)</span>范数或<span class="math inline">\(Frobenius\)</span>范数。</p>
+<p>讨论矩阵范数时，一般会附加<strong>相容性条件</strong>：</p>
+<p>若矩阵范数<span class="math inline">\(\Vert \cdot \Vert\)</span>对任意<span class="math inline">\(A\in \R^{m\times p}, B\in \R^{p\times n}\)</span>满足： <span class="math display">\[
+\Vert AB \Vert \leq \Vert A\Vert \Vert B \Vert,
+\]</span> 则称矩阵范数满足<strong>相容性条件</strong>。</p>
+<p><strong>矩阵和向量的相容性</strong>：</p>
+<p>若矩阵范数<span class="math inline">\(\Vert \cdot \Vert_M\)</span>和向量范数<span class="math inline">\(\Vert \cdot \Vert_v\)</span>满足 <span class="math display">\[
+\Vert Ax \Vert_v\leq \Vert A\Vert_M\Vert x \Vert_v,~A\in\R^{m\times n},x\in\R^n
+\]</span> 则称矩阵范数<span class="math inline">\(\Vert \cdot \Vert_M\)</span>与向量范数<span class="math inline">\(\Vert \cdot \Vert_v\)</span>是相容的。</p>
+<p>对于任意给定的向量范数，可以如下构造一个与该向量范数相容的矩阵范数。</p>
+<p><strong>算子范数</strong>：</p>
+<p>称<span class="math inline">\(m\times n\)</span>矩阵空间上如下定义的范数<span class="math inline">\(\Vert \cdot \Vert\)</span>为从属于向量范数<span class="math inline">\(\Vert \cdot \Vert_v\)</span>的<strong>矩阵范数</strong>，也称其为由向量范数<span class="math inline">\(\Vert \cdot \Vert_v\)</span>诱导出的算子范数 <span class="math display">\[
+\Vert A\Vert = \max\{\Vert Ax\Vert_v:x\in \R^n,\Vert x \Vert_v=1\}\\
+=\max\{\frac{\Vert Ax\Vert_v}{\Vert x \Vert_v}:x\in\R^n,x\ne 0\}
+\]</span> <strong>算子范数都满足相容性条件</strong>。</p>
+<p><strong>常用的算子范数</strong>：</p>
+<p>利用向量的<span class="math inline">\(l_p\)</span>范数诱导出算子范数： <span class="math display">\[
+\Vert A \Vert_p=\max_{x\ne 0}\frac{\Vert Ax\Vert_p}{\Vert x \Vert_p}
+\]</span> 设<span class="math inline">\(A\in\R^{m\times n},p=1,\infty,2\)</span>时，诱导出的算子范数为 <span class="math display">\[
+\Vert A \Vert_1=\max_{1\le j \le n}\sum^m_{i=1}|a_{ij}|
+\]</span></p>
+<p><span class="math display">\[
+\Vert A \Vert_\infty=\max_{1\le j \le m}\sum^n_{i=1}|a_{ij}|
+\]</span></p>
+<p><span class="math display">\[
+\Vert A \Vert_2=\sqrt{\lambda_\max(A^TA)}
+\]</span></p>
+<ul>
+<li><p><strong>矩阵的1范数（列和范数）</strong>：对矩阵每一列上的元素的绝对值求和，最大值即为该范数的值。</p></li>
+<li><p><strong>矩阵的2范数（谱范数）</strong>：对矩阵<span class="math inline">\(A^TA\)</span>求特征值，其中的最大值的平方根即为该范数。</p></li>
+<li><p><strong>矩阵的无穷范数（行和范数）</strong>：对矩阵每一行上的元素的绝对值求和，最大值即为该范数的值。</p></li>
+</ul>
+<p><strong>谱范数的性质</strong>：</p>
+<p>设<span class="math inline">\(A \in \R^{n \times n}\)</span>，则</p>
+<ul>
+<li><p><span class="math inline">\(\Vert A \Vert_2=\max\{|y^TAx|:x,y \in \C^n, \Vert x \Vert_2=\Vert y \Vert = 1\}\)</span></p></li>
+<li><p><span class="math inline">\(\Vert A^T \Vert_2=\Vert A \Vert_2 = \sqrt{\Vert A^TA\Vert_2}\)</span></p></li>
+<li><p>对于任意的正交矩阵<span class="math inline">\(U\)</span>和<span class="math inline">\(V\)</span>有，<span class="math inline">\(\Vert UA \Vert_2= \Vert AV \Vert_2=\Vert A\Vert_2\)</span></p></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/21/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B/" rel="prev" title="条件分布与条件期望">
+      <i class="fa fa-chevron-left"></i> 条件分布与条件期望
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#向量范数"><span class="nav-number">1.</span> <span class="nav-text">向量范数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内积距离夹角与正交性"><span class="nav-number">2.</span> <span class="nav-text">内积、距离、夹角与正交性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相似性度量"><span class="nav-number">3.</span> <span class="nav-text">相似性度量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵内积"><span class="nav-number">4.</span> <span class="nav-text">矩阵内积</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
