@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="引例：Simpson悖论 在分组研究多个变量时，可能出现在分组比较中都占优势的一方，在总评中反而失势的情况。">
+  <meta name="description" content="依概率收敛 依概率收敛：设\(\{X_n\}\)为一列随机变量序列，\(X\)为一随机变量，如果对任意的\(\varepsilon&gt;0\)，有 \[ P(\vert X_n-X\vert \geq \varepsilon)\rightarrow 0~(n\rightarrow \infty) \] 则称序列\(\{X_n\}\)依概率收敛于\(X\)，记作\(X_n\xrightarr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="条件分布与条件期望">
-<meta property="og:url" content="https://ankate.github.io/2021/04/21/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B/index.html">
+<meta property="og:title" content="随机序列收敛性">
+<meta property="og:url" content="https://ankate.github.io/2021/05/18/%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B%E6%80%A7/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="引例：Simpson悖论 在分组研究多个变量时，可能出现在分组比较中都占优势的一方，在总评中反而失势的情况。">
+<meta property="og:description" content="依概率收敛 依概率收敛：设\(\{X_n\}\)为一列随机变量序列，\(X\)为一随机变量，如果对任意的\(\varepsilon&gt;0\)，有 \[ P(\vert X_n-X\vert \geq \varepsilon)\rightarrow 0~(n\rightarrow \infty) \] 则称序列\(\{X_n\}\)依概率收敛于\(X\)，记作\(X_n\xrightarr">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-04-21T12:42:18.000Z">
-<meta property="article:modified_time" content="2021-04-22T13:48:37.198Z">
+<meta property="article:published_time" content="2021-05-18T07:15:24.000Z">
+<meta property="article:modified_time" content="2021-05-18T07:15:27.743Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="概率论和数理统计">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://ankate.github.io/2021/04/21/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B/">
+<link rel="canonical" href="https://ankate.github.io/2021/05/18/%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B%E6%80%A7/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>条件分布与条件期望 | AnKate</title>
+  <title>随机序列收敛性 | AnKate</title>
   
 
 
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/04/21/%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/05/18/%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          条件分布与条件期望
+          随机序列收敛性
         </h1>
 
         <div class="post-meta">
@@ -178,16 +178,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-04-21 20:42:18" itemprop="dateCreated datePublished" datetime="2021-04-21T20:42:18+08:00">2021-04-21</time>
+              <time title="Created: 2021-05-18 15:15:24 / Modified: 15:15:27" itemprop="dateCreated datePublished" datetime="2021-05-18T15:15:24+08:00">2021-05-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-22 21:48:37" itemprop="dateModified" datetime="2021-04-22T21:48:37+08:00">2021-04-22</time>
-              </span>
 
           
 
@@ -200,130 +194,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>引例：Simpson悖论</p>
-<p>在分组研究多个变量时，可能出现<strong>在分组比较中都占优势的一方，在总评中反而失势</strong>的情况。</p>
-<p>由此引入多维随机变量的<strong>条件分布</strong>的定义。</p>
-<h2 id="条件分布">条件分布</h2>
-<p><strong>离散场合</strong>：</p>
-<p>设二维离散随机变量<span class="math inline">\((X,Y)\)</span>的联合分布列为 <span class="math display">\[
-p_{ij}=P(X=x_i,Y=y_j),~i=1,2,...,~j=1,2,...
-\]</span> 对一切使<span class="math inline">\(P(Y=y_j)=p_{\cdot j}=\displaystyle\sum^{\infty}_{i=1}p_{ij}&gt;0\)</span>的<span class="math inline">\(y_j\)</span>，称 <span class="math display">\[
-p_{i|j}=P(X=x_i|Y=y_j)=\frac{P(X=x_i,Y=y_j)}{P(Y=y_j)}=\frac{p_{ij}}{p_{\cdot j}}
-\]</span> 为给定<span class="math inline">\(Y=y_j\)</span>条件下的<span class="math inline">\(X\)</span>的条件分布列。</p>
-<p>同理，对一切使<span class="math inline">\(P(X=x_i)=p_{i\cdot }=\displaystyle\sum^{\infty}_{j=1}p_{ij}&gt;0\)</span>的<span class="math inline">\(x_i\)</span>，称 <span class="math display">\[
-p_{j|i}=P(Y=y_j|X=x_i)=\frac{P(X=x_i,Y=y_j)}{P(X=x_i)}=\frac{p_{ij}}{p_{i\cdot }}
-\]</span> 为给定<span class="math inline">\(X=x_i\)</span>条件下的<span class="math inline">\(Y\)</span>的条件分布列。</p>
-<p>根据条件分布列，定义<strong>条件分布函数</strong>如下：</p>
-<p>给定<span class="math inline">\(Y=y_j\)</span>条件下<span class="math inline">\(X\)</span>的条件分布函数为 <span class="math display">\[
-F(x|y_j)=\sum_{x_i\leq x}P(X=x_i|Y=y_j)=\sum_{x_i\leq x}p_{i|j}
-\]</span> 给定<span class="math inline">\(X=x_i\)</span>条件下<span class="math inline">\(Y\)</span>的条件分布函数为 <span class="math display">\[
-F(y|x_i)=\sum_{y_j\leq y}P(Y=y_j|X=x_i)=\sum_{y_j\leq y}p_{j|i}
-\]</span> 例题：<em>Prob. &amp; Stat. P 175 ex.3.5.2 3.5.3</em></p>
-<p><strong>连续场合</strong>：</p>
-<p>设二维连续随机变量<span class="math inline">\((X,Y)\)</span>的联合密度函数为<span class="math inline">\(p(x,y)\)</span>，边际密度函数为<span class="math inline">\(p_X(x),p_Y(y)\)</span></p>
-<p>由于连续场合<span class="math inline">\(P(Y=y)=0\)</span>，此时不能采用与离散场合相同的定义，于是将<span class="math inline">\(P(X\leq x | Y= y)\)</span>看作<span class="math inline">\(h\rightarrow 0\)</span>时<span class="math inline">\(P(X\leq x | y\leq Y \leq y+h)\)</span>的极限，即 <span class="math display">\[
-P(X\leq x |Y=y) = \lim_{h\rightarrow0}P(X\leq x| y\leq Y \leq y + h) 
-\]</span></p>
-<p><span class="math display">\[
-P(X\leq x | Y =y)=\lim_{h\rightarrow 0}\frac{P(X\leq x,y\leq Y\leq y+h)}{P(y\leq Y \leq y+h)}
-\]</span></p>
-<p>已知密度函数，分别使用积分求概率，得 <span class="math display">\[
-P(X\leq x | Y =y)=\lim_{h\rightarrow 0}\frac{\displaystyle\int^x_{-\infty}\int^{y+h}_{y}p(u,v)dudv}{\displaystyle\int^{y+h}_yp_Y(v)dv}
-\]</span> 根据<strong>积分中值定理</strong>，有 <span class="math display">\[
-\int^{x+k}_{x}f(t)dt=f(x+\varepsilon\cdot k)\cdot k
-\]</span> 分子分母同乘<span class="math inline">\(\frac 1h\)</span>，则有 <span class="math display">\[
-\lim_{h\rightarrow0}\frac 1h \int^{y+h}_yp(u,v)dv =\lim_{h\rightarrow 0}p(u,y+\varepsilon_1h)=p(u,y)
-\]</span></p>
-<p><span class="math display">\[
-\lim_{h\rightarrow0}\frac 1h \int^{y+h}_yp_Y(v)dv =\lim_{h\rightarrow 0}p_Y(y+\varepsilon_2h)=p_Y(y)
-\]</span></p>
-<p>所以原式 <span class="math display">\[
-P(X\leq x| Y=y)=\int^x_{-\infty}\frac{p(u,y)}{p_Y(y)}du
-\]</span> 于是定义如下的连续随机变量的条件分布函数与条件密度函数。</p>
-<p>对一切使<span class="math inline">\(p_Y(y)&gt;0\)</span>的<span class="math inline">\(y\)</span>，给定<span class="math inline">\(Y=y\)</span>条件下的<span class="math inline">\(X\)</span>的条件分布函数和条件密度函数为 <span class="math display">\[
-F(x|y)=\int^x_{-\infty}\frac{p(u,y)}{p_Y(y)}du
-\]</span></p>
-<p><span class="math display">\[
-p(x|y)=\frac{p(x,y)}{p_Y(y)}
-\]</span></p>
-<p>同理，对一切使<span class="math inline">\(p_X(x)&gt;0\)</span>的<span class="math inline">\(x\)</span>，给定<span class="math inline">\(X=x\)</span>条件下<span class="math inline">\(Y\)</span>的条件分布函数和条件密度函数为 <span class="math display">\[
-F(y|x)=\int^{y}_{-\infty}\frac{p(x,v)}{p_X(x)}dv
-\]</span></p>
-<p><span class="math display">\[
-p(y|x)=\frac{p(x,y)}{p_X(x)}
-\]</span></p>
-<p>在连续场合下，可以根据上述定义给出全概率公式和贝叶斯公式：</p>
-<p><strong>全概率公式</strong>： <span class="math display">\[
-p_Y(y)=\int^{\infty}_{-\infty}p_X(x)p(y|x)dx
-\]</span></p>
-<p><span class="math display">\[
-p_X(x)=\int^{\infty}_{-\infty}p_Y(y)p(x|y)dy
-\]</span></p>
-<p><strong>贝叶斯公式</strong>： <span class="math display">\[
-p(x|y)=\frac{p_X(x)p(y|x)}{\displaystyle\int^{\infty}_{-\infty}p_X(x)p(y|x)dx}
-\]</span></p>
-<p><span class="math display">\[
-p(y|x)=\frac{p_Y(y)p(x|y)}{\displaystyle\int^{\infty}_{-\infty}p_Y(y)p(x|y)dy}
-\]</span></p>
-<h2 id="条件数学期望和条件方差">条件数学期望和条件方差</h2>
-<p>条件分布的数学期望即为<strong>条件期望</strong>，定义： <span class="math display">\[
-E(X|Y=y)=
-\begin{cases}
-\displaystyle\sum_ix_iP(X=x_i|Y=y)&amp;,离散场合\\
-\displaystyle\int^{\infty}_{-\infty}xp(x|y)dx&amp;,连续场合
-\end{cases}
-\]</span></p>
-<p><span class="math display">\[
-E(Y|X=x)=\begin{cases}
-\displaystyle\sum_jy_jP(Y=y_j|X=x)&amp;,离散场合\\
-\displaystyle\int^{\infty}_{-\infty}yp(y|x)dx&amp;,连续场合
-\end{cases}
-\]</span></p>
-<p>条件期望也是数学期望，所以<strong>具有所有的数学期望的性质</strong>。</p>
-<p><span class="math inline">\(E(X|Y=y)\)</span>是<span class="math inline">\(y\)</span>的函数，所以可以记作 <span class="math display">\[
-E(X|Y=y)=g(y)
-\]</span> 而<span class="math inline">\(E(X|Y=y)\)</span>实际上又是随机变量<span class="math inline">\(Y=y\)</span>时，<span class="math inline">\(E(X|Y)\)</span>的一个取值，所以<span class="math inline">\(E(X|Y)\)</span>也是一个随机变量。</p>
-<p>于是有<strong>重期望公式</strong>： <span class="math display">\[
-E(X)=E_Y(E_X(X|Y))
-\]</span> 类似地，有<strong>条件方差</strong>的定义： <span class="math display">\[
-Var(X|Y)=E((X-E(X|Y))^2|Y)
-\]</span> 还有类似的性质： <span class="math display">\[
-Var(X)=E_Y(Var_X(X|Y))+Var_Y(E_X(X|Y))
-\]</span></p>
-<p><strong>随机变量个随机变量和的数学期望</strong>： <span class="math display">\[
-E(\sum^N_{i=1}X)=E(X_1)E(N)
-\]</span> 证明过程见<em>Prob. &amp; Stat. P183 ex.3.5.10</em></p>
-<p>还有<strong>条件方差</strong>： <span class="math display">\[
-Var(\sum^N_{i=1}X_i)=Var(X_1)E(N)+E(X_1)^2Var(N)
-\]</span> 证明： <span class="math display">\[
-E(\sum^N_{i=1}X_i)=E(N)E(X_1)
-\]</span></p>
-<p><span class="math display">\[
-E((\sum^N_{i=1}X_i)^2)=\sum^{\infty}_{i=1}E((\sum^n_{i=1}X_i)^2)P(N=n)
-\]</span></p>
-<p><span class="math display">\[
-E((\sum^N_{i=1}X_i)^2)=\sum^{\infty}_{i=1}E((X_1+X_2+...+X_n)^2)P(N=n)
-\]</span></p>
-<p><span class="math display">\[
-E((\sum^N_{i=1}X_i)^2)=[\sum_{i=1}^nE(X_i^2)+E(X_1)E(X_2)+...+E(X_{n+1})E(X_n)]P(N=n)
-\]</span></p>
-<p><span class="math display">\[
-E((\sum^N_{i=1}X_i)^2)=[nE(X_1^2)+n(n-1)E(X_1)^2]P(N=n)
-\]</span></p>
-<p><span class="math display">\[
-E((\sum^N_{i=1}X_i)^2)=[n(E(X_1^2)-E(X_1)^2)+n^2E(X_1)^2]P(N=n)
-\]</span></p>
-<p><span class="math display">\[
-E((\sum^N_{i=1}X_i)^2)=[n\cdot Var(X_1)+n^2E(X_1)^2]P(N=n)
-\]</span></p>
-<p><span class="math display">\[
-Var(\sum^N_{i=1}X_i)=E((\sum^N_{i=1}X_i)^2)-E((\sum^N_{i=1}X_i))^2
-\]</span></p>
-<p><span class="math display">\[
-Var(\sum^N_{i=1}X_i)=E(N)Var(X_1)+E(N^2)E(X_1)^2-E(N)^2E(X_1)^2
-\]</span></p>
-<p><span class="math display">\[
-Var(\sum^N_{i=1}X_i)=E(N)Var(X_1)+Var(N)E(X_1)^2
+        <h2 id="依概率收敛">依概率收敛</h2>
+<p><strong>依概率收敛</strong>：设<span class="math inline">\(\{X_n\}\)</span>为一列随机变量序列，<span class="math inline">\(X\)</span>为一随机变量，如果对任意的<span class="math inline">\(\varepsilon&gt;0\)</span>，有 <span class="math display">\[
+P(\vert X_n-X\vert \geq \varepsilon)\rightarrow 0~(n\rightarrow \infty)
+\]</span> 则称序列<span class="math inline">\(\{X_n\}\)</span>依概率收敛于<span class="math inline">\(X\)</span>，记作<span class="math inline">\(X_n\xrightarrow P X\)</span>.</p>
+<p>上式等价于 <span class="math display">\[
+P(\vert X_n-X\vert &lt;\varepsilon)\rightarrow 1~(n\rightarrow \infty)
+\]</span> 即绝对偏差<span class="math inline">\(\vert X_n-X\vert\)</span>小于任意给定量的可能性将随着<span class="math inline">\(n\)</span>增大而趋于1.</p>
+<p><strong>退化分布</strong>：<span class="math inline">\(P(X=\mu)=1\)</span></p>
+<p>此时称序列<span class="math inline">\(\{X_n\}\)</span>依概率收敛于<span class="math inline">\(\mu\)</span>，记作<span class="math inline">\(X_n\xrightarrow P \mu\)</span>.</p>
+<p>对<span class="math inline">\(X_n\xrightarrow{P}C_1,Y_n\xrightarrow{P}C_2\)</span>，有<strong>性质</strong>：</p>
+<ul>
+<li><span class="math inline">\(X_n\pm Y_n \xrightarrow{P} C_1\pm C_2\)</span></li>
+<li><span class="math inline">\(X_n\cdot Y_n\xrightarrow{P} C_1\cdot C_2\)</span></li>
+<li><span class="math inline">\(C_2\ne 0, X_n/Y_n\xrightarrow{P}C_1/C_2\)</span></li>
+</ul>
+<p><strong><span class="math inline">\(X_n\xrightarrow{P}\mu\)</span>成立时，<span class="math inline">\(E(X_n)\rightarrow \mu\)</span>不一定成立</strong>.</p>
+<p><strong>反例</strong>： <span class="math display">\[
+\begin{array}{c|cc}
+X_n&amp;0&amp;n^2\\
+\hline
+P&amp;1-\frac1n&amp;\frac1n
+\end{array}
+\]</span> 对任意<span class="math inline">\(\varepsilon&gt;0\)</span>，<span class="math inline">\(\displaystyle\lim_{n\rightarrow \infty}P(\vert X_n-0\vert\geq \varepsilon) = \lim_{n\rightarrow \infty}(X_n=n^2)=\lim_{n\rightarrow\infty}\frac1n=0\)</span></p>
+<p>即<span class="math inline">\(X_n\xrightarrow{P}0\)</span>满足；</p>
+<p>此时期望<span class="math inline">\(\mu=E(X_n)=n\)</span>，在<span class="math inline">\(n\rightarrow \infty\)</span>时，<span class="math inline">\(E(X_n)\rightarrow \infty\)</span>.</p>
+<p><strong>以概率1收敛</strong>：</p>
+<p>满足 <span class="math display">\[
+P(\lim_{n\rightarrow\infty}X_n=X)=1
+\]</span> 则称序列<span class="math inline">\(\{X_n\}\)</span><strong>以概率1收敛</strong>于<span class="math inline">\(X\)</span>，记作<span class="math inline">\(X_n\xrightarrow{as}X\)</span>.</p>
+<p><strong><span class="math inline">\(X_n\xrightarrow{as}X\)</span>成立，则<span class="math inline">\(X_n\xrightarrow{P}X\)</span>成立；反之则不成立</strong>。</p>
+<h2 id="按分布收敛弱收敛">按分布收敛、弱收敛</h2>
+<p><strong>定义</strong>：设随机变量<span class="math inline">\(X,X_1,X_2,...\)</span>的分布函数分别为<span class="math inline">\(F(x),F_1(x),F_2(x),...\)</span>，若对<span class="math inline">\(F(x)\)</span>的任一连续点<span class="math inline">\(x\)</span>，都有 <span class="math display">\[
+\lim_{n\rightarrow\infty}F_n(x)=F(x),
+\]</span> 则称<span class="math inline">\(\{F_n(x)\}\)</span><strong>弱收敛于</strong><span class="math inline">\(F(x)\)</span>，记作<span class="math inline">\(F_n(x)\xrightarrow{W}F(x)\)</span>.</p>
+<p>也称相应的随机变量序列<span class="math inline">\(\{X_n\}\)</span><strong>按分布收敛于</strong><span class="math inline">\(X\)</span>，记作<span class="math inline">\(X_n\xrightarrow{L}X\)</span>.</p>
+<p><strong>定理</strong>： <span class="math display">\[
+X_n\xrightarrow{P}X\Longrightarrow X_n\xrightarrow{L}X
 \]</span></p>
 
     </div>
@@ -344,13 +251,10 @@ Var(\sum^N_{i=1}X_i)=E(N)Var(X_1)+Var(N)E(X_1)^2
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/19/%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/" rel="prev" title="多维随机变量函数的分布">
-      <i class="fa fa-chevron-left"></i> 多维随机变量函数的分布
+    <a href="/2021/04/30/%E5%86%85%E7%A7%AF%E4%B8%8E%E8%8C%83%E6%95%B0/" rel="prev" title="内积与范数">
+      <i class="fa fa-chevron-left"></i> 内积与范数
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/30/%E5%86%85%E7%A7%AF%E4%B8%8E%E8%8C%83%E6%95%B0/" rel="next" title="内积与范数">
-      内积与范数 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -409,7 +313,7 @@ Var(\sum^N_{i=1}X_i)=E(N)Var(X_1)+Var(N)E(X_1)^2
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件分布"><span class="nav-number">1.</span> <span class="nav-text">条件分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件数学期望和条件方差"><span class="nav-number">2.</span> <span class="nav-text">条件数学期望和条件方差</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#依概率收敛"><span class="nav-number">1.</span> <span class="nav-text">依概率收敛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按分布收敛弱收敛"><span class="nav-number">2.</span> <span class="nav-text">按分布收敛、弱收敛</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
