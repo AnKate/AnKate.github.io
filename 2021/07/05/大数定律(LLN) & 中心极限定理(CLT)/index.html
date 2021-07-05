@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="CSAPP 有关于机器指令中的数学运算与逻辑运算的实现方法与指令。">
+  <meta name="description" content="大数定律 大数定律的现象描述：频率稳定于概率">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSAPP 3.5">
-<meta property="og:url" content="https://ankate.github.io/2020/10/15/3.5/index.html">
+<meta property="og:title" content="大数定律与中心极限定理">
+<meta property="og:url" content="https://ankate.github.io/2021/07/05/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B(LLN)%20&%20%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86(CLT)/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="CSAPP 有关于机器指令中的数学运算与逻辑运算的实现方法与指令。">
+<meta property="og:description" content="大数定律 大数定律的现象描述：频率稳定于概率">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-15T13:21:33.000Z">
-<meta property="article:modified_time" content="2020-10-15T13:21:35.975Z">
+<meta property="article:published_time" content="2021-07-05T14:51:15.901Z">
+<meta property="article:modified_time" content="2021-07-05T14:50:44.471Z">
 <meta property="article:author" content="Miheal Zhao">
-<meta property="article:tag" content="CSAPP">
+<meta property="article:tag" content="概率论与数理统计">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://ankate.github.io/2020/10/15/3.5/">
+<link rel="canonical" href="https://ankate.github.io/2021/07/05/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B(LLN)%20&%20%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86(CLT)/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>CSAPP 3.5 | AnKate</title>
+  <title>大数定律与中心极限定理 | AnKate</title>
   
 
 
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2020/10/15/3.5/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/07/05/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B(LLN)%20&%20%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86(CLT)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CSAPP 3.5
+          大数定律与中心极限定理
         </h1>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-10-15 21:21:33 / Modified: 21:21:35" itemprop="dateCreated datePublished" datetime="2020-10-15T21:21:33+08:00">2020-10-15</time>
+              <time title="Created: 2021-07-05 22:51:15 / Modified: 22:50:44" itemprop="dateCreated datePublished" datetime="2021-07-05T22:51:15+08:00">2021-07-05</time>
             </span>
 
           
@@ -194,138 +194,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="csapp">CSAPP</h1>
-<p>有关于机器指令中的数学运算与逻辑运算的实现方法与指令。</p>
-<h2 id="数学运算与逻辑运算">3.5 数学运算与逻辑运算</h2>
-<p>在x86-64架构中，数学运算、逻辑运算都有专属的指令，并且大部分指令都能够适配四种不同的数据大小（后缀b、w、l、q）。</p>
-<p>操作符能够被分为四种类型：</p>
+        <h2 id="大数定律">大数定律</h2>
+<p><strong>大数定律的现象描述：频率稳定于概率</strong></p>
+<p><strong>一般情况（弱大数定律）</strong>：设有一随机变量序列<span class="math inline">\(\{X_n\}\)</span>，假如它具有形如 <span class="math display">\[
+\left|P(\frac{1}{n}\sum^n_{i=1}X_i-\frac1n\sum^n_{i=1}E(X_i))\right|&lt;\varepsilon\rightarrow1~(n\rightarrow \infty)
+\]</span> 的性质，则称该序列<span class="math inline">\(\{X_n\}\)</span>满足<strong>弱大数定律</strong>。</p>
+<p>上式也可表示为 <span class="math display">\[
+\frac1n\sum^n_{i=1}X_i-\frac1n\sum^n_{i=1}E(X_i)\xrightarrow{P}0
+\]</span></p>
+<p>若弱大数定律中的随机变量<span class="math inline">\(X_i\)</span><strong>独立同分布</strong>，则有<strong>伯努利大数定律</strong>：</p>
+<p>设<span class="math inline">\(S_n\)</span>为<span class="math inline">\(n\)</span>重伯努利试验中事件<span class="math inline">\(A\)</span>发生的次数，<span class="math inline">\(p\)</span>为每次试验中<span class="math inline">\(A\)</span>出现的概率，则对任意的<span class="math inline">\(\varepsilon&gt;0\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow \infty}P\left(\left|\frac{S_n}{n}-p\right|&lt;\varepsilon\right)=1
+\]</span></p>
+<p>对独立同分布的条件进行弱化，若随机变量间<strong>两两不相关</strong>，则有<strong>切比雪夫大数定律</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>为一列<strong>两两不相关</strong>的随机变量序列，若每个<span class="math inline">\(X_i\)</span>的方差<strong>存在</strong>，且方差具有<strong>共同上界</strong>，即<span class="math inline">\(Var(X_i)\leq c,i=1,2,...\)</span>，则<span class="math inline">\(\{X_n\}\)</span>服从大数定律。</p>
+<p><strong>伯努利大数定律</strong>是<strong>切比雪夫大数定律</strong>的特例。</p>
+<p>在大数定律的证明中，只要满足 <span class="math display">\[
+\frac{1}{n^2}Var(\sum^n_{i=1}X_i)\rightarrow0,
+\]</span> 则大数定律就能够成立，该条件被称为<strong>马尔可夫条件</strong>。</p>
+<p>于是有<strong>马尔可夫大数定律</strong>：对随机变量序列<span class="math inline">\(\{X_n\}\)</span>，若满足马尔可夫条件，则该序列服从大数定律。</p>
+<p>上述的大数定律均假设了随机变量序列的方差存在，若仅假设每个随机变量的数学期望存在，且同时要求独立同分布，则有<strong>辛钦大数定律</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>唯一独立同分布的随机变量序列，若<span class="math inline">\(X_i\)</span>的数学期望存在，<span class="math inline">\(\{X_n\}\)</span>服从大数定律。</p>
+<h2 id="中心极限定理clt">中心极限定理(CLT)</h2>
+<p><strong>独立随机变量和</strong>：<span class="math inline">\(S_n=\displaystyle\sum^n_{i=1}X_i\)</span></p>
+<p>中心极限定理讨论的是，在样本量较大的情况下，独立随机变量和<span class="math inline">\(S_n\)</span>会<strong>收敛于正态分布</strong>。</p>
+<h3 id="独立同分布下的中心极限定理">独立同分布下的中心极限定理</h3>
+<p><strong>林德伯格-莱维，中心极限定理</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>是独立同分布的随机变量序列，且<span class="math inline">\(E(X_i)=\mu\)</span>，<span class="math inline">\(Var(X_i)=\sigma^2&gt;0\)</span>存在，记 <span class="math display">\[
+Y^*_n=\frac{X_1+X_2+···+X_n-n\mu}{\sigma\sqrt{n}}
+\]</span> 则对任意实数<span class="math inline">\(y\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(Y^*_n\leq y)=\Phi(y)=\frac{1}{\sqrt{2\pi}}\int^y_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span></p>
+<p>由上述<strong>林德伯格-莱维中心极限定理</strong>，可以推出<strong>棣莫弗-拉普拉斯中心极限定理</strong>：</p>
+<p>设<span class="math inline">\(n\)</span>重伯努利试验中，事件<span class="math inline">\(A\)</span>在每次试验中出现的概率为<span class="math inline">\(p\)</span>，记<span class="math inline">\(S_n\)</span>为<span class="math inline">\(n\)</span>次试验中事件<span class="math inline">\(A\)</span>中出现的次数，且记 <span class="math display">\[
+Y^*_n=\frac{S_n-np}{\sqrt{npq}}
+\]</span> 则对任意实数<span class="math inline">\(y\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(Y^*_n\leq y)=\Phi(y)=\int^y_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span> 上述的中心极限定理是专门针对<strong>二项分布</strong>的，而由于二项分布是离散分布，正态分布是连续分布，所以在计算中需要进行修正： <span class="math display">\[
+P(k_1\leq S_n\leq k_2)=P(k_1-0.5&lt; S_n&lt;k_2+0.5)
+\]</span> <strong>应用</strong>：</p>
 <ul>
-<li>双目操作符（Binary）：需要两个操作数的操作符</li>
-<li>单目操作符（Unary）：需要一个操作数的操作符</li>
-<li>有效地址加载（Load Effective Address）：<strong>该指令只有后缀q，不适配其余数据大小</strong></li>
-<li>移位操作（Shift）</li>
+<li><p>求概率：已知<span class="math inline">\(n,y\)</span>，求<span class="math inline">\(\beta\)</span></p></li>
+<li><p>求分位数：已知<span class="math inline">\(n,\beta\)</span>，求<span class="math inline">\(y\)</span></p></li>
+<li><p>求样本量：已知<span class="math inline">\(\beta,y\)</span>，求<span class="math inline">\(n\)</span></p></li>
 </ul>
-<h3 id="有效地址加载">有效地址加载</h3>
-<p>有效地址加载（load effective address）指令格式为： <span class="math display">\[
-leaq~~Src,~Dst
-\]</span> 这条指令实现的功能是从内存读取数据到寄存器，但并没有引用内存，而是将有效地址存入目标中。</p>
-<p>除此以外，它还能够用来<strong>计算一些简单的形如<span class="math inline">\(x+k*y\)</span>的表达式</strong>，其中的k需要是1、2、4、8中的一个。</p>
-<p>例如计算<span class="math inline">\(x*12\)</span>，则有汇编代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leaq (%rdi,%rdi,2), %rax	# t &#x3D; x + 2*x</span><br><span class="line">salq $2, %rax				# t &lt;&lt; 2</span><br></pre></td></tr></table></figure>
-<h3 id="双目操作符与单目操作符">双目操作符与单目操作符</h3>
-<p>双目操作符即是需要两个操作数的操作，其中的第二个操作数既是源，又要参与运算。</p>
-<table>
-<thead>
-<tr class="header">
-<th>指令</th>
-<th>效果</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>add S, D</td>
-<td>D = D + S</td>
-<td>加法运算</td>
-</tr>
-<tr class="even">
-<td>sub S, D</td>
-<td>D = D - S</td>
-<td>减法运算</td>
-</tr>
-<tr class="odd">
-<td>imul S, D</td>
-<td>D = D * S</td>
-<td>整数乘法运算</td>
-</tr>
-<tr class="even">
-<td>xor S, D</td>
-<td>D = D ^ S</td>
-<td>异或运算</td>
-</tr>
-<tr class="odd">
-<td>or S, D</td>
-<td>D = D | S</td>
-<td>或运算</td>
-</tr>
-<tr class="even">
-<td>and S, D</td>
-<td>D = D &amp; S</td>
-<td>与运算</td>
-</tr>
-</tbody>
-</table>
-<p>上表中的加减乘除与逻辑运算都属于二元运算指令。</p>
-<p>第一个操作数可以是常数、寄存器或是内存，第二个操作数可以是寄存器或内存。规则与MOV的规则一致，两个操作数不能同时为内存。</p>
-<p>单目操作符更加简单，只需要一个操作数作为源和目标。这里的操作数可以是寄存器或是内存，类似于C语言中的自增与自减语法。</p>
-<table>
-<thead>
-<tr class="header">
-<th>指令</th>
-<th>效果</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>inc D</td>
-<td>D = D + 1</td>
-<td>自增1</td>
-</tr>
-<tr class="even">
-<td>dec D</td>
-<td>D = D - 1</td>
-<td>自减1</td>
-</tr>
-<tr class="odd">
-<td>neg D</td>
-<td>D = -D</td>
-<td>取负数</td>
-</tr>
-<tr class="even">
-<td>not D</td>
-<td>D = ~D</td>
-<td>按位取反</td>
-</tr>
-</tbody>
-</table>
-<h3 id="移位运算">移位运算</h3>
-<p>移位运算也需要两个操作数，其中第一个给定要移动的位数，第二个是待移动的数据。</p>
-<table>
-<thead>
-<tr class="header">
-<th>指令</th>
-<th>效果</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>sal k, D</td>
-<td>D = D &lt;&lt; k</td>
-<td>左移k位</td>
-</tr>
-<tr class="even">
-<td>shl k, D</td>
-<td>D = D &lt;&lt; k</td>
-<td>左移k位</td>
-</tr>
-<tr class="odd">
-<td>sar k, D</td>
-<td>D = D &gt;&gt;<span class="math inline">\(_A\)</span>k</td>
-<td>算术右移k位</td>
-</tr>
-<tr class="even">
-<td>shr k, D</td>
-<td>D = D &gt;&gt;<span class="math inline">\(_L\)</span>k</td>
-<td>逻辑右移k位</td>
-</tr>
-</tbody>
-</table>
-<p>第一个操作数k可以是常数，也可以是存在寄存器%cl中的数据。移位运算的相关指令只允许这个特定的寄存器作为操作数。</p>
-<p>在x86-64架构中，对一个有w位的数据进行移位操作时，是根据寄存器%cl中的最低m位决定移动位数的，其中<span class="math inline">\(2^m=w\)</span>，高位会被忽略。譬如当该寄存器中存的数据为0xFF时，salb指令只会移动7位，salw指令移动15位，sall指令移动31位，而salq指令移动63位。</p>
-<p>左移指令有两个，效果相同，而右移则有算术右移和逻辑右移两种，效果与第二章中相同。</p>
-<p><strong>课程内容至此为止，有关书中3.5节提及的特殊的运算并未展开，故本章整理也先就此打住，日后提及再进行补充。</strong></p>
+<h2 id="独立不同分布条件下的中心极限定理">独立不同分布条件下的中心极限定理（*）</h2>
+<p><strong>林德伯格条件</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>是一个相互独立的随机变量序列，它们具有有限的数学期望和方差，<span class="math inline">\(E(X_i)=\mu_i,Var(X_i)=\sigma_i^2\)</span>.</p>
+<p>记<span class="math inline">\(\sigma(Y_n)=\sqrt{Var(Y_n)}=\sqrt{(\sigma_1)^2+(\sigma_2)^2+···+(\sigma_n^2)}=B_n\)</span>，每个<span class="math inline">\(X_i\)</span>的密度函数记为<span class="math inline">\(p_i(x)\)</span></p>
+<p>则有<strong>林德伯格条件</strong>，对任意<span class="math inline">\(\tau&gt;0\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}\frac{1}{\tau^2B_n^2}\sum^n_{i=1}\int_{|x-\mu_i|&gt;\tau B_n}(x-\mu_i)^2p_i(x)dx=0
+\]</span> <strong>林德伯格中心极限定理</strong>：</p>
+<p>设独立随机变量序列<span class="math inline">\(\{X_n\}\)</span>满足林德伯格条件，则对任意的<span class="math inline">\(x\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(\frac{1}{B_n}\sum^n_{i=1}(X_i-\mu_i)\leq x)=\int^y_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span></p>
+<p><strong>李雅普诺夫中心极限定理</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>为独立随机变量序列，若存在<span class="math inline">\(\delta&gt;0\)</span>，满足 <span class="math display">\[
+\lim_{n\rightarrow\infty}\frac{1}{B^{2+\delta}}\sum^n_{i=1}E(|X_i-\mu_i|^{2+\delta})=0,
+\]</span> 则对任意的<span class="math inline">\(x\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(\frac{1}{B_n}\sum^n_{i=1}(X_i-\mu_i)\leq x)=\frac{1}{\sqrt{2\pi}}\int^x_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span> 其中<span class="math inline">\(\mu_i\)</span>与<span class="math inline">\(B_n\)</span>如前所述。</p>
 
     </div>
 
@@ -336,7 +264,7 @@ leaq~~Src,~Dst
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/CSAPP/" rel="tag"><i class="fa fa-tag"></i></a>
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i></a>
           </div>
 
         
@@ -345,13 +273,10 @@ leaq~~Src,~Dst
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/14/3.4/" rel="prev" title="CSAPP 3.4">
-      <i class="fa fa-chevron-left"></i> CSAPP 3.4
+    <a href="/2021/05/18/%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B%E6%80%A7/" rel="prev" title="随机序列收敛性">
+      <i class="fa fa-chevron-left"></i> 随机序列收敛性
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/28/8-1/" rel="next" title="8.1">
-      8.1 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -410,7 +335,7 @@ leaq~~Src,~Dst
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#csapp"><span class="nav-number">1.</span> <span class="nav-text">CSAPP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数学运算与逻辑运算"><span class="nav-number">1.1.</span> <span class="nav-text">3.5 数学运算与逻辑运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有效地址加载"><span class="nav-number">1.1.1.</span> <span class="nav-text">有效地址加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双目操作符与单目操作符"><span class="nav-number">1.1.2.</span> <span class="nav-text">双目操作符与单目操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移位运算"><span class="nav-number">1.1.3.</span> <span class="nav-text">移位运算</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大数定律"><span class="nav-number">1.</span> <span class="nav-text">大数定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心极限定理clt"><span class="nav-number">2.</span> <span class="nav-text">中心极限定理(CLT)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#独立同分布下的中心极限定理"><span class="nav-number">2.1.</span> <span class="nav-text">独立同分布下的中心极限定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#独立不同分布条件下的中心极限定理"><span class="nav-number">3.</span> <span class="nav-text">独立不同分布条件下的中心极限定理（*）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
