@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数理统计绪论 样本与总体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数理统计徐伦 &amp; 统计量">
+<meta property="og:url" content="https://ankate.github.io/2021/07/06/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%BB%AA%E8%AE%BA%20&%20%E7%BB%9F%E8%AE%A1%E9%87%8F/index.html">
+<meta property="og:site_name" content="AnKate">
+<meta property="og:description" content="数理统计绪论 样本与总体">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-06T06:44:07.022Z">
+<meta property="article:modified_time" content="2021-07-06T06:43:47.685Z">
+<meta property="article:author" content="Miheal Zhao">
+<meta property="article:tag" content="概率论与数理统计">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://ankate.github.io/2021/07/06/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%BB%AA%E8%AE%BA%20&%20%E7%BB%9F%E8%AE%A1%E9%87%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>数理统计徐伦 & 统计量 | AnKate</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AnKate</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">28</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/07/06/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E7%BB%AA%E8%AE%BA%20&%20%E7%BB%9F%E8%AE%A1%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="Miheal Zhao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnKate">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数理统计徐伦 & 统计量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-06 14:44:07 / Modified: 14:43:47" itemprop="dateCreated datePublished" datetime="2021-07-06T14:44:07+08:00">2021-07-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数理统计绪论">数理统计绪论</h2>
+<h3 id="样本与总体">样本与总体</h3>
+<p><strong>总体</strong>：研究对象的全体，可分为<strong>有限总体</strong>和<strong>无限总体</strong>。</p>
+<p><strong>样本</strong>：从总体中随机抽取的个体。</p>
+<p><strong>关系</strong>：对<strong>样本</strong>进行抽象可以得到<strong>总体</strong>。</p>
+<p>从总体中抽取样本的方法很多，最常用的<strong>简单随机抽样</strong>具有两个要求：</p>
+<ul>
+<li><strong>代表性</strong>：总体中每一个个体都有同等机会被选入样本，即每个样本<span class="math inline">\(x_i\)</span>需要与总体<span class="math inline">\(X\)</span>服从相同的分布。</li>
+<li><strong>独立性</strong>：每一个样本的取值不会影响其他样本的取值，即每个样本相互独立。</li>
+</ul>
+<p>以常见的测量问题为例，对一个物理量<span class="math inline">\(\mu\)</span>进行重复测量，记测量结果为<span class="math inline">\(X\)</span>，误差为<span class="math inline">\(\varepsilon\)</span>.</p>
+<p>测量结果可以看做物理量与测量误差的叠加，即： <span class="math display">\[
+X=\mu+\varepsilon
+\]</span> 称<span class="math inline">\(\mu\)</span>为参数，<span class="math inline">\(\varepsilon\)</span>是随机变量，关于总体分布的假定主要是关于<span class="math inline">\(\varepsilon\)</span>服从的分布的假定，有以下几种情况：</p>
+<ul>
+<li>由于中心极限定理，假定随机误差<span class="math inline">\(\varepsilon\sim N(0,\sigma^2)\)</span>，则总体分布<span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span>，此时未知参数为<span class="math inline">\(\mu,\sigma\)</span></li>
+<li>知道<span class="math inline">\(\varepsilon\)</span>服从的分布的方差时，假定其服从<span class="math inline">\(\varepsilon \sim N(0,\sigma_0^2)\)</span>，则总体分布<span class="math inline">\(X \sim N(\mu, \sigma_0^2)\)</span>，此时未知参数仅有<span class="math inline">\(\mu\)</span></li>
+<li>无法认定误差服从正态分布时，假定<span class="math inline">\(\varepsilon\)</span>的分布关于0对称，则总体分布<span class="math inline">\(X\)</span>称为<strong>非参数分布</strong></li>
+</ul>
+<h3 id="经验分布函数">经验分布函数</h3>
+<p><strong>定义</strong>：设<span class="math inline">\(x_1,x_2,...,x_n\)</span>是取自总体分布函数<span class="math inline">\(F(x)\)</span>的样本，若将样本观测值由小到大进行排列，记为<span class="math inline">\(x_{(1)},x_{(2)},...,x_{(n)}\)</span>，称排列后的样本为<strong>有序样本</strong>，用有序样本定义如下函数： <span class="math display">\[
+F_n(x)=
+\begin{cases}
+0&amp;,~x&lt;x_{(1)}\\\\
+k/n&amp;,~x_{(k)}\leq x &lt; x_{(k+1)},~k=1,2,...,n-1\\\\
+1&amp;,~x\geq x_{(n)}
+\end{cases}
+\]</span> 称<span class="math inline">\(F_n(x)\)</span>为该样本的经验分布函数。</p>
+<p><strong>经验分布函数是一个分布函数</strong>：</p>
+<ul>
+<li>由定义过程可知，<span class="math inline">\(F_n(x)\)</span>满足<strong>右连续性</strong>与<strong>单调性</strong>（非减）</li>
+<li><span class="math inline">\(F(-\infty)=0,~F(\infty)=1\)</span>，满足<strong>有界性</strong></li>
+</ul>
+<p>经验分布函数也可以使用示性函数写成如下形式： <span class="math display">\[
+F_n(x)=\frac{1}{n}\sum^n_{i=1}I\{x_i\leq x\}
+\]</span></p>
+<p><strong>格列文科定理</strong>：</p>
+<p>设<span class="math inline">\(x_1,x_2,...,x_n\)</span>是取自总体分布函数<span class="math inline">\(F(x)\)</span>的样本，<span class="math inline">\(F_n(x)\)</span>是经验分布函数，当<span class="math inline">\(n\rightarrow \infty\)</span>时，有 <span class="math display">\[
+P(\sup_{-\infty&lt;x&lt;\infty}|F_n(x)-F(x)|\rightarrow 0)=1
+\]</span> 即当样本量足够大时，<strong>经验分布函数会逐渐接近总体分布函数</strong>。</p>
+<p><strong>经验分布函数的期望与方差</strong>：</p>
+<p>记随机变量<span class="math inline">\(Y \sim F_n(x)\)</span>，则：</p>
+<p><span class="math inline">\(E(Y)=\displaystyle\frac{1}{n}\sum^n_{i=1}x_i=\overline x\)</span>（<strong>样本均值</strong>）</p>
+<p><span class="math inline">\(Var(Y)=\displaystyle\frac1n\sum^n_{i=1}(x_i-\overline x)^2=s_n^2\)</span>（<strong>样本方差</strong>）</p>
+<h2 id="统计量">统计量</h2>
+<h3 id="样本均值与样本方差">样本均值与样本方差</h3>
+<p><strong>定义</strong>：设<span class="math inline">\(x_1,x_2,...,x_n\)</span>是取自某总体的样本，其算术平均值称为<strong>样本均值</strong>，用<span class="math inline">\(\overline x\)</span>表示，即 <span class="math display">\[
+\overline x = \frac1n \sum^n_{i=1}x_i
+\]</span> 关于样本均值<span class="math inline">\(\overline x\)</span>的平均偏差平方和称为<strong>样本方差</strong>，用<span class="math inline">\(s_n^2\)</span>表示，即 <span class="math display">\[
+s_n^2=\frac1n \sum^n_{i=1}(x_i-\overline x)^2
+\]</span> <strong>定理</strong>：</p>
+<p>若总体的均值为<span class="math inline">\(\mu\)</span>，方差为<span class="math inline">\(\sigma^2\)</span>，<span class="math inline">\(x_1,x_2,...,x_n\)</span>为样本：</p>
+<p><span class="math inline">\(E(\overline X)=\mu, ~Var(\overline X)=\displaystyle\frac{\sigma^2}n\)</span></p>
+<p><span class="math inline">\(E(s^2_n)=\displaystyle\frac{n-1}{n}\sigma^2\)</span></p>
+<p>令<span class="math inline">\(s^2=\displaystyle\frac{1}{n-1}\sum^n_{i=1}(x_i-\overline x)^2\)</span>，称<span class="math inline">\(s^2\)</span>为<strong>无偏方差</strong>，其期望<span class="math inline">\(E(s^2)=\sigma^2\)</span>.</p>
+<p>通常使用<strong>无偏方差</strong>作为样本方差。</p>
+<p><strong>样本均值的分布</strong>：</p>
+<p>设<span class="math inline">\(x_1,x_2,...,x_n\)</span>是来自某个总体的样本，<span class="math inline">\(\overline x\)</span>为样本均值。</p>
+<ul>
+<li>若总体分布为<span class="math inline">\(N(\mu,\sigma^2)\)</span>，则<span class="math inline">\(\overline x \sim N(\mu, \displaystyle \frac{\sigma^2}{n})\)</span></li>
+<li>若总体分布未知，但已知期望<span class="math inline">\(\mu\)</span>和方差<span class="math inline">\(\sigma^2\)</span>，则在样本量较大时，<span class="math inline">\(\overline x\)</span>的近似分布为正态分布，记为<span class="math inline">\(\overline x \sim AN(\mu, \displaystyle \frac{\sigma^2}{n})\)</span></li>
+</ul>
+<h3 id="样本矩">样本矩</h3>
+<p><strong>定义</strong>：设<span class="math inline">\(x_1,x_2,...,x_n\)</span>是样本，<span class="math inline">\(k\)</span>为正整数，则统计量 <span class="math display">\[
+a_k=\frac{1}{n}\sum^n_{i=1}x_i^k
+\]</span> 称为样本<span class="math inline">\(k\)</span>阶<strong>原点矩</strong>；</p>
+<p>统计量 <span class="math display">\[
+b_k=\frac{1}{n}\sum^n_{i=1}(x_i-\overline x)^k
+\]</span> 称为样本<span class="math inline">\(k\)</span>阶<strong>中心矩</strong>。</p>
+<p><strong>相关统计量</strong>：</p>
+<ul>
+<li><p><strong>样本偏度</strong>：反映了样本数据与对称性的偏离程度和偏离方向 <span class="math display">\[
+\hat{\beta_s}=\frac{b_3}{b_2^{\frac32}}
+\]</span></p></li>
+<li><p><strong>样本峰度</strong>：反映了总体分布密度曲线在其峰值附近的陡峭程度和尾部粗细的统计量 <span class="math display">\[
+\hat{\beta_k}=\frac{b_4}{b_2^2}-3
+\]</span></p></li>
+</ul>
+<h3 id="次序统计量">次序统计量</h3>
+<p><strong>定义</strong>：设<span class="math inline">\(x_1,x_2,...,x_n\)</span>是取自总体<span class="math inline">\(X\)</span>的样本，<span class="math inline">\(x_{(i)}\)</span>称为该样本的第<span class="math inline">\(i\)</span>个次序统计量，它的取值是将样本观测值由小到大排列后得到的第<span class="math inline">\(i\)</span>个观测值。其中<span class="math inline">\(x_{(i)}=\min\{x_1,x_2,...,x_n\}\)</span>称为该样本的最小次序统计量，<span class="math inline">\(x_{(n)}=\max\{x_1,x_2,...,x_n\}\)</span>称为该样本的最大次序统计量。</p>
+<p><strong>单个次序统计量的分布</strong>：</p>
+<p>设总体<span class="math inline">\(X\)</span>的密度函数为<span class="math inline">\(p(x)\)</span>，分布函数为<span class="math inline">\(F(x)\)</span>，<span class="math inline">\(x_1,x_2,...,x_n\)</span>为样本，则第<span class="math inline">\(k\)</span>个次序统计量<span class="math inline">\(x_{(k)}\)</span>的密度函数为 <span class="math display">\[
+p_k(x)=\frac{n!}{(k-1)!(n-k)!}(F(x))^{k-1}(1-F(x))^{n-k}p(x)
+\]</span> 特别地，有 <span class="math display">\[
+p_1(x)=n\cdot(1-F(x))^{n-1}p(x)
+\]</span></p>
+<p><span class="math display">\[
+p_n(x)=n\cdot(F(x))^{n-1}p(x)
+\]</span></p>
+<p><strong>结论</strong>：总体分布为<span class="math inline">\(U(0,1)\)</span>时，第<span class="math inline">\(k\)</span>个次序统计量的密度函数为 <span class="math display">\[
+p_k(x)=\frac{n!}{(k-1)!(n-k)!}x^{k-1}(1-x)^{n-k},~0&lt;x&lt;1
+\]</span> 即<span class="math inline">\(Be(k,n-k+1)\)</span>，从而有<span class="math inline">\(E(x_{(k)})=\displaystyle\frac{k}{n+1}\)</span>.</p>
+<p><strong>多个次序统计量的分布</strong>：</p>
+<p>设总体<span class="math inline">\(X\)</span>的密度函数为<span class="math inline">\(p(x)\)</span>，分布函数为<span class="math inline">\(F(x)\)</span>，<span class="math inline">\(x_1,x_2,...,x_n\)</span>为样本，则第<span class="math inline">\(i,j\)</span>个次序统计量<span class="math inline">\(x_{(i)},x_{(j)}\)</span>的联合密度函数为 <span class="math display">\[
+p_{ij}(x,y)=\frac{n!}{(i-1)!(j-i-1)!(n-j)!}(F(x))^{i-1}(F(y)-F(x))^{j-i-1}(1-F(y))^{n-j}p(x)p(y)
+\]</span></p>
+<p><strong>样本极差</strong>：<span class="math inline">\(R=x_{(n)}-x_{(1)}\)</span></p>
+<h3 id="样本分位数">样本分位数</h3>
+<p><strong>样本中位数</strong>：记为<span class="math inline">\(m_{0.5}\)</span>，定义 <span class="math display">\[
+m_{0.5}=
+\begin{cases}
+x_{(\frac{n+1}2)}&amp;,n为奇数\\
+\\
+\frac12(x_{(\frac{n}{2})}+x_{(\frac{n+1}{2})})&amp;,n为偶数
+\end{cases}
+\]</span> <strong>样本分位数</strong>：样本的<span class="math inline">\(p\)</span>分位数<span class="math inline">\(m_p\)</span>如下定义 <span class="math display">\[
+m_p=
+\begin{cases}
+x_{(\lfloor np+1 \rfloor)}&amp;,np不是整数\\
+\\
+\frac12 (x_{(np)}+x_{(np+1)})&amp;,np是整数
+\end{cases}
+\]</span> <strong>定理</strong>：设总体密度函数为<span class="math inline">\(p(x)\)</span>，<span class="math inline">\(x_p\)</span>为其<span class="math inline">\(p\)</span>分位数，<span class="math inline">\(p(x)\)</span>在<span class="math inline">\(x_p\)</span>处连续且<span class="math inline">\(p(x_p)&gt;0\)</span>，则当<span class="math inline">\(n\rightarrow\infty\)</span>时，样本<span class="math inline">\(p\)</span>分位数<span class="math inline">\(m_p\)</span>的渐近分布为 <span class="math display">\[
+m_p\sim N(x_p,~\frac{p(1-p)}{n\cdot p^2(x_p)})
+\]</span> 特别地，对于样本中位数，有 <span class="math display">\[
+m_{0.5}\sim N(x_{0.5},\frac{1}{4n\cdot p^2(x_{0.5})})
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i></a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/05/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B(LLN)%20&%20%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86(CLT)/" rel="prev" title="大数定律与中心极限定理">
+      <i class="fa fa-chevron-left"></i> 大数定律与中心极限定理
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数理统计绪论"><span class="nav-number">1.</span> <span class="nav-text">数理统计绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#样本与总体"><span class="nav-number">1.1.</span> <span class="nav-text">样本与总体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经验分布函数"><span class="nav-number">1.2.</span> <span class="nav-text">经验分布函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计量"><span class="nav-number">2.</span> <span class="nav-text">统计量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#样本均值与样本方差"><span class="nav-number">2.1.</span> <span class="nav-text">样本均值与样本方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本矩"><span class="nav-number">2.2.</span> <span class="nav-text">样本矩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#次序统计量"><span class="nav-number">2.3.</span> <span class="nav-text">次序统计量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本分位数"><span class="nav-number">2.4.</span> <span class="nav-text">样本分位数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Miheal Zhao"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">Miheal Zhao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Miheal Zhao</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
