@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"ankate.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="依概率收敛 依概率收敛：设\(\{X_n\}\)为一列随机变量序列，\(X\)为一随机变量，如果对任意的\(\varepsilon&gt;0\)，有 \[ P(\vert X_n-X\vert \geq \varepsilon)\rightarrow 0~(n\rightarrow \infty) \] 则称序列\(\{X_n\}\)依概率收敛于\(X\)，记作\(X_n\xrightarr">
+  <meta name="description" content="大数定律与中心极限定理 随机序列收敛性">
 <meta property="og:type" content="article">
-<meta property="og:title" content="随机序列收敛性">
-<meta property="og:url" content="https://ankate.github.io/2021/05/18/%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B%E6%80%A7/index.html">
+<meta property="og:title" content="大数定律与中心极限定理">
+<meta property="og:url" content="https://ankate.github.io/2021/07/08/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B%E4%B8%8E%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86/index.html">
 <meta property="og:site_name" content="AnKate">
-<meta property="og:description" content="依概率收敛 依概率收敛：设\(\{X_n\}\)为一列随机变量序列，\(X\)为一随机变量，如果对任意的\(\varepsilon&gt;0\)，有 \[ P(\vert X_n-X\vert \geq \varepsilon)\rightarrow 0~(n\rightarrow \infty) \] 则称序列\(\{X_n\}\)依概率收敛于\(X\)，记作\(X_n\xrightarr">
+<meta property="og:description" content="大数定律与中心极限定理 随机序列收敛性">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-18T07:15:24.000Z">
-<meta property="article:modified_time" content="2021-05-18T07:15:27.743Z">
+<meta property="article:published_time" content="2021-07-08T05:58:20.000Z">
+<meta property="article:modified_time" content="2021-07-08T06:04:27.589Z">
 <meta property="article:author" content="Miheal Zhao">
 <meta property="article:tag" content="概率论和数理统计">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://ankate.github.io/2021/05/18/%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B%E6%80%A7/">
+<link rel="canonical" href="https://ankate.github.io/2021/07/08/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B%E4%B8%8E%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>随机序列收敛性 | AnKate</title>
+  <title>大数定律与中心极限定理 | AnKate</title>
   
 
 
@@ -120,12 +120,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">5</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">4</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">28</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">27</span></a>
 
   </li>
   </ul>
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/05/18/%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B%E6%80%A7/">
+    <link itemprop="mainEntityOfPage" href="https://ankate.github.io/2021/07/08/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B%E4%B8%8E%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          随机序列收敛性
+          大数定律与中心极限定理
         </h1>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-05-18 15:15:24 / Modified: 15:15:27" itemprop="dateCreated datePublished" datetime="2021-05-18T15:15:24+08:00">2021-05-18</time>
+              <time title="Created: 2021-07-08 13:58:20 / Modified: 14:04:27" itemprop="dateCreated datePublished" datetime="2021-07-08T13:58:20+08:00">2021-07-08</time>
             </span>
 
           
@@ -194,7 +194,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="依概率收敛">依概率收敛</h2>
+        <h1 id="大数定律与中心极限定理">大数定律与中心极限定理</h1>
+<h2 id="随机序列收敛性">随机序列收敛性</h2>
+<h3 id="依概率收敛">依概率收敛</h3>
 <p><strong>依概率收敛</strong>：设<span class="math inline">\(\{X_n\}\)</span>为一列随机变量序列，<span class="math inline">\(X\)</span>为一随机变量，如果对任意的<span class="math inline">\(\varepsilon&gt;0\)</span>，有 <span class="math display">\[
 P(\vert X_n-X\vert \geq \varepsilon)\rightarrow 0~(n\rightarrow \infty)
 \]</span> 则称序列<span class="math inline">\(\{X_n\}\)</span>依概率收敛于<span class="math inline">\(X\)</span>，记作<span class="math inline">\(X_n\xrightarrow P X\)</span>.</p>
@@ -224,7 +226,7 @@ P&amp;1-\frac1n&amp;\frac1n
 P(\lim_{n\rightarrow\infty}X_n=X)=1
 \]</span> 则称序列<span class="math inline">\(\{X_n\}\)</span><strong>以概率1收敛</strong>于<span class="math inline">\(X\)</span>，记作<span class="math inline">\(X_n\xrightarrow{as}X\)</span>.</p>
 <p><strong><span class="math inline">\(X_n\xrightarrow{as}X\)</span>成立，则<span class="math inline">\(X_n\xrightarrow{P}X\)</span>成立；反之则不成立</strong>。</p>
-<h2 id="按分布收敛弱收敛">按分布收敛、弱收敛</h2>
+<h3 id="按分布收敛弱收敛">按分布收敛、弱收敛</h3>
 <p><strong>定义</strong>：设随机变量<span class="math inline">\(X,X_1,X_2,...\)</span>的分布函数分别为<span class="math inline">\(F(x),F_1(x),F_2(x),...\)</span>，若对<span class="math inline">\(F(x)\)</span>的任一连续点<span class="math inline">\(x\)</span>，都有 <span class="math display">\[
 \lim_{n\rightarrow\infty}F_n(x)=F(x),
 \]</span> 则称<span class="math inline">\(\{F_n(x)\}\)</span><strong>弱收敛于</strong><span class="math inline">\(F(x)\)</span>，记作<span class="math inline">\(F_n(x)\xrightarrow{W}F(x)\)</span>.</p>
@@ -232,6 +234,66 @@ P(\lim_{n\rightarrow\infty}X_n=X)=1
 <p><strong>定理</strong>： <span class="math display">\[
 X_n\xrightarrow{P}X\Longrightarrow X_n\xrightarrow{L}X
 \]</span></p>
+<h2 id="大数定律lln">大数定律(LLN)</h2>
+<p><strong>大数定律的现象描述：频率稳定于概率</strong></p>
+<p><strong>一般情况（弱大数定律）</strong>：设有一随机变量序列<span class="math inline">\(\{X_n\}\)</span>，假如它具有形如 <span class="math display">\[
+\left|P(\frac{1}{n}\sum^n_{i=1}X_i-\frac1n\sum^n_{i=1}E(X_i))\right|&lt;\varepsilon\rightarrow1~(n\rightarrow \infty)
+\]</span> 的性质，则称该序列<span class="math inline">\(\{X_n\}\)</span>满足<strong>弱大数定律</strong>。</p>
+<p>上式也可表示为 <span class="math display">\[
+\frac1n\sum^n_{i=1}X_i-\frac1n\sum^n_{i=1}E(X_i)\xrightarrow{P}0
+\]</span></p>
+<p>若弱大数定律中的随机变量<span class="math inline">\(X_i\)</span><strong>独立同分布</strong>，则有<strong>伯努利大数定律</strong>：</p>
+<p>设<span class="math inline">\(S_n\)</span>为<span class="math inline">\(n\)</span>重伯努利试验中事件<span class="math inline">\(A\)</span>发生的次数，<span class="math inline">\(p\)</span>为每次试验中<span class="math inline">\(A\)</span>出现的概率，则对任意的<span class="math inline">\(\varepsilon&gt;0\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow \infty}P\left(\left|\frac{S_n}{n}-p\right|&lt;\varepsilon\right)=1
+\]</span></p>
+<p>对独立同分布的条件进行弱化，若随机变量间<strong>两两不相关</strong>，则有<strong>切比雪夫大数定律</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>为一列<strong>两两不相关</strong>的随机变量序列，若每个<span class="math inline">\(X_i\)</span>的方差<strong>存在</strong>，且方差具有<strong>共同上界</strong>，即<span class="math inline">\(Var(X_i)\leq c,i=1,2,...\)</span>，则<span class="math inline">\(\{X_n\}\)</span>服从大数定律。</p>
+<p><strong>伯努利大数定律</strong>是<strong>切比雪夫大数定律</strong>的特例。</p>
+<p>在大数定律的证明中，只要满足 <span class="math display">\[
+\frac{1}{n^2}Var(\sum^n_{i=1}X_i)\rightarrow0,
+\]</span> 则大数定律就能够成立，该条件被称为<strong>马尔可夫条件</strong>。</p>
+<p>于是有<strong>马尔可夫大数定律</strong>：对随机变量序列<span class="math inline">\(\{X_n\}\)</span>，若满足马尔可夫条件，则该序列服从大数定律。</p>
+<p>上述的大数定律均假设了随机变量序列的方差存在，若仅假设每个随机变量的数学期望存在，且同时要求独立同分布，则有<strong>辛钦大数定律</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>唯一独立同分布的随机变量序列，若<span class="math inline">\(X_i\)</span>的数学期望存在，<span class="math inline">\(\{X_n\}\)</span>服从大数定律。</p>
+<h2 id="中心极限定理clt">中心极限定理(CLT)</h2>
+<p><strong>独立随机变量和</strong>：<span class="math inline">\(S_n=\displaystyle\sum^n_{i=1}X_i\)</span></p>
+<p>中心极限定理讨论的是，在样本量较大的情况下，独立随机变量和<span class="math inline">\(S_n\)</span>会<strong>收敛于正态分布</strong>。</p>
+<h3 id="独立同分布下的中心极限定理">独立同分布下的中心极限定理</h3>
+<p><strong>林德伯格-莱维，中心极限定理</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>是独立同分布的随机变量序列，且<span class="math inline">\(E(X_i)=\mu\)</span>，<span class="math inline">\(Var(X_i)=\sigma^2&gt;0\)</span>存在，记 <span class="math display">\[
+Y^*_n=\frac{X_1+X_2+···+X_n-n\mu}{\sigma\sqrt{n}}
+\]</span> 则对任意实数<span class="math inline">\(y\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(Y^*_n\leq y)=\Phi(y)=\frac{1}{\sqrt{2\pi}}\int^y_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span></p>
+<p>由上述<strong>林德伯格-莱维中心极限定理</strong>，可以推出<strong>棣莫弗-拉普拉斯中心极限定理</strong>：</p>
+<p>设<span class="math inline">\(n\)</span>重伯努利试验中，事件<span class="math inline">\(A\)</span>在每次试验中出现的概率为<span class="math inline">\(p\)</span>，记<span class="math inline">\(S_n\)</span>为<span class="math inline">\(n\)</span>次试验中事件<span class="math inline">\(A\)</span>中出现的次数，且记 <span class="math display">\[
+Y^*_n=\frac{S_n-np}{\sqrt{npq}}
+\]</span> 则对任意实数<span class="math inline">\(y\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(Y^*_n\leq y)=\Phi(y)=\int^y_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span> 上述的中心极限定理是专门针对<strong>二项分布</strong>的，而由于二项分布是离散分布，正态分布是连续分布，所以在计算中需要进行修正： <span class="math display">\[
+P(k_1\leq S_n\leq k_2)=P(k_1-0.5&lt; S_n&lt;k_2+0.5)
+\]</span> <strong>应用</strong>：</p>
+<ul>
+<li><p>求概率：已知<span class="math inline">\(n,y\)</span>，求<span class="math inline">\(\beta\)</span></p></li>
+<li><p>求分位数：已知<span class="math inline">\(n,\beta\)</span>，求<span class="math inline">\(y\)</span></p></li>
+<li><p>求样本量：已知<span class="math inline">\(\beta,y\)</span>，求<span class="math inline">\(n\)</span></p></li>
+</ul>
+<h3 id="独立不同分布条件下的中心极限定理">独立不同分布条件下的中心极限定理（*）</h3>
+<p><strong>林德伯格条件</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>是一个相互独立的随机变量序列，它们具有有限的数学期望和方差，<span class="math inline">\(E(X_i)=\mu_i,Var(X_i)=\sigma_i^2\)</span>.</p>
+<p>记<span class="math inline">\(\sigma(Y_n)=\sqrt{Var(Y_n)}=\sqrt{(\sigma_1)^2+(\sigma_2)^2+···+(\sigma_n^2)}=B_n\)</span>，每个<span class="math inline">\(X_i\)</span>的密度函数记为<span class="math inline">\(p_i(x)\)</span></p>
+<p>则有<strong>林德伯格条件</strong>，对任意<span class="math inline">\(\tau&gt;0\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}\frac{1}{\tau^2B_n^2}\sum^n_{i=1}\int_{|x-\mu_i|&gt;\tau B_n}(x-\mu_i)^2p_i(x)dx=0
+\]</span> <strong>林德伯格中心极限定理</strong>：</p>
+<p>设独立随机变量序列<span class="math inline">\(\{X_n\}\)</span>满足林德伯格条件，则对任意的<span class="math inline">\(x\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(\frac{1}{B_n}\sum^n_{i=1}(X_i-\mu_i)\leq x)=\int^y_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span></p>
+<p><strong>李雅普诺夫中心极限定理</strong>：</p>
+<p>设<span class="math inline">\(\{X_n\}\)</span>为独立随机变量序列，若存在<span class="math inline">\(\delta&gt;0\)</span>，满足 <span class="math display">\[
+\lim_{n\rightarrow\infty}\frac{1}{B^{2+\delta}}\sum^n_{i=1}E(|X_i-\mu_i|^{2+\delta})=0,
+\]</span> 则对任意的<span class="math inline">\(x\)</span>，有 <span class="math display">\[
+\lim_{n\rightarrow\infty}P(\frac{1}{B_n}\sum^n_{i=1}(X_i-\mu_i)\leq x)=\frac{1}{\sqrt{2\pi}}\int^x_{-\infty}e^{-\frac{t^2}{2}}dt
+\]</span> 其中<span class="math inline">\(\mu_i\)</span>与<span class="math inline">\(B_n\)</span>如前所述。</p>
 
     </div>
 
@@ -251,13 +313,10 @@ X_n\xrightarrow{P}X\Longrightarrow X_n\xrightarrow{L}X
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/30/%E5%86%85%E7%A7%AF%E4%B8%8E%E8%8C%83%E6%95%B0/" rel="prev" title="内积与范数">
-      <i class="fa fa-chevron-left"></i> 内积与范数
+    <a href="/2021/07/08/%E7%BB%9F%E8%AE%A1%E9%87%8F%E5%8F%8A%E5%85%B6%E5%88%86%E5%B8%83/" rel="prev" title="统计量及其分布">
+      <i class="fa fa-chevron-left"></i> 统计量及其分布
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/07/05/%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B(LLN)%20&%20%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86(CLT)/" rel="next" title="大数定律与中心极限定理">
-      大数定律与中心极限定理 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -316,7 +375,7 @@ X_n\xrightarrow{P}X\Longrightarrow X_n\xrightarrow{L}X
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#依概率收敛"><span class="nav-number">1.</span> <span class="nav-text">依概率收敛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按分布收敛弱收敛"><span class="nav-number">2.</span> <span class="nav-text">按分布收敛、弱收敛</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大数定律与中心极限定理"><span class="nav-number">1.</span> <span class="nav-text">大数定律与中心极限定理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#随机序列收敛性"><span class="nav-number">1.1.</span> <span class="nav-text">随机序列收敛性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依概率收敛"><span class="nav-number">1.1.1.</span> <span class="nav-text">依概率收敛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按分布收敛弱收敛"><span class="nav-number">1.1.2.</span> <span class="nav-text">按分布收敛、弱收敛</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数定律lln"><span class="nav-number">1.2.</span> <span class="nav-text">大数定律(LLN)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中心极限定理clt"><span class="nav-number">1.3.</span> <span class="nav-text">中心极限定理(CLT)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#独立同分布下的中心极限定理"><span class="nav-number">1.3.1.</span> <span class="nav-text">独立同分布下的中心极限定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独立不同分布条件下的中心极限定理"><span class="nav-number">1.3.2.</span> <span class="nav-text">独立不同分布条件下的中心极限定理（*）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -332,14 +391,14 @@ X_n\xrightarrow{P}X\Longrightarrow X_n\xrightarrow{L}X
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
