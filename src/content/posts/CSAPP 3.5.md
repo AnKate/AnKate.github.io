@@ -1,7 +1,7 @@
 ---
 title: CSAPP 3.5
 published: 2020-10-15
-description: 数学运算和逻辑运算相关内容
+description: 数学运算和逻辑运算
 image: ''
 tags: [CSAPP]
 category: Notes

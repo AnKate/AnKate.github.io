@@ -1,7 +1,16 @@
 # About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+一个兴趣使然的个人博客，想起来就会更新
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+- **学习方向**：自然语言处理（NLP）、语法纠错（GEC）
+- **兴趣爱好**：
+  - **最近在玩**：巫师3
+    - 更新次世代版以后还没有玩过，回味一下
+  - **近期最喜欢的游戏**：P3Re
+    - 非常时髦的JRPG，人设和美术风格非常喜欢
+  - **最近在看**：爆燃战队崩崩者
+    - 回到经典的子供向风格了，也还能接受
+  - **近期最喜欢的特摄**：王样战队君王者
+    - 非常规的超级战队，从人物塑造到剧情都是绝对的神作
+  - **近期最喜欢的歌**：晴る - Yorushika
+    - 很适合在最近的季节听的歌，会让人心情变好
+- 想不出还有什么好写的了

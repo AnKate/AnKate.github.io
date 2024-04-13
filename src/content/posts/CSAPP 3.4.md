@@ -1,7 +1,7 @@
 ---
 title: CSAPP 3.4
 published: 2020-10-14
-description: 访问数据和寄存器相关内容
+description: 数据访问和寄存器
 image: ''
 tags: [CSAPP]
 category: Notes
