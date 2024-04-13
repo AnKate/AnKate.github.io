@@ -1,19 +1,16 @@
 ---
 title: CSAPP 3.4
 published: 2020-10-14
-description: notes for CSAPP
+description: ''
+image: ''
 tags: [CSAPP]
 category: Notes
-draft:false
+draft: false 
 ---
 
 
 
-# CSAPP
-
-有关访问数据、寄存器的内容。
-
-## 3.4 访问信息
+## CSAPP 3.4 访问信息
 
 在x86-64架构下，CPU有一组16个能够存储64位的寄存器，它们能够用来管理栈、传递函数所用到的变量、从函数返回值或是存储局部或全局变量。
 
