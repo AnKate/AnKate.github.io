@@ -12,8 +12,8 @@ export const siteConfig: SiteConfig = {
   lang: 'zh',
   themeHue: 250,
   banner: {
-    enable: true,
-    src: 'assets/images/banner.png',
+    enable: false,
+    src: 'assets/images/demo-banner.png',
   },
 }
 
@@ -31,7 +31,7 @@ export const navBarConfig: NavBarConfig = {
 }
 
 export const profileConfig: ProfileConfig = {
-  avatar: 'assets/images/avatar.JPG',
+  avatar: 'assets/images/avatar.png',
   name: 'AnKate',
   bio: 'Laugh hard. Run fast. Be kind.',
   links: [
