@@ -195,7 +195,7 @@ Action Module能够将agent的决策转变成实际的输出或操作，一般�
   - Action via Plan Following：agent会基于其事先制定好的计划来采取行动。
     - 在**GITM**中，agent会通过将每个目标分解成多个小目标的方法来制订全局的计划，然后再根据该计划依次实现小目标，从而达到最终目标的效果。
   - 个人认为两种生成方法并不冲突，譬如GITM在执行每个sub-goal时，又会借助memory recollection的方法生成行动。
-- Action Space：指的是agent能够执行的行为构成的集合，即行为空间，通常分为两类：**借助外部工具扩展的新能力**，或**LLM****自身就具备的能力**。
+- Action Space：指的是agent能够执行的行为构成的集合，即行为空间，通常分为两类：**借助外部工具扩展的新能力**，或**LLM自身就具备的能力**。
   - External Tools：在面对某些专业领域内的任务时，agent需要借助一些相应的外部工具来处理这些任务，这些外部工具可以是API、外部数据库或其他模型。
     - API：通过调用外部的API来扩充agent自身的行动空间。
       - **HuggingGPT**（*[HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face](https://arxiv.org/pdf/2303.17580.pdf)*）：
