@@ -1,7 +1,7 @@
 ---
 title: LLM-based Agent综述阅读笔记
 published: 2023-11-24
-description: 论文<A Survey on Large Language Model based Autonomous Agents>阅读笔记
+description: 基于LLM的智能体综述
 image: ''
 tags: [NLP, LLM]
 category: Papers
@@ -136,6 +136,7 @@ Memory module的作用是存储从环境中获得的信息，让agents能够基�
       - **Importance**衡量信息的重要程度，在Generative Agent一文中直接让LLM在1~10之间打分；在记忆生成时，importance得分就会随之生成。
       - **Relevance**评价信息的相关性，文章中使用余弦相似度计算。
     - Generative Agent给出的方案启发了本文提出的方案，也就是所示的公式。其中的alpha、beta、gamma均是系数（超参数），在不同工作中取值不同，代表着不同的研究对信息的关注角度也不同。许多工作只在意信息的相关性（**GITM、Voyager**），有些工作则同等地注重所有方面的衡量（**Generative Agent**）。
+
       ![img](GenerativeAgent_1.png)
   - **Memory Writing**：写操作是为了将agent从环境中感知到的信息存入记忆中。在这一操作内，需要解决两个问题：**遇到和已有记忆相似的新记忆时该如何处理**、**记忆存储达到上限时该如何处理**，也就是Memory Duplicate和Memory Overflow两个问题。
     - Memory Duplicate：这一问题关注的是**如何处理跟已有的memory相似度高或重复的记忆信息**，解决的思想也非常直觉，就是**将重复或冗余信息合并**。
@@ -153,6 +154,7 @@ Memory module的作用是存储从环境中获得的信息，让agents能够基�
 Planning module使得agent也具备了和人类一样，将复杂的任务分解为更简单的子任务并加以解决的能力。本文基于agent能否在规划过程中得到反馈信息，将目前的规划策略分为了两类：
 
 - Planning without Feedback：指在agent的规划过程中不会受到外界反馈的影响。这种规划方法的缺陷非常明显，比较适用于推理步数相对较少、相对简单的环境或任务中（相较于agent所处的动态复杂环境）。
+
   ![img](planning.png)
 
   - **Single-path Reasoning**：最终目标会被分解成多个中间步骤，但是每个步骤后面只有一个步骤（单条路径）。CoT、Zero-shot CoT都采用的是这种规划策略。ReWOO、HuggingGPT同样使用单条路径的规划方法，但是和CoT的方案不同，会在每个步骤结束后访问LLM。
