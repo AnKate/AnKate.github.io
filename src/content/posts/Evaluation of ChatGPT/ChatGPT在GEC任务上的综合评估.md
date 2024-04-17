@@ -1,6 +1,6 @@
 ---
 title: ChatGPT在GEC任务上的综合评估
-published: 2024-11-14
+published: 2023-11-14
 description: 评估ChatGPT是否适合用来做为GEC系统
 image: ''
 tags: [GEC, PLM]
