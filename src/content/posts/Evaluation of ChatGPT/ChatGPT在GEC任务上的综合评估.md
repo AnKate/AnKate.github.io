@@ -1,12 +1,16 @@
 ---
 title: ChatGPT在GEC任务上的综合评估
 published: 2023-11-14
-description: 评估ChatGPT是否适合用来做为GEC系统
+description: LLM+GEC的相关论文阅读笔记
 image: ''
-tags: [GEC, PLM]
+tags: [NLP, GEC, PLM]
 category: Papers
 draft: false 
 ---
+
+
+
+论文题目：**Is ChatGPT a Highly Fluent Grammatical Error Correction System? A Comprehensive Evaluation**
 
 论文链接：https://arxiv.org/pdf/2304.01746.pdf
 
@@ -42,53 +46,73 @@ draft: false
 ## 实验
 
 - 文章首先在Zero-shot条件下做了初步实验来验证CoT对性能的提升效果
-  - ![img](zero-shot.png)
+
+  ![](zero-shot.png)
 
   - 在zero-shot实验中，要求ChatGPT直接返回纠错完成的句子，并且**尽可能保证句子的原本结构不受到改动**；zero-shot+CoT的实验中，先要求ChatGPT**将整句句子作为一个整体来理解**，再**逐步地**纠正句中的错误
+
     - 作者在这里提出CoT方法的动机很奇怪：因为原本的prompt会导致模型产生一系列解释、使回答的格式变得无序，所以才提出了CoT的方法，但"comprehend the sentence as a whole"这一要求有点难以理解。可能在不添加这个要求之前，出现了纠错破坏句子结构等情况，所谓的disorganized并不只是指的返回格式。
     - 一开始以为在这里强调了"step by step"就算是CoT的表现，但结合后面few-shot实验中的prompt来看，似乎并不是，因为后面的实验中并没有出现这样的引导
+
   - 使用了CoT的zero-shot表现优于常规的zero-shot，所以在接下来的实验中，作者都打算采用CoT方法进行实验设置。
-    - ![img](zero-shot_1.png)
+
+    ![img](zero-shot_1.png)
 
     - 个人觉得提升虽然存在但不是非常显著，可能还是prompt的设计不是最优的关系
+
 - few-shot的prompt和zero-shot的最主要区别就是提供了纠错的示例：
-  - ![img](few-shot.png)
+
+  ![img](few-shot.png)
 
   - 提供的示例个数对应shot个数，实验中取了1、3、5三种取值
   - 有相关工作提出，在示例的选取策略中，随机选取的表现不一定会比其他选择策略更差，因此本文选取的k-shot示例都采用了随机选择的方法
     - 但是作者在最后分析该工作的不足时，指出设计更好的样例选取方法能够更进一步地提升ChatGPT的GEC性能
+
 - 实验使用的数据集包含英语的CoNLL14、BEA19及**JFLEG**，中文的NLPCC18，德语的Falko-MERLIN，还有文档级别的FCE、BEA19、CoNLL14数据集；作为对照组的GEC模型大多为各数据集上的SOTA，包括mt5（seq2seq的SOTA）、GECToR（seq2edit的SOTA）、Transformer（baseline）、TagGEC（JFLEG的SOTA）、MultiEnc-dec（文档级别的GEC任务的SOTA）模型
+
   - JFLEG：出自https://aclanthology.org/E17-2037.pdf一文，是专门用于检测模型纠错结果的流利程度的数据集，使用的评估指标是GLEU，而非传统的F0.5
   - 作者提出，在德语上的训练数据远少于中文和英文，因而可以被视作低资源的任务（**low-resource task**）
+
 - 在英语的GEC数据集上，ChatGPT的表现如下：
-  - ![img](english.png)
+
+  ![img](english.png)
 
   - ChatGPT的P和F值都比不上SOTA，但R值均高于对照模型，说明ChatGPT在**错误检测**方面的能力很强
     - 原文中还指出这一现象能够反映出ChatGPT的自我纠正能力很强（a higher propensity for self-correction），但我认为单从这个实验结果来看很难得到这个结论
   - ChatGPT在JFLEG数据集上的GLEU得分与SOTA模型的表现非常接近，说明模型的纠错结果非常流畅、自然
   - 使用了few-shot的模型表现基本优于zero-shot，但示例的数量并不是设置的越多越好，在few-shot的数量超过5以后，模型的性能会下降
+
 - 在非英语及低资源任务中，模型的表现如下：
-  - ![img](low-resource.png)
+
+  ![img](low-resource.png)
 
   - 基本的表现和英语任务中一致，即P和F值无法达到SOTA，但是R值非常高
   - 在中文任务中，使用few-shot反而会使模型的表现变差。作者认为是由于中文和英语、德语不属于同一语系，且中文的词汇量更大，因而对于ChatGPT来说纠错难度会更大
   - 在德语任务中的表现好于transformer的baseline，作者认为这反映出模型有能力在合适的prompt下处理低资源的任务，同时模型有处理多语言GEC任务的潜力
   - 作者在此提出，**设计更有效的few-shot选择方式能够让ChatGPT的纠错性能进一步提升**，感觉可以看作一个未来工作的启发
+
 - 在文档级别的纠错任务中，模型的表现如下：
-  - ![img](document-level.png)
+
+  ![img](document-level.png)
 
   - 模型P、R值低的缺点进一步恶化，作者认为导致这一现象的原因值得后续研究，并未在此提出猜想
+
   - 由于文档的长度与输入限制的影响，在这一环节的实验中few-shot只测试了one-shot的效果，发现对性能的提升有限，甚至F值变得更低。作者认为这一点反映出了模型在处理长句上的能力有所欠缺。
-  - ![img](bea19.png)
+
+    ![img](bea19.png)
 
   - 按照错误类型细粒度划分，作者进一步分析了模型在文档级别的GEC任务中表现很差的原因
+
     - 模型在处理**单词拼写**、**名词**及**物主代词**等词性的语法错误时表现非常好，优于SOTA模型
       - 这里作者应该是看错行了，文章中写的是标点符号类型的错误表现好，然而实际上标点错误的F值足足比SOTA低了18个百分点（这篇文章的typo数量有点多）
     - 而在应对**主谓一致、介词、数词、限定词、代词**等词性的语法错误时，模型表现得很差；在需要跨句子处理的语法错误（**标点、连词**）时，模型的表现会变得更差，远低于SOTA
       - 作者将这些错误总结为需要依靠**上下文记忆、**考察前后文**一致性**和**连贯性**的错误类型，指出ChatGPT在这方面的性能有所欠缺。而这种类型的错误往往是文档级别的语法错误，从而导致了在这一部分的实验中，ChatGPT的表现变得很差。
+
 - 除去在传统evaluator（ERRANT、M2Scorer）上的性能评估，作者还进行了人工评估，分为automatic和manual两种
+
   - automatic human evaluation是将模型的纠错结果和人类的纠错结果进行比较得到的结果
-    - ![img](automatic_human_evaluation.png)
+
+    ![img](automatic_human_evaluation.png)
 
     - 文章对automatic human evaluation的描述不是很清楚，我读到这里也不太理解具体的操作方法。原文中说到的相关工作是在十名标注者中，将每一名标注者的标注结果和其余九位的标注结果进行比较，并对得到的9个F值取均值得到的最终结果；个人猜测这里也是将模型的纠错结果和人类的纠错结果进行比较，得到新的PRF值。
     - 从数值上来看，模型在这里计算得到的PRF值比先前实验中的数值要高出很多；虽然ChatGPT的F值依然比不上SOTA，但是模型的表现非常接近人类的水平。
@@ -96,8 +120,10 @@ draft: false
         - 这一点感觉和后面人工评估的Over-Correction也有关联。因为目前大多数的evaluator采用的ground truth（或gold edits）都只提供了单一解答，而实际上的纠错应该在大多数情况下存在多种可行的方案。
       - 在GLEU得分上，模型的表现甚至超越了SOTA，进一步说明ChatGPT在英语纠错任务中能够呈现出相当流畅的效果
         - 这一点值得argue，因为T5模型实际上并不是JFLEG数据集的SOTA模型，这里列出TagGEC的表现应该会更有说服力。
+
   - 在manual human evaluation部分的实验中，作者从CoNLL14数据集中抽取了句子长度分别为长、中等、短的句子各50句，请了三位标注者评估模型的纠错结果
-    - ![img](manual_human_evaluation.png)
+
+    ![img](manual_human_evaluation.png)
 
     - 评判的维度共四个，Fluency、Minimal Edits、Over-Correction、Under-Correction
       - Fluency即是纠错结果的流畅程度
@@ -117,7 +143,9 @@ draft: false
           - 这一结论也和前面文档级别的GEC任务中ChatGPT表现相对应，证明模型的确在处理长句时会暴露出能力不足的缺陷
           - 虽然作者在此强调ChatGPT存在这种缺陷，但我认为实际上所有的GEC系统都会存在这样的问题，从实验结果中也能够看出这一点
         - T5模型的F0.5虽然很高，但同时也容易受到Under-Correction的问题的影响。作者基于此提出了另一个很有意思的观点：**F值高并不意味着模型在GEC任务上的表现会很好**，再一次对现有的评估方法提出了质疑。
+
 - 本文的缺点：
+
   - 时效性和泛化性不强，只限定在了ChatGPT这一个LLM上，并未对其他LLM或更新版本的GPT-4模型进行性能分析
   - 在一些任务（譬如语言学习中），用户期望得到的结果就是遵守最小编辑原则的，这一点与本文强调的ChatGPT的自由纠错的优点相违背。作者认为值得继续探索在ChatGPT上实现最小编辑原则的GEC任务的方法
   - 在few-shot的设置中，作者仅仅采用了随机挑选示例的方式；挑选更好的示例也许能够使得模型的性能表现得更好
