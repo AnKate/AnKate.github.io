@@ -36,7 +36,7 @@ draft: false
     - 我的理解是，由于缺乏平行数据，模型的生成表现不佳，因此在解码阶段使用预训练的语言模型提升生成的性能
     - 这种decoding intervention的方法和文中提出的一种方法类似，但本文是第一次将这种方法用在GEC任务的模型优化上；曾有GEC任务使用这种方法，但目的是为了调整precision和recall的平衡，与本文的动机不同
   - 近期的编码干扰方法运用在可控文本生成任务中较多，用于控制模型生成结果的主题和情感等
-- 在近期的研究中，Seq2Seq模型的表现均优于Seq2Edit模型（https://aclanthology.org/2022.naacl-main.143.pdf、https://aclanthology.org/2022.emnlp-main.162.pdf），尤其在面对更复杂的任务时这种现象会更加明显
+- 在近期的研究中，Seq2Seq模型的表现均优于Seq2Edit模型（ https://aclanthology.org/2022.naacl-main.143.pdf 、 https://aclanthology.org/2022.emnlp-main.162.pdf ），尤其在面对更复杂的任务时这种现象会更加明显
   - 这一点和TemplateGEC中提出的结论相同，从近期的研究中也可以感受到，围绕Seq2Edit模型进行的优化研究很少，可能也和其**迁移性差、不灵活**的缺点有关，导致了模型的性能优化很难开展
     - 适用于Seq2Edit模型的优化方向：更好的编辑规则的设计或额外信息的输入（？）
     - 理论上来说，我认为在decoder端的这种干预方法应该也能对Seq2Edit模型奏效，但本文只在Seq2Seq上做了实验验证
