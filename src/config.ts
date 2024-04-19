@@ -33,7 +33,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
   avatar: 'assets/images/avatar.png',
   name: 'AnKate',
-  bio: 'Laugh hard. Run fast. Be kind.',
+  bio: '细水长流 不冰冻 向你而流\n春夏秋冬 可长流 永无凋落',
   links: [
     // {
     //   name: 'Twitter',
